@@ -132,11 +132,11 @@
     <ClInclude Include="spriteatlas.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\FullRobobsticalObliteration.uxf" />
+    <None Include="..\..\..\..\..\Downloads\School\Umlet\FullRobobsticalObliteration.uxf" />
     <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\FullRobobsticalObliteration.png" />
+    <Image Include="..\..\..\..\..\Downloads\School\Umlet\FullRobobsticalObliteration.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
