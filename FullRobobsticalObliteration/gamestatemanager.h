@@ -22,7 +22,9 @@
 
 #include "gamestate.h"
 #include "renderable.h"
-//#include "updateable.h"
+#include "updateable.h"
+
+struct GameTime;
 
 class GameStateManager {
 public:
@@ -35,13 +37,13 @@ public:
   void Push(GameState new_state);
 
   void Render();
-  void Update(double elapsed_time_in_ms);
+  void Update(GameTime frameNumber);
   //Accessors and Mutators
 private:
   //Member Variables
   std::stack<GameState> current_state_;
   std::vector<Renderable> active_renderable_;
-  //std::vector<Updateable> active_updatable_;
+  std::vector<Updateable> active_updatable_;
 };
 
 

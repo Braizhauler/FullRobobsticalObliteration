@@ -72,11 +72,13 @@ void MyWindowWrapper::ProccessOSEvents()  {
 void MyWindowWrapper::SwapBuffers() {
   glfwSwapBuffers(window_);
 }
-void MyWindowWrapper::RegisterKeyboard(GLFWkeyfun*keyboard) {
+void MyWindowWrapper::RegisterKeyboard(GLFWkeyfun keyboard) {
   glfwSetKeyCallback(window_,keyboard);
 }
 
-void MyWindowWrapper::RegisterMouse() {
+void MyWindowWrapper::RegisterMouse(GLFWcursorposfun positionFunc,
+                                    GLFWmousebuttonfun buttonFunc,
+                                    GLFWscrollfun scrollwheelFunc) {
 
 }
 

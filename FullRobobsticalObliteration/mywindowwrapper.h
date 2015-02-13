@@ -17,8 +17,7 @@
 #define MY_WINDOW_WRAPPER_H_
 
 #include <glfw3.h>
-
-#include "inputmanager.h"
+#include <string>
 
 class MyWindowWrapper {
 public:
@@ -33,10 +32,10 @@ public:
   void Resize(void);
   void SwapBuffers(void);
 
-  void RegisterKeyboard(GLFWkeyfun* keyboardFunc);
-  void RegisterMouse(void* positionFunc,
-                     void* buttonFunc,
-                     void* scrollwheelFunc);
+  void RegisterKeyboard(GLFWkeyfun keyboardFunc);
+  void RegisterMouse(GLFWcursorposfun positionFunc,
+                     GLFWmousebuttonfun buttonFunc,
+                     GLFWscrollfun scrollwheelFunc);
 
   //Accessors and Mutators
 	const bool initialized();

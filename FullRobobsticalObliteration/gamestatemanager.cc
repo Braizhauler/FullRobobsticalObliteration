@@ -43,15 +43,15 @@ void GameStateManager::Push(GameState new_state) {
 
 //Calls the render of all active renderables, from the bottom up
 void GameStateManager::Render() {
-  for (int i=0; active_renderables_.size(); ++i) { //we draw from the bottom up
-    active_renderables_.at(i).Render();
+  for (int i=0; active_renderable_.size(); ++i) { //we draw from the bottom up
+    active_renderable_.at(i).Draw();
   }
 }
 
 //Calls the update of all active renderables, from the top down
-void GameStateManager::Update(double elapsed_time_in_ms) {
+void GameStateManager::Update(GameTime currentTime) {
   for(int i = active_updatable_.size() - 1; i >= 0; --i) {
-    active_updatable_.at(i).Update(elapsed_time_in_ms);
+    active_updatable_.at(i).Update(currentTime);
   }
 }
 

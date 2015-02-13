@@ -6,7 +6,7 @@
 * Revised: 2015 JAN 24
 *
 * Renderable:
-*   Virtual class for game states that require a update.
+*   Virtual class for objects that are drawn.
 *
 * © [2015] Dwarfholm.com
 * All Rights Reserved.
@@ -20,7 +20,7 @@ public:
   //Constructors and Destructor
   virtual ~Renderable(void);
 
-  virtual void draw(void) = 0;
+  virtual void Draw(void) = 0;
 };
 
 #endif //RENDERABLE_H

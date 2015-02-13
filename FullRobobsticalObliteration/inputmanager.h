@@ -17,8 +17,9 @@
 
 #include <string>
 
+#include "mywindowwrapper.h"
+
 struct GLFWwindow;
-class MyWindowWrapper;
 class GameStateManager;
 
 class InputManager {

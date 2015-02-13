@@ -36,6 +36,12 @@
     <ClCompile Include="spriteatlas.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="updateable.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="gametime.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gamestate.h">
@@ -54,6 +60,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="spriteatlas.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="updateable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="gametime.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

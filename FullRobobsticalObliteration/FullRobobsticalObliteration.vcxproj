@@ -81,9 +81,11 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>glew32.lib;glfw3.lib;Opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -112,24 +114,29 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>glew32.lib;glfw3.lib;Opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="gamestate.cc" />
     <ClCompile Include="gamestatemanager.cc" />
+    <ClCompile Include="gametime.cc" />
     <ClCompile Include="inputmanager.cc" />
     <ClCompile Include="main.cc" />
     <ClCompile Include="mywindowwrapper.cc" />
     <ClCompile Include="renderable.cc" />
     <ClCompile Include="spriteatlas.cc" />
+    <ClCompile Include="updateable.cc" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gamestate.h" />
     <ClInclude Include="gamestatemanager.h" />
+    <ClInclude Include="gametime.h" />
     <ClInclude Include="inputmanager.h" />
     <ClInclude Include="mywindowwrapper.h" />
     <ClInclude Include="renderable.h" />
     <ClInclude Include="spriteatlas.h" />
+    <ClInclude Include="updateable.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\FullRobobsticalObliteration.uxf" />

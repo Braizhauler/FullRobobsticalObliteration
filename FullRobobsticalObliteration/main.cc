@@ -41,26 +41,26 @@ int main (int num_of_arugments, char * argument_list[])  {
   glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 
   //error if we use depricated OpenGL
-  glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+  glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_COMPAT_PROFILE);
 
   //Anti Aliasing x4
   glfwWindowHint(GLFW_SAMPLES, 4); 
 
   MyWindowWrapper window;
 
-  window.Init( 640, 480, "Privateers of Andromeda\0");
+  window.Init( 640, 480, "Full Robobstical Obliteration\0");
 
   // Initialize GLEW
   if (glewInit() != GLEW_OK) {
-    fprintf(stderr, "GLEW not sticky enough, Privateers fell apart\n");
+    fprintf(stderr, "GLEW not sticky enough, arena fell apart\n");
     return -1;
   }
 
   // Set Background to Dark Gray
   glClearColor(0.1f, 0.1f, 0.1f, 0.0f);
 
-  InputManager input_manager(window);
-  GameStateManager state_manager(window);
+  InputManager input_manager;
+  GameStateManager state_manager;
 
   do {  
     window.ProccessOSEvents();
