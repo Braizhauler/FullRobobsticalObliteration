@@ -25,6 +25,9 @@ public:
 	MyWindowWrapper();
 	~MyWindowWrapper(void);
   const bool Init(const int width, const int height, const char * title);
+
+  void Exit(void);
+  //cleanup
   void Terminate (void);
 
   //Methods

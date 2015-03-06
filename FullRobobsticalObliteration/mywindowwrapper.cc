@@ -35,7 +35,7 @@ const bool MyWindowWrapper::Init(int width, int height, const char * title)  {
   width_ = width;
   height_ = height;
   size_t title_length = strlen(title);
-  title_ = new char[title_length];
+  title_ = new char[title_length+1];
   for (size_t i = 0;i<=title_length;++i) {
     title_[i] = title[i];
   }
@@ -54,8 +54,14 @@ const bool MyWindowWrapper::Init(int width, int height, const char * title)  {
   return initialized_;
 }
 
+//sets the finished to true
+void MyWindowWrapper::Exit(void) {
+  finished_=true;
+}
+
 // Terminate tells GLFW to close it's window and clean up
 void MyWindowWrapper::Terminate(void) {
+  finished_=true;
   glfwTerminate();
 }
 

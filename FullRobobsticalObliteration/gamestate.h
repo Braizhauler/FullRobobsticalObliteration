@@ -23,31 +23,26 @@ class GameStateManager;
 class GameState {
 public:
   //Constructors, and Destructor
-  GameState(GameStateManager* manager) {
-    game_state_manager_ = manager;
-  }
   virtual ~GameState(void) {}
   //Methods
 
   //Loads the GameState onto the GameStateManager stack in active mode
-  virtual void Load() {}
+  virtual void Load() = 0;
    
   //Called when GameState when another GameState is preparing
   //to load over this State
-  virtual void Cover() {}
+  virtual void Cover() = 0;
 
   //Called when GameState when another GameState is preparing
   //becomming the topmost active game state
-  virtual void Uncover() {}
+  virtual void Uncover() = 0;
 
   //Called when the Gamestate is unloaded from the GameStateManager
-  virtual void Unload() {}
+  virtual void Unload() = 0;
 
 
   //Accessors and Mutators
 private:
-  //Member Variables
-  GameStateManager* game_state_manager_;
 };
 
 

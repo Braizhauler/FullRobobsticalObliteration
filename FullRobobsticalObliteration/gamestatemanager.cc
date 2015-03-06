@@ -14,44 +14,51 @@
 /*******************************
 * Constructors and Destructor */
 
-GameStateManager::GameStateManager(void) {
+GameStateManager::GameStateManager(MyWindowWrapper * window) {
+  window_= window;
 }
+
 GameStateManager::~GameStateManager(void) {
 }
 
 /*******************************
 * Methods                    */
 //Pop returns the top state of the state stack, and removes it from the stack
-GameState GameStateManager::Pop() {
-  GameState temp = current_state_.top();
-  temp.Unload();
+GameState* GameStateManager::Pop() {
+  GameState* temp = current_state_.top();
+  temp->Unload();
   current_state_.pop();
-  current_state_.top().Uncover();
+  current_state_.top()->Uncover();
   return temp;
 }
 
-//Peek returns the top state of the state stack, and leaves it on the stack
-GameState GameStateManager::Peek() {
+//Peek returns a pointer to top state of the state stack, and leaving it on the
+//stack
+GameState* GameStateManager::Peek() {
   return current_state_.top();
 }
 
-void GameStateManager::Push(GameState new_state) {
-  current_state_.top().Cover();
-  new_state.Load();
+void GameStateManager::Push(GameState* new_state) {
+  current_state_.top()->Cover();
+  new_state->Load();
   current_state_.push(new_state);
 }
 
 //Calls the render of all active renderables, from the bottom up
-void GameStateManager::Render() {
+void GameStateManager::Draw() {
   for (int i=0; active_renderable_.size(); ++i) { //we draw from the bottom up
-    active_renderable_.at(i).Draw();
+    active_renderable_.at(i)->Draw();
   }
 }
 
 //Calls the update of all active renderables, from the top down
 void GameStateManager::Update(GameTime currentTime) {
   for(int i = active_updatable_.size() - 1; i >= 0; --i) {
-    active_updatable_.at(i).Update(currentTime);
+    active_updatable_.at(i)->Update(currentTime);
   }
 }
 
+//Exit
+void GameStateManager::Exit() {
+  window_->Exit();
+}

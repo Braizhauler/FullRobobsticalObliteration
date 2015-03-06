@@ -27,7 +27,7 @@ public:
 
   //Accessors and Mutators
 private:
-
+  int _imageBufferName;
 };
 
 

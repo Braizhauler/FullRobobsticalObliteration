@@ -58,9 +58,12 @@ int main (int num_of_arugments, char * argument_list[])  {
 
   // Set Background to Dark Gray
   glClearColor(0.1f, 0.1f, 0.1f, 0.0f);
-
-  InputManager input_manager;
-  GameStateManager state_manager;
+  
+  GameStateManager state_manager(&window);
+  InputManager* input_manager;
+  
+  input_manager = InputManager::getInstance(&state_manager);
+  input_manager->RegisterEvents(&window);
 
   do {  
     window.ProccessOSEvents();
