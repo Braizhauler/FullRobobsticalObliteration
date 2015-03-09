@@ -118,7 +118,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="button.cc" />
+    <ClCompile Include="buttonwidget.cc" />
+    <ClCompile Include="framewidget.cc" />
     <ClCompile Include="gamestate.cc" />
     <ClCompile Include="gamestatemainmenu.cc" />
     <ClCompile Include="gamestatemanager.cc" />
@@ -135,7 +136,8 @@
     <ClCompile Include="widget.cc" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="button.h" />
+    <ClInclude Include="buttonwidget.h" />
+    <ClInclude Include="framewidget.h" />
     <ClInclude Include="gamestate.h" />
     <ClInclude Include="gamestatemainmenu.h" />
     <ClInclude Include="gamestatemanager.h" />

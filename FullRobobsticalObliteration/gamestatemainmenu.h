@@ -16,11 +16,12 @@
 #ifndef GAME_STATE_MAIN_MENU_H
 #define GAME_STATE_MAIN_MENU_H
 
+#include <GL/glew.h>
 #include "gamestate.h"
 #include "renderable.h"
 
 
-class GameStateMainMenu : public GameState, public Renderable
+class GameStateMainMenu : public GameState
 {
 public:
   GameStateMainMenu(GameStateManager* manager);
@@ -41,7 +42,8 @@ public:
   //Called when the Gamestate is unloaded from the GameStateManager
   void Unload();
 
-  
+  bool Opaque(void);
+
   void Draw(void);
 private:
   //Member Variables

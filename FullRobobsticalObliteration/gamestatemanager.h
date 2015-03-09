@@ -42,8 +42,10 @@ public:
 
   void Exit();
 private:
+  void RestackRenderables();
+
   //Member Variables
-  std::stack<GameState*> current_state_;
+  std::vector<GameState*> active_state_;
   std::vector<Renderable*> active_renderable_;
   std::vector<Updateable*> active_updatable_;
   MyWindowWrapper* window_;

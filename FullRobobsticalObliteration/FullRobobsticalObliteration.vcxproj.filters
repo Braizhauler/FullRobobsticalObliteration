@@ -60,10 +60,13 @@
     <ClCompile Include="rectangleonplane.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="button.cc">
+    <ClCompile Include="gamestatemainmenu.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="gamestatemainmenu.cc">
+    <ClCompile Include="framewidget.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="buttonwidget.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -98,9 +101,6 @@
     <ClInclude Include="widget.h">
       <Filter>Header Files\Widgets</Filter>
     </ClInclude>
-    <ClInclude Include="button.h">
-      <Filter>Header Files\Widgets</Filter>
-    </ClInclude>
     <ClInclude Include="gamestate.h">
       <Filter>Header Files\States</Filter>
     </ClInclude>
@@ -112,6 +112,12 @@
     </ClInclude>
     <ClInclude Include="point.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="framewidget.h">
+      <Filter>Header Files\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="buttonwidget.h">
+      <Filter>Header Files\Widgets</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

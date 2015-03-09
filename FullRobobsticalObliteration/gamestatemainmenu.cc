@@ -42,6 +42,15 @@ void GameStateMainMenu::Uncover() {
 void GameStateMainMenu::Unload() {
 }
 
+bool GameStateMainMenu::Opaque(void) {
+  return false;
+}
 
 void GameStateMainMenu::Draw(void) {
+  glBegin(GL_TRIANGLE_FAN);
+    glVertex3f(-0.8f,-0.8f,0.0f);
+    glVertex3f(-0.8f,0.8f,0.0f);
+    glVertex3f(0.8f,0.8f,0.0f);
+    glVertex3f(0.8f,-0.8f,0.0f);
+  glEnd();
 }

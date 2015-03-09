@@ -17,14 +17,19 @@
 #ifndef GAME_STATE_H
 #define GAME_STATE_H
 
+#include "renderable.h"
+
 struct GLFWwindow;
 class GameStateManager;
 
-class GameState {
+class GameState: public Renderable {
 public:
   //Constructors, and Destructor
   virtual ~GameState(void) {}
   //Methods
+
+  //returns true if nothing is no other states are to be drawn under this state.
+  virtual bool Opaque() = 0;
 
   //Loads the GameState onto the GameStateManager stack in active mode
   virtual void Load() = 0;

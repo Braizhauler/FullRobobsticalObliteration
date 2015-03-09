@@ -1,32 +1,30 @@
 /*******************************************************************************
-* File: button.h
+* File: buttonwidget.h
 * Author: Greg Howlett (GregTHowlett@Gmail.com)
 * Created: 2015 FEB 17
 * Version: 0
 * Revised: 2015 FEB 17
 *
-* Button:
-*   An interface for a game states to be used by GameStateManager.
-*   Specifies Input hooks and draw, and functions for initialization,
-*   and clean up as the game switches states
+* Button_Widget:
+*   A gui widget which has a responds to mouse clicks
 *
 * © [2015] Dwarfholm.com
 * All Rights Reserved.
 *******************************************************************************/
 
-#ifndef BUTTON_H
-#define BUTTON_H
+#ifndef BUTTON_WIDGET_H
+#define BUTTON_WIDGET_H
 
 #include <list>
 
 #include "gamestatemanager.h"
 #include "widget.h"
 
-class Button: public Widget {
+class ButtonWidget: public Widget {
 public:
   //Constructors, and Destructor
-  Button(GameStateManager* manager);
-  ~Button(void);
+  ButtonWidget(GameStateManager* manager);
+  ~ButtonWidget(void);
   //Methods
   Widget* parent();
   void setParent(Widget*);
@@ -97,4 +95,4 @@ private:
 };
 
 
-#endif //GAME_STATE_H
+#endif //BUTTON_WIDGET_H

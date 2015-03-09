@@ -75,9 +75,20 @@ void MyWindowWrapper::ProccessOSEvents()  {
   glfwPollEvents();
 }
 
+
 void MyWindowWrapper::SwapBuffers() {
   glfwSwapBuffers(window_);
 }
+
+
+void MyWindowWrapper::Resize(const int width,const int height)  {
+}
+
+void MyWindowWrapper::RegisterResize(GLFWwindowsizefun)  {
+  MyWindowControl::glfw_to_mywindowwrapper.emplace(window_, this);
+  glfwSetWindowSizeCallback(window_,MyWindowControl::ResizeWindow);
+}
+
 void MyWindowWrapper::RegisterKeyboard(GLFWkeyfun keyboard) {
   glfwSetKeyCallback(window_,keyboard);
 }
@@ -106,10 +117,18 @@ char const* MyWindowWrapper::title() {
   return title_;
 }
   
-void MyWindowWrapper::set_title(char * title) {
+void MyWindowWrapper::set_title(const char * title) {
   size_t title_length = strlen(title);
   for (size_t i = 0;i<title_length;++i) {
     title_[i] = title[i];
   }
   glfwSetWindowTitle(window_, title_);
+}
+
+namespace MyWindowControl {
+
+void ResizeWindow(GLFWwindow* window, int width, int height) {
+  glfw_to_mywindowwrapper.at(window)->Resize(width, height);
+}
+
 }
