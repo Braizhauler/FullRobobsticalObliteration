@@ -59,32 +59,32 @@ public:
 
   //Accessors and Mutators
 
-  int width();
+  double width();
   //maintains left
-  void setWidth(int);
+  void setWidth(double);
 
-  int height();
+  double height();
   //maintains top
-  void setHeight(int);
+  void setHeight(double);
   
-  int left();
+  double left();
   //maintains width
-  void setLeft(int);
+  void setLeft(double);
   
-  int right();
+  double right();
   //maintains width
-  void setRight(int);
+  void setRight(double);
   
-  int top();
+  double top();
   //maintains height
-  void setTop(int);
+  void setTop(double);
   
-  int bottom();
+  double bottom();
   //maintains height
-  void setBottom(int);
+  void setBottom(double);
   
-  float depth();
-  void setDepth(float);
+  double depth();
+  void setDepth(double);
 
   /*******************
   * From Renderable */
@@ -94,11 +94,11 @@ private:
   GameStateManager* game_state_manager_;
   Widget* parent_;
   std::list<Widget*> child_list_;
-  int top_;
-  int left_;
-  int right_;
-  int bottom_;
-  float depth_;
+  double top_;
+  double left_;
+  double right_;
+  double bottom_;
+  double depth_;
 };
 
 

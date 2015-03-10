@@ -48,6 +48,39 @@ void GameStateManager::Push(GameState* new_state) {
   RestackRenderables();
 }
 
+/*******************************
+* Mouse Input                 */
+void GameStateManager::CursorMove(bool left_mouse_button_down,
+                                  double x_position,
+                                  double y_position) {
+  active_state_.back()->CursorMove(left_mouse_button_down,
+                                   x_position,
+                                   y_position);
+}
+void GameStateManager::MouseButtonPressed(int button,
+                                          double x_position,
+                                          double y_position) {
+  active_state_.back()->MouseButtonPressed(button,
+                                           x_position,
+                                           y_position);
+}
+void GameStateManager::MouseButtonReleased(int button,
+                                           double x_position,
+                                           double y_position) {
+  active_state_.back()->MouseButtonReleased(button,
+                                            x_position,
+                                            y_position);
+}
+void GameStateManager::MouseButtonClicked(int button,
+                                          double  x_position,
+                                          double  y_position) {
+  active_state_.back()->MouseButtonClicked(button,
+                                           x_position,
+                                           y_position);
+}
+
+
+
 //Calls the render of all active renderables, from the bottom up
 void GameStateManager::Draw() {
   

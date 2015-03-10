@@ -48,8 +48,11 @@ public:
 
   void RegisterResize(const GLFWwindowsizefun);
 
+
   void RegisterKeyboard(const GLFWkeyfun keyboardFunc);
-  void RegisterMouse(const GLFWcursorposfun positionFunc,
+  
+  void RegisterMouse(const GLFWcursorenterfun cursorenterFunc,
+                     const GLFWcursorposfun positionFunc,
                      const GLFWmousebuttonfun buttonFunc,
                      const GLFWscrollfun scrollwheelFunc);
 

@@ -22,6 +22,18 @@ ButtonWidget::ButtonWidget(GameStateManager* manager) {
 ButtonWidget::~ButtonWidget(void) {
 }
 
+
+void ButtonWidget::Draw(void) {
+  glColor3f(color_[0],color_[1],color_[2]);
+  glBegin(GL_TRIANGLE_FAN);
+    glVertex3d(top_,left_,depth_);
+    glVertex3d(top_,right_,depth_);
+    glVertex3d(bottom_,right_,depth_);
+    glVertex3d(bottom_,left_,depth_);
+  glEnd();
+}
+
+
 Widget* ButtonWidget::parent() {
   return parent_;
 }
@@ -76,61 +88,61 @@ void ButtonWidget::deleteChildren() {
 void ButtonWidget::addChild(Widget*) {
 }
 
-int ButtonWidget::width() {
+double ButtonWidget::width() {
   return (right_ - left_);
 }
 
-void ButtonWidget::setWidth(int width) {
+void ButtonWidget::setWidth(double width) {
   right_ = left_+width;
 }
 
-int ButtonWidget::height() {
+double ButtonWidget::height() {
   return (bottom_ - top_);
 }
 
-void ButtonWidget::setHeight(int height) {
+void ButtonWidget::setHeight(double height) {
   bottom_ = (top_ + height);
 }
 
   
-int ButtonWidget::left() {
+double ButtonWidget::left() {
   return left_;
 }
 
-void ButtonWidget::setLeft(int left) {
+void ButtonWidget::setLeft(double left) {
   left_ = left;
 }
  
-int ButtonWidget::right() {
+double ButtonWidget::right() {
   return right_;
 }
 
-void ButtonWidget::setRight(int right) {
+void ButtonWidget::setRight(double right) {
   left_ += right - right_;
   right_ = right;
 }
  
-int ButtonWidget::top() {
+double ButtonWidget::top() {
   return top_;
 }
 
-void ButtonWidget::setTop(int top) {
+void ButtonWidget::setTop(double top) {
   top_ = top;
 }
   
-int ButtonWidget::bottom() {
+double ButtonWidget::bottom() {
   return bottom_;
 }
 
-void ButtonWidget::setBottom(int bottom) {
+void ButtonWidget::setBottom(double bottom) {
   top_ += bottom - bottom_;
   bottom_ = bottom;
 }
 
-float ButtonWidget::depth() {
+double ButtonWidget::depth() {
   return depth_;
 }
 
-void ButtonWidget::setDepth(float depth) {
+void ButtonWidget::setDepth(double depth) {
   depth_ = depth;
 }

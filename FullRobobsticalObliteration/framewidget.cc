@@ -76,62 +76,62 @@ void FrameWidget::deleteChildren() {
 void FrameWidget::addChild(Widget*) {
 }
 
-int FrameWidget::width() {
+double FrameWidget::width() {
   return (right_ - left_);
 }
 
-void FrameWidget::setWidth(int width) {
+void FrameWidget::setWidth(double width) {
   right_ = left_+width;
 }
 
-int FrameWidget::height() {
+double FrameWidget::height() {
   return (bottom_ - top_);
 }
 
-void FrameWidget::setHeight(int height) {
+void FrameWidget::setHeight(double height) {
   bottom_ = (top_ + height);
 }
 
   
-int FrameWidget::left() {
+double FrameWidget::left() {
   return left_;
 }
 
-void FrameWidget::setLeft(int left) {
+void FrameWidget::setLeft(double left) {
   left_ = left;
 }
  
-int FrameWidget::right() {
+double FrameWidget::right() {
   return right_;
 }
 
-void FrameWidget::setRight(int right) {
+void FrameWidget::setRight(double right) {
   left_ += right - right_;
   right_ = right;
 }
  
-int FrameWidget::top() {
+double FrameWidget::top() {
   return top_;
 }
 
-void FrameWidget::setTop(int top) {
+void FrameWidget::setTop(double top) {
   top_ = top;
 }
   
-int FrameWidget::bottom() {
+double FrameWidget::bottom() {
   return bottom_;
 }
 
-void FrameWidget::setBottom(int bottom) {
+void FrameWidget::setBottom(double bottom) {
   top_ += bottom - bottom_;
   bottom_ = bottom;
 }
 
-float FrameWidget::depth() {
+double FrameWidget::depth() {
   return depth_;
 }
 
-void FrameWidget::setDepth(float depth) {
+void FrameWidget::setDepth(double depth) {
   depth_ = depth;
 }
 

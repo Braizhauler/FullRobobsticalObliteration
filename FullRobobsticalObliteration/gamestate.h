@@ -45,7 +45,19 @@ public:
   //Called when the Gamestate is unloaded from the GameStateManager
   virtual void Unload() = 0;
 
-
+  //Mouse Input
+  virtual void CursorMove(bool left_mouse_button_down,
+                          double x_position,
+                          double y_position) = 0;
+  virtual void MouseButtonPressed(int button,
+                                  double x_position,
+                                  double y_position) = 0;
+  virtual void MouseButtonReleased(int button,
+                                   double x_position,
+                                   double y_position) = 0;
+  virtual void MouseButtonClicked(int button,
+                                  double x_position,
+                                  double y_position) = 0;
   //Accessors and Mutators
 private:
 };

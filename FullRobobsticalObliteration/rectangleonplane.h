@@ -24,18 +24,18 @@ public:
   //returns true if:
   //x is between left and right
   //y is between top and bottom
-  virtual bool containPoint(int x, int y)=0;
+  virtual bool containPoint(double x, double y)=0;
   virtual bool containPoint(Point)=0;
 
-  virtual int left()=0;
-  virtual int right()=0;
-  virtual int top()=0;
-  virtual int bottom()=0;
+  virtual double left()=0;
+  virtual double right()=0;
+  virtual double top()=0;
+  virtual double bottom()=0;
   
-  virtual void setLeft(int)=0;
-  virtual void setRight(int)=0;
-  virtual void setTop(int)=0;
-  virtual void setBottom(int)=0;
+  virtual void setLeft(double)=0;
+  virtual void setRight(double)=0;
+  virtual void setTop(double)=0;
+  virtual void setBottom(double)=0;
 };
 
 #endif //RECTANGLE_ON_PLANE_H

@@ -34,8 +34,14 @@ public:
   ~GameStateManager(void);
   //Methods
   GameState* Pop();
-  GameState* Peek();
+  GameState* Peek(); 
   void Push(GameState* new_state);
+
+  //Mouse Input
+  void CursorMove(bool left_mouse_button_down, double x_position, double y_position);
+  void MouseButtonPressed(int button, double x_position, double y_position);
+  void MouseButtonReleased(int button, double x_position, double  y_position);
+  void MouseButtonClicked(int button, double cursor_x_, double cursor_y_);
 
   void Draw();
   void Update(GameTime frameNumber);

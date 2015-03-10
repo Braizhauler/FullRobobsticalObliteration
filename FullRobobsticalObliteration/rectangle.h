@@ -19,10 +19,10 @@ class Rectangle
 {
 public:
   virtual ~Rectangle(void) {};
-  virtual int width()=0;
-  virtual int height()=0;
-  virtual void setWidth(int)=0;
-  virtual void setHeight(int)=0;
+  virtual double width()=0;
+  virtual double height()=0;
+  virtual void setWidth(double)=0;
+  virtual void setHeight(double)=0;
 };
 
 #endif //RECTANGLE_H

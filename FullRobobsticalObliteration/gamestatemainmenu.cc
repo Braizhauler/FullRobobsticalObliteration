@@ -17,6 +17,7 @@
 
 GameStateMainMenu::GameStateMainMenu(GameStateManager* manager) {
   game_state_manager_ = manager;
+  
 }
 
 
@@ -41,6 +42,24 @@ void GameStateMainMenu::Uncover() {
 //Called when the Gamestate is unloaded from the GameStateManager
 void GameStateMainMenu::Unload() {
 }
+
+void GameStateMainMenu::CursorMove(bool left_mouse_button_down,
+                                   double x_position,
+                                   double y_position) {
+}
+void GameStateMainMenu::MouseButtonPressed(int button,
+                                           double x_position,
+                                           double y_position) {
+}
+void GameStateMainMenu::MouseButtonReleased(int button,
+                                            double x_position,
+                                            double y_position) {
+}
+void GameStateMainMenu::MouseButtonClicked(int button,
+                                           double x_position,
+                                           double y_position) {
+}
+
 
 bool GameStateMainMenu::Opaque(void) {
   return false;

@@ -24,6 +24,13 @@ InputManager* InputManager::input_manager_instance_ = nullptr;
 
 GameStateManager* InputManager::game_state_manager_ = nullptr;
 
+double InputManager::cursor_x_ = 0;
+double InputManager::cursor_y_ = 0;
+bool InputManager::mouse_button_[3] = {false, false, false};
+double InputManager::time_mouse_down_[3] = {0.0, 0.0, 0.0};
+bool InputManager::cursor_in_window_=true;
+const double InputManager::k_mouse_click_sensitivity = 0.2;
+
 /*******************************
 * Accessor                    */
 //Returns the instance of the InputManager
@@ -53,16 +60,27 @@ void InputManager::LinkManager(GameStateManager* state_manager) {
 * Methods                    */
 void InputManager::RegisterEvents(MyWindowWrapper* window) {
   window->RegisterKeyboard(KeyboardFunction);
-  window->RegisterMouse(CursorPositionFunction,
+  window->RegisterMouse(CursorEnterFunction,
+                        CursorPositionFunction,
                         MouseButtonFunction,
                         ScrollWheelFunction);
 }
 
 /*******************************
 * Callbacks                   */
+void InputManager::CursorEnterFunction(GLFWwindow * window,
+                                          int cursor_in_window) { //bool
+  cursor_in_window_=cursor_in_window;
+} 
+
 void InputManager::CursorPositionFunction(GLFWwindow * window,
                                           double x_position,  //relative to left 
                                           double y_position) {//relative to top
+  if(cursor_in_window_) {
+    cursor_x_=x_position;
+    cursor_y_=y_position;
+    game_state_manager_->CursorMove(mouse_button_[0], cursor_x_, cursor_y_);
+  }
 } 
 
 
@@ -70,6 +88,29 @@ void InputManager::MouseButtonFunction(GLFWwindow* window,
                                        int button, // GLFW_MOUSE_BUTTON_#
                                        int action, //GLFW_PRESS-or-GLFW_RELEASE.
                                        int modifers) {
+  if(cursor_in_window_) {
+    if (action == GLFW_PRESS) {
+      if (button == GLFW_MOUSE_BUTTON_1)
+        mouse_button_[0] = true;
+        time_mouse_down_[0] = glfwGetTime();
+      if (button == GLFW_MOUSE_BUTTON_2)
+        mouse_button_[1] = true;
+        time_mouse_down_[1] = glfwGetTime();
+      if (button == GLFW_MOUSE_BUTTON_3)
+        mouse_button_[2] = true;
+      game_state_manager_->MouseButtonPressed(button, cursor_x_, cursor_y_);
+    } else { //action == GLFW_RELEASE
+      if (button == GLFW_MOUSE_BUTTON_1)
+        mouse_button_[0] = false;
+        if ( (glfwGetTime()-time_mouse_down_[0])  < k_mouse_click_sensitivity )
+          game_state_manager_->MouseButtonClicked(0, cursor_x_, cursor_y_);
+      if (button == GLFW_MOUSE_BUTTON_2)
+        mouse_button_[1] = false;
+      if (button == GLFW_MOUSE_BUTTON_3)
+        mouse_button_[2] = false;
+      game_state_manager_->MouseButtonReleased(button, cursor_x_, cursor_y_);
+    }
+  }
 }
 
 void InputManager::ScrollWheelFunction(GLFWwindow * window,

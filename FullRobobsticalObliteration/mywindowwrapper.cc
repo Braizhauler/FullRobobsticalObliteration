@@ -50,7 +50,7 @@ const bool MyWindowWrapper::Init(int width, int height, const char * title)  {
   }
   //make that OpenGL context the active context
   glfwMakeContextCurrent(window_);
-
+  RegisterResize(MyWindowControl::ResizeWindow);
   return initialized_;
 }
 
@@ -82,6 +82,8 @@ void MyWindowWrapper::SwapBuffers() {
 
 
 void MyWindowWrapper::Resize(const int width,const int height)  {
+  
+  glViewport(0,0,width,height);
 }
 
 void MyWindowWrapper::RegisterResize(GLFWwindowsizefun)  {
@@ -93,10 +95,14 @@ void MyWindowWrapper::RegisterKeyboard(GLFWkeyfun keyboard) {
   glfwSetKeyCallback(window_,keyboard);
 }
 
-void MyWindowWrapper::RegisterMouse(GLFWcursorposfun positionFunc,
+void MyWindowWrapper::RegisterMouse(GLFWcursorenterfun cursorenterFunc,
+                                    GLFWcursorposfun positionFunc,
                                     GLFWmousebuttonfun buttonFunc,
                                     GLFWscrollfun scrollwheelFunc) {
-
+  glfwSetCursorPosCallback(window_, positionFunc);
+  glfwSetMouseButtonCallback(window_, buttonFunc);
+  glfwSetScrollCallback(window_, scrollwheelFunc);
+  glfwSetCursorEnterCallback(window_, cursorenterFunc);
 }
 
 /*******************************

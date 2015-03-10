@@ -29,6 +29,9 @@ public:
   //Register
   static void RegisterEvents(MyWindowWrapper* window);
   //Input callback events
+  static void CursorEnterFunction(GLFWwindow * window,
+                                  int cursor_in_window);
+
   static void CursorPositionFunction(GLFWwindow * window,
                                      double x_position,  //relative to left 
                                      double y_position); //relative to top
@@ -53,6 +56,13 @@ private:
   void operator=(InputManager const&);
   static InputManager* input_manager_instance_;
   static GameStateManager* game_state_manager_;
+
+  static double cursor_x_;
+  static double cursor_y_;
+  static bool mouse_button_[3];
+  static double time_mouse_down_[3];
+  static bool cursor_in_window_;
+  static const double k_mouse_click_sensitivity;//sec between mouse down and up
 };
 
 #endif //INPUT_MANAGER_H

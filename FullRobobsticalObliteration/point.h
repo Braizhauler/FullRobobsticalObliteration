@@ -16,8 +16,8 @@
 
 struct Point {
 public:
-  int x;
-  int y;
+  double x;
+  double y;
 };
 
 #endif //POINT_H

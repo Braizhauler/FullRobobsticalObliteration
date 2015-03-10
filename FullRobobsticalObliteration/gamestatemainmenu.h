@@ -17,9 +17,12 @@
 #define GAME_STATE_MAIN_MENU_H
 
 #include <GL/glew.h>
+#include <iostream>
+
 #include "gamestate.h"
 #include "renderable.h"
-
+#include "framewidget.h"
+#include "buttonwidget.h"
 
 class GameStateMainMenu : public GameState
 {
@@ -41,6 +44,13 @@ public:
 
   //Called when the Gamestate is unloaded from the GameStateManager
   void Unload();
+
+  void CursorMove(bool left_mouse_button_down,
+                  double x_position,
+                  double y_position);
+  void MouseButtonPressed(int button, double x_position, double y_position);
+  void MouseButtonReleased(int button, double x_position, double y_position);
+  void MouseButtonClicked(int button, double x_position, double y_position);
 
   bool Opaque(void);
 

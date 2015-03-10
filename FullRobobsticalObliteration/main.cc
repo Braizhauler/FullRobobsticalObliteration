@@ -61,7 +61,7 @@ int main (int num_of_arugments, char * argument_list[])  {
   glfwWindowHint(GLFW_BLUE_BITS, mode->blueBits);
   glfwWindowHint(GLFW_REFRESH_RATE, mode->refreshRate);
   
-  glfwWindowHint(GLFW_DECORATED, GL_FALSE);
+  //glfwWindowHint(GLFW_DECORATED, GL_FALSE);//Remove title bar, acting wierd
 
   window.Init( mode->width, mode->height, "Full Robobstical Obliteration\0");
 

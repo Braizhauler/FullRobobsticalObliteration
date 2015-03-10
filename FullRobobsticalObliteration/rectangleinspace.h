@@ -20,8 +20,8 @@
 class RectangleInSpace:public RectangleOnPlane {
 public:
   virtual ~RectangleInSpace(void) {};
-  virtual float depth()=0;
-  virtual void setDepth(float)=0;
+  virtual double depth()=0;
+  virtual void setDepth(double)=0;
 };
 
 #endif //RECTANGLE_H
