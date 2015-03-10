@@ -18,7 +18,7 @@
 class Renderable {
 public:
   //Constructors and Destructor
-  virtual ~Renderable(void);
+  virtual ~Renderable(void) {};
 
   virtual void Draw(void) = 0;
 };

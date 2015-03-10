@@ -16,6 +16,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <map>
 
 // Include GLEW
 #include <GL/glew.h>
@@ -26,6 +27,11 @@
 #include "mywindowwrapper.h"
 #include "gamestatemanager.h"
 #include "inputmanager.h"
+#include "gamestatemainmenu.h"
+
+namespace MyWindowControl{
+std::map<GLFWwindow*, MyWindowWrapper*> glfw_to_mywindowwrapper;
+}
 
 int main (int num_of_arugments, char * argument_list[])  {
   
@@ -46,9 +52,14 @@ int main (int num_of_arugments, char * argument_list[])  {
   //Anti Aliasing x4
   glfwWindowHint(GLFW_SAMPLES, 4); 
 
-  MyWindowWrapper window;
+  
+  GLFWmonitor* monitor = glfwGetPrimaryMonitor();
+  const GLFWvidmode* mode = glfwGetVideoMode(monitor);
 
-  window.Init( 640, 480, "Full Robobstical Obliteration\0");
+  MyWindowWrapper window;
+  
+  window.Init( mode->width, mode->height, "Full Robobstical Obliteration\0");
+
 
   // Initialize GLEW
   if (glewInit() != GLEW_OK) {
@@ -58,17 +69,22 @@ int main (int num_of_arugments, char * argument_list[])  {
 
   // Set Background to Dark Gray
   glClearColor(0.1f, 0.1f, 0.1f, 0.0f);
+  
+  GameStateManager state_manager(&window);
+  InputManager* input_manager;
+  
+  input_manager = InputManager::getInstance(&state_manager);
+  input_manager->RegisterEvents(&window);
 
-  InputManager input_manager;
-  GameStateManager state_manager;
-
+  GameStateMainMenu state_menu(&state_manager);
+  state_manager.Push(&state_menu);
   do {  
     window.ProccessOSEvents();
-    // Set the background to the clear color
-    glClear(GL_COLOR_BUFFER_BIT);
+
+    state_manager.Draw();
+    
     // Swap buffers
     window.SwapBuffers();
-
   } while(!window.done() && window.initialized());
     //glfwGetKey(window, GLFW_KEY_ESCAPE ) != GLFW_PRESS
   window.Terminate();

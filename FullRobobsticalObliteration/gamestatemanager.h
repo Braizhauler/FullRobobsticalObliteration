@@ -20,31 +20,41 @@
 #include <vector>
 #include <glfw3.h>
 
+#include "mywindowwrapper.h"
 #include "gamestate.h"
 #include "renderable.h"
 #include "updateable.h"
 
 struct GameTime;
 
-class GameStateManager {
+class GameStateManager: public Renderable {
 public:
   //Constructors and Destructor
-  GameStateManager(void);
+  GameStateManager(MyWindowWrapper*);
   ~GameStateManager(void);
   //Methods
-  GameState Pop();
-  GameState Peek();
-  void Push(GameState new_state);
+  GameState* Pop();
+  GameState* Peek(); 
+  void Push(GameState* new_state);
 
-  void Render();
+  //Mouse Input
+  void CursorMove(bool left_mouse_button_down, double x_position, double y_position);
+  void MouseButtonPressed(int button, double x_position, double y_position);
+  void MouseButtonReleased(int button, double x_position, double  y_position);
+  void MouseButtonClicked(int button, double cursor_x_, double cursor_y_);
+
+  void Draw();
   void Update(GameTime frameNumber);
-  //Accessors and Mutators
-private:
-  //Member Variables
-  std::stack<GameState> current_state_;
-  std::vector<Renderable> active_renderable_;
-  std::vector<Updateable> active_updatable_;
-};
 
+  void Exit();
+private:
+  void RestackRenderables();
+
+  //Member Variables
+  std::vector<GameState*> active_state_;
+  std::vector<Renderable*> active_renderable_;
+  std::vector<Updateable*> active_updatable_;
+  MyWindowWrapper* window_;
+};
 
 #endif //GAME_STATE_MANAGER_H

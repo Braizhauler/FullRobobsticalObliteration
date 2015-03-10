@@ -118,25 +118,40 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="buttonwidget.cc" />
+    <ClCompile Include="framewidget.cc" />
     <ClCompile Include="gamestate.cc" />
+    <ClCompile Include="gamestatemainmenu.cc" />
     <ClCompile Include="gamestatemanager.cc" />
     <ClCompile Include="gametime.cc" />
     <ClCompile Include="inputmanager.cc" />
     <ClCompile Include="main.cc" />
     <ClCompile Include="mywindowwrapper.cc" />
+    <ClCompile Include="rectangle.cpp" />
+    <ClCompile Include="rectangleinspace.cc" />
+    <ClCompile Include="rectangleonplane.cc" />
     <ClCompile Include="renderable.cc" />
     <ClCompile Include="spriteatlas.cc" />
     <ClCompile Include="updateable.cc" />
+    <ClCompile Include="widget.cc" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="buttonwidget.h" />
+    <ClInclude Include="framewidget.h" />
     <ClInclude Include="gamestate.h" />
+    <ClInclude Include="gamestatemainmenu.h" />
     <ClInclude Include="gamestatemanager.h" />
     <ClInclude Include="gametime.h" />
     <ClInclude Include="inputmanager.h" />
     <ClInclude Include="mywindowwrapper.h" />
+    <ClInclude Include="point.h" />
+    <ClInclude Include="rectangle.h" />
+    <ClInclude Include="rectangleinspace.h" />
+    <ClInclude Include="rectangleonplane.h" />
     <ClInclude Include="renderable.h" />
     <ClInclude Include="spriteatlas.h" />
     <ClInclude Include="updateable.h" />
+    <ClInclude Include="widget.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\FullRobobsticalObliteration.uxf" />
