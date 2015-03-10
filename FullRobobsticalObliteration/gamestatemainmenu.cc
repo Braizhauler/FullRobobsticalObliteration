@@ -17,12 +17,10 @@
 
 GameStateMainMenu::GameStateMainMenu(GameStateManager* manager) {
   game_state_manager_ = manager;
-  
+  button_ = ButtonWidget(game_state_manager_);
 }
 
-
-GameStateMainMenu::~GameStateMainMenu(void)
-{
+GameStateMainMenu::~GameStateMainMenu(void) {
 }
 
 //Loads the GameStateMainMenu onto the GameStateManager stack in active mode
@@ -58,6 +56,8 @@ void GameStateMainMenu::MouseButtonReleased(int button,
 void GameStateMainMenu::MouseButtonClicked(int button,
                                            double x_position,
                                            double y_position) {
+  if(button_.containPoint(x_position,y_position) )
+    button_.setColor(0.0f,1.0f,0.0f);
 }
 
 
@@ -66,10 +66,12 @@ bool GameStateMainMenu::Opaque(void) {
 }
 
 void GameStateMainMenu::Draw(void) {
+  glColor3f(0.8f,0.8f,0.8f);
   glBegin(GL_TRIANGLE_FAN);
-    glVertex3f(-0.8f,-0.8f,0.0f);
-    glVertex3f(-0.8f,0.8f,0.0f);
-    glVertex3f(0.8f,0.8f,0.0f);
-    glVertex3f(0.8f,-0.8f,0.0f);
+    glVertex3f(  0.0f,  0.0f,-2.0f);
+    glVertex3f(  0.0f,100.0f,-2.0f);
+    glVertex3f(100.0f,100.0f,-2.0f);
+    glVertex3f(100.0f,  0.0f,-2.0f);
   glEnd();
+  button_.Draw();
 }

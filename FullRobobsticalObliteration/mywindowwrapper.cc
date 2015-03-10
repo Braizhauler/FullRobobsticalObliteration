@@ -20,8 +20,8 @@ MyWindowWrapper::MyWindowWrapper() {
   window_ = nullptr;
 	initialized_ = false;
   finished_ = false;
-  width_ = 0;
-  height_ = 0;
+  window_width_ = 0;
+  window_height_ = 0;
   title_ = nullptr;
 }
  
@@ -32,8 +32,16 @@ MyWindowWrapper::~MyWindowWrapper(void) {
 }
 
 const bool MyWindowWrapper::Init(int width, int height, const char * title)  {
-  width_ = width;
-  height_ = height;
+  GLFWmonitor* monitor = glfwGetPrimaryMonitor();
+  const GLFWvidmode* mode = glfwGetVideoMode(monitor);
+  glfwWindowHint(GLFW_RED_BITS, mode->redBits);
+  glfwWindowHint(GLFW_GREEN_BITS, mode->greenBits);
+  glfwWindowHint(GLFW_BLUE_BITS, mode->blueBits);
+  glfwWindowHint(GLFW_REFRESH_RATE, mode->refreshRate);
+  //glfwWindowHint(GLFW_DECORATED, GL_FALSE);//Remove title bar, acting wierd
+
+  window_width_ = width;
+  window_height_ = height;
   size_t title_length = strlen(title);
   title_ = new char[title_length+1];
   for (size_t i = 0;i<=title_length;++i) {
@@ -42,7 +50,7 @@ const bool MyWindowWrapper::Init(int width, int height, const char * title)  {
   //The last two parameters of glfwCreateWindow are:
   //  GLFWmonitor * monitorUsedByFullScreen
   //  GLFWwindow * share
-  window_ = glfwCreateWindow( width_, height_, title_, nullptr, nullptr);
+  window_ = glfwCreateWindow( window_width_, window_height_, title_, nullptr, nullptr);
 	if( window_ == NULL ){
 		glfwTerminate();
 	} else {
@@ -51,6 +59,7 @@ const bool MyWindowWrapper::Init(int width, int height, const char * title)  {
   //make that OpenGL context the active context
   glfwMakeContextCurrent(window_);
   RegisterResize(MyWindowControl::ResizeWindow);
+  Resize(window_width_,window_height_);
   return initialized_;
 }
 
@@ -83,7 +92,35 @@ void MyWindowWrapper::SwapBuffers() {
 
 void MyWindowWrapper::Resize(const int width,const int height)  {
   
+  int window_width_ = width;
+  int window_height_ = height;
   glViewport(0,0,width,height);
+
+  double field_of_view_y = 45;
+  double aspect_ratio_x_to_y = window_width_/window_height_;
+  double near_clip_distance= .5;
+  double far_clip_distance = 5;
+  
+  double depth_sum(near_clip_distance+far_clip_distance);
+  double depth_range(near_clip_distance-far_clip_distance);
+  double f_y = tan(M_PI_2 - field_of_view_y) / 2;
+  double f_x = f_y / aspect_ratio_x_to_y;
+
+	double projection_matrix[16] = {
+    f_x,            0.0,            0.0,            0.0,
+    0.0,            f_y,            0.0,            0.0,
+    0.0,            0.0,  depth_sum/depth_range,   2*depth_sum/depth_range,
+    0.0,            0.0,           -1.0,            0.0
+  };
+  
+  glMatrixMode(GL_PROJECTION);//changing perspective rather then drawing
+	
+  glLoadIdentity();
+
+  glMultMatrixd(projection_matrix);
+  //glTranslated(0.0,0.0,-0.5);
+  
+  glOrtho(0, window_width_, window_height_, 0, -1, 10);
 }
 
 void MyWindowWrapper::RegisterResize(GLFWwindowsizefun)  {

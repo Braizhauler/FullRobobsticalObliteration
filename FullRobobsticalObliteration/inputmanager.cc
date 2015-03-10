@@ -70,7 +70,7 @@ void InputManager::RegisterEvents(MyWindowWrapper* window) {
 * Callbacks                   */
 void InputManager::CursorEnterFunction(GLFWwindow * window,
                                           int cursor_in_window) { //bool
-  cursor_in_window_=cursor_in_window;
+  cursor_in_window_=(bool)cursor_in_window;
 } 
 
 void InputManager::CursorPositionFunction(GLFWwindow * window,

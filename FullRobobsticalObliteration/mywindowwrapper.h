@@ -18,6 +18,11 @@
 
 #include <glfw3.h>
 #include <string>
+#include <math.h>
+#ifndef M_PI 
+#define M_PI   (3.14159265358979323846)
+#define M_PI_2 (1.57079632679489661923)
+#endif//M_PI
 #include <map>
 
 class MyWindowWrapper;
@@ -71,8 +76,8 @@ private:
 	GLFWwindow* window_;
 	bool initialized_;
 	bool finished_;
-  int width_;
-  int height_;
+  int window_width_;
+  int window_height_;
   char * title_;
 };
 

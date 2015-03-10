@@ -58,6 +58,7 @@ public:
 private:
   //Member Variables
   GameStateManager* game_state_manager_;
+  ButtonWidget button_;
 };
 
 

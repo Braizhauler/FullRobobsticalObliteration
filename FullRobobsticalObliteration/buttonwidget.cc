@@ -1,9 +1,9 @@
 /*******************************************************************************
 * File: buttonwidget.cc
 * Author: Greg Howlett (GregTHowlett@Gmail.com)
-* Created: 2015 MAR 05
+* Created: 2015 Feb 20
 * Version: 0
-* Revised: 2015 MAR 05
+* Revised: 2015 MAR 10
 *
 * ButtonWidget:
 *   A gui widget which has a responds to mouse clicks
@@ -15,7 +15,15 @@
 #include "buttonwidget.h"
 
 ButtonWidget::ButtonWidget(GameStateManager* manager) {
-    game_state_manager_ = manager;
+  game_state_manager_ = manager;
+  color_[0] = 1.0f;
+  color_[1] = 0.0f;
+  color_[2] = 0.5f;
+  top_= 0.9;
+  bottom_= -0.25;
+  left_= -0.9;
+  right_= 0.25;
+  depth_ = 0.0;
 }
 
 
@@ -26,11 +34,28 @@ ButtonWidget::~ButtonWidget(void) {
 void ButtonWidget::Draw(void) {
   glColor3f(color_[0],color_[1],color_[2]);
   glBegin(GL_TRIANGLE_FAN);
-    glVertex3d(top_,left_,depth_);
-    glVertex3d(top_,right_,depth_);
-    glVertex3d(bottom_,right_,depth_);
-    glVertex3d(bottom_,left_,depth_);
+    glVertex3d(left_,top_,depth_);
+    glColor3f(0.0f,1.0f,1.0f);
+    glVertex3d(right_,top_,depth_);
+    glColor3f(1.0f,1.0f,1.0f);
+    glVertex3d(right_,bottom_,depth_);
+    glColor3f(color_[0],color_[1],color_[2]);
+    glVertex3d(left_,bottom_,depth_);
   glEnd();
+}
+
+bool ButtonWidget::containPoint(Point point) {
+  return containPoint(point.x, point.y);
+}
+
+  
+bool ButtonWidget::containPoint(double x, double y) {
+  if( (left_ <= x) && (x <= right_) ) {
+    if( (top_ <= y) && (y <= bottom_) ) {
+      return true;
+    }
+  }
+  return false;
 }
 
 
@@ -145,4 +170,17 @@ double ButtonWidget::depth() {
 
 void ButtonWidget::setDepth(double depth) {
   depth_ = depth;
+}
+
+
+const float* ButtonWidget::color() {
+  return color_;
+}
+
+void ButtonWidget::setColor(const float red,
+                            const float green,
+                            const float blue) {
+  color_[0] = red;
+  color_[1] = green;
+  color_[2] = blue;
 }

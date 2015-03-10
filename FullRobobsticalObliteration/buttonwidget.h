@@ -3,7 +3,7 @@
 * Author: Greg Howlett (GregTHowlett@Gmail.com)
 * Created: 2015 FEB 17
 * Version: 0
-* Revised: 2015 FEB 17
+* Revised: 2015 MAR 10
 *
 * Button_Widget:
 *   A gui widget which has a responds to mouse clicks
@@ -23,15 +23,18 @@
 class ButtonWidget: public Widget {
 public:
   //Constructors, and Destructor
-  ButtonWidget(GameStateManager* manager);
+  ButtonWidget(GameStateManager* manager = nullptr);
   ~ButtonWidget(void);
 
   void Draw(void);
+  
+  bool containPoint(Point point);
+  bool containPoint(double x, double y);
 
   //Methods
   Widget* parent();
   void setParent(Widget*);
-  
+
   //returns true if argument is a child of this
   bool isChild(Widget* widget);
   //returns a widget in position child_number
@@ -87,7 +90,7 @@ public:
   void setDepth(double);
 
   const float* color();
-  void SetColor(const float, const float, const float);
+  void setColor(const float red, const float green, const float blue);
 private:
   //Member Variables
   GameStateManager* game_state_manager_;
