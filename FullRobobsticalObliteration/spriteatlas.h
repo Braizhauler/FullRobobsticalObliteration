@@ -15,19 +15,34 @@
 #ifndef SPRITE_ATLAS_H
 #define SPRITE_ATLAS_H
 
+#include <string>
+
 class SpriteAtlas
 {
 public:
   //Constructors, Init, and Destructor
-  SpriteAtlas(void);
+  SpriteAtlas(std::string ststType, int iWidthOfSpriteInPixels, int iHeightOfSpriteInPixels, int iMaxNumberOfSprites, std::string filename);
   bool Init(void);
   ~SpriteAtlas(void);
 
   //Methods
-
+  void loadImage(std::string filename);
+  void del();
   //Accessors and Mutators
 private:
+	std::string filename;
 
+	std::string type;
+	 
+	int spriteHeight;
+	int spriteWidth;
+	int numberOfSprites;
+	   
+	bool bTexturesCurrentlyLoaded;
+	const GLuint iTextureName;
+	int sheetWidth;
+	int sheetHeight;
+	int spritesPerRow;
 };
 
 
