@@ -6,13 +6,13 @@
 * Revised: 2015 JAN 11
 *
 * © [2015] Dwarfholm.com
-* All Rights Reserved.
+* All Rights Reserved.  
 *******************************************************************************/
 #ifndef MAIN_CC
 #define MAIN_CC
 
-//hides console window in windows
-#pragma comment (linker, "/subsystem:windows /entry:mainCRTStartup") 
+//hides console window in Windows
+//#pragma comment (linker, "/subsystem:windows /entry:mainCRTStartup") 
 
 #include <stdio.h>
 #include <stdlib.h>

@@ -60,6 +60,9 @@ public:
                      const GLFWcursorposfun positionFunc,
                      const GLFWmousebuttonfun buttonFunc,
                      const GLFWscrollfun scrollwheelFunc);
+  double scale();
+  double offset_x();
+  double offset_y();
 
   //Accessors and Mutators
 	const bool initialized();
@@ -78,6 +81,11 @@ private:
 	bool finished_;
   int window_width_;
   int window_height_;
+  double display_width_;
+  double display_height_;
+  double display_offset_x_;
+  double display_offset_y_;
+  double display_scale_;
   char * title_;
 };
 

@@ -17,12 +17,12 @@
 ButtonWidget::ButtonWidget(GameStateManager* manager) {
   game_state_manager_ = manager;
   color_[0] = 1.0f;
-  color_[1] = 0.0f;
-  color_[2] = 0.5f;
-  top_= 0.9;
-  bottom_= -0.25;
-  left_= -0.9;
-  right_= 0.25;
+  color_[1] = 1.0f;
+  color_[2] = 1.0f;
+  top_= 0.0;
+  bottom_= 5.0;
+  left_= 0.0;
+  right_= 10.0;
   depth_ = 0.0;
 }
 

@@ -27,6 +27,11 @@ GameStateManager* InputManager::game_state_manager_ = nullptr;
 double InputManager::cursor_x_ = 0;
 double InputManager::cursor_y_ = 0;
 bool InputManager::mouse_button_[3] = {false, false, false};
+
+double InputManager::mouse_input_scale_ = 1.0;
+double InputManager::mouse_offset_x_ = 0.0;
+double InputManager::mouse_offset_y_ = 0.0;
+
 double InputManager::time_mouse_down_[3] = {0.0, 0.0, 0.0};
 bool InputManager::cursor_in_window_=true;
 const double InputManager::k_mouse_click_sensitivity = 0.2;
@@ -64,6 +69,9 @@ void InputManager::RegisterEvents(MyWindowWrapper* window) {
                         CursorPositionFunction,
                         MouseButtonFunction,
                         ScrollWheelFunction);
+  mouse_input_scale_ = window->scale();
+  mouse_offset_x_ = window->offset_x();
+  mouse_offset_y_ = window->offset_y();
 }
 
 /*******************************
@@ -77,8 +85,12 @@ void InputManager::CursorPositionFunction(GLFWwindow * window,
                                           double x_position,  //relative to left 
                                           double y_position) {//relative to top
   if(cursor_in_window_) {
-    cursor_x_=x_position;
-    cursor_y_=y_position;
+    //DEBUG
+    //std::cout<<"("<<x_position<<", "<<y_position<<")"<<std::endl;
+    cursor_x_=(x_position/mouse_input_scale_) - mouse_offset_x_;
+    cursor_y_=(y_position/mouse_input_scale_) - mouse_offset_y_;
+    //DEBUG
+    std::cout<<"("<<cursor_x_<<", "<<cursor_y_<<")"<<std::endl;
     game_state_manager_->CursorMove(mouse_button_[0], cursor_x_, cursor_y_);
   }
 } 

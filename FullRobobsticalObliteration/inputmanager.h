@@ -17,6 +17,10 @@
 
 #include <string>
 
+//DEBUG
+#include <iostream>
+
+
 #include "mywindowwrapper.h"
 #include "gamestatemanager.h"
 
@@ -59,6 +63,11 @@ private:
 
   static double cursor_x_;
   static double cursor_y_;
+
+  static double mouse_input_scale_;
+  static double mouse_offset_x_;
+  static double mouse_offset_y_;
+
   static bool mouse_button_[3];
   static double time_mouse_down_[3];
   static bool cursor_in_window_;

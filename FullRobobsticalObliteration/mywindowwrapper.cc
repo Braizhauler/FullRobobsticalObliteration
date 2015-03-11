@@ -90,37 +90,40 @@ void MyWindowWrapper::SwapBuffers() {
 }
 
 
+
 void MyWindowWrapper::Resize(const int width,const int height)  {
   
   int window_width_ = width;
   int window_height_ = height;
-  glViewport(0,0,width,height);
+  glViewport(0,0,window_width_, window_height_);
 
-  double field_of_view_y = 45;
-  double aspect_ratio_x_to_y = window_width_/window_height_;
-  double near_clip_distance= .5;
-  double far_clip_distance = 5;
-  
-  double depth_sum(near_clip_distance+far_clip_distance);
-  double depth_range(near_clip_distance-far_clip_distance);
-  double f_y = tan(M_PI_2 - field_of_view_y) / 2;
-  double f_x = f_y / aspect_ratio_x_to_y;
+  display_width_ =
+    window_width_ < 14.0 * window_height_ / 9.0 ?
+    window_width_ : 14.0 * window_height_ / 9.0 ;
+  display_height_ = 
+    9.0 * window_width_ / 14.0 < window_height_ ?
+    9.0 * window_width_ / 14.0 : window_height_ ;
 
-	double projection_matrix[16] = {
-    f_x,            0.0,            0.0,            0.0,
-    0.0,            f_y,            0.0,            0.0,
-    0.0,            0.0,  depth_sum/depth_range,   2*depth_sum/depth_range,
-    0.0,            0.0,           -1.0,            0.0
-  };
+  display_offset_x_ = (window_width_ - display_width_) /2;
+  display_offset_y_ = (window_height_ - display_height_) /2;
   
+  display_scale_ = display_height_ / 54.0;
+
+  display_width_ = display_width_ / display_scale_;
+  display_height_ = display_height_ / display_scale_;
+  display_offset_x_ = display_offset_x_ / display_scale_;
+  display_offset_y_ = display_offset_y_ / display_scale_;
+
   glMatrixMode(GL_PROJECTION);//changing perspective rather then drawing
 	
   glLoadIdentity();
-
-  glMultMatrixd(projection_matrix);
-  //glTranslated(0.0,0.0,-0.5);
   
-  glOrtho(0, window_width_, window_height_, 0, -1, 10);
+  glOrtho(-display_offset_x_, //left
+          display_width_ + display_offset_x_, //right
+          display_height_ + display_offset_y_, //bottom
+          -display_offset_y_, //top
+          -1, //near
+          10); //far
 }
 
 void MyWindowWrapper::RegisterResize(GLFWwindowsizefun)  {
@@ -140,6 +143,16 @@ void MyWindowWrapper::RegisterMouse(GLFWcursorenterfun cursorenterFunc,
   glfwSetMouseButtonCallback(window_, buttonFunc);
   glfwSetScrollCallback(window_, scrollwheelFunc);
   glfwSetCursorEnterCallback(window_, cursorenterFunc);
+}
+
+double MyWindowWrapper::scale() {
+  return display_scale_;
+}
+double MyWindowWrapper::offset_x() {
+  return display_offset_x_;
+}
+double MyWindowWrapper::offset_y() {
+  return display_offset_y_;
 }
 
 /*******************************

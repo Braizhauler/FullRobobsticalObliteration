@@ -18,6 +18,12 @@
 GameStateMainMenu::GameStateMainMenu(GameStateManager* manager) {
   game_state_manager_ = manager;
   button_ = ButtonWidget(game_state_manager_);
+  button_.setColor(1.0f, 0.0f, 0.5f);
+  button_.setTop(3.0);
+  button_.setLeft(3.0);
+  button_.setHeight(3.0);
+  button_.setWidth(3.0);
+  button_.setDepth(-1.0);
 }
 
 GameStateMainMenu::~GameStateMainMenu(void) {
@@ -66,12 +72,12 @@ bool GameStateMainMenu::Opaque(void) {
 }
 
 void GameStateMainMenu::Draw(void) {
-  glColor3f(0.8f,0.8f,0.8f);
   glBegin(GL_TRIANGLE_FAN);
-    glVertex3f(  0.0f,  0.0f,-2.0f);
-    glVertex3f(  0.0f,100.0f,-2.0f);
-    glVertex3f(100.0f,100.0f,-2.0f);
-    glVertex3f(100.0f,  0.0f,-2.0f);
+    glColor3f(0.3f, 0.3f, 0.3f);
+    glVertex3f( 0.0f,  0.0f, 0.0f);
+    glVertex3f(84.0f,  0.0f, 0.0f);
+    glVertex3f(84.0f, 54.0f, 0.0f);
+    glVertex3f( 0.0f, 54.0f, 0.0f);
   glEnd();
   button_.Draw();
 }
