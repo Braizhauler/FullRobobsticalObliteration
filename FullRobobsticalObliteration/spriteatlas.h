@@ -28,6 +28,12 @@ public:
   //Methods
   void loadImage(std::string filename);
   void del();
+  std::string SheetType(SpriteAtlas SA);
+  void bindTexture(SpriteAtlas SA);
+  float getTextureCoordinates(SpriteAtlas SA, int index);
+  void SpriteAtlas::loadImage(SpriteAtlas SA, std::string filename);
+  bool fileExists(std::string filename);
+
   //Accessors and Mutators
 private:
 	std::string filename;
@@ -43,6 +49,12 @@ private:
 	int sheetWidth;
 	int sheetHeight;
 	int spritesPerRow;
+
+	bool fileSeemsValid;
+
+	unsigned char databuffer [8];
+
+	GLenum colorMode;
 };
 
 
