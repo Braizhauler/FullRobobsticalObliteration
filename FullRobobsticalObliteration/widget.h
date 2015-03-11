@@ -51,7 +51,9 @@ public:
   //adds the passed widget to our children record
   virtual void addChild(Widget*)=0;
 
-
+  virtual bool focus() = 0;
+  virtual void setFocus() = 0;
+  virtual void clearFocus() = 0;
 };
 
 #endif //WIDGET_H

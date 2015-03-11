@@ -54,11 +54,14 @@ public:
 
   bool Opaque(void);
 
+  void Focus(Widget* new_focus);
+
   void Draw(void);
 private:
   //Member Variables
   GameStateManager* game_state_manager_;
-  ButtonWidget button_;
+  ButtonWidget button_1_;
+  ButtonWidget button_2_;
 };
 
 
