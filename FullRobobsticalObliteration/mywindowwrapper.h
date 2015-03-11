@@ -60,6 +60,10 @@ public:
                      const GLFWcursorposfun positionFunc,
                      const GLFWmousebuttonfun buttonFunc,
                      const GLFWscrollfun scrollwheelFunc);
+
+  typedef void (*MouseOffsetFunc)(double mouse_x, double mouse_y, double scale);
+  void RegisterMouseOffsets(const MouseOffsetFunc offsetfunc);
+
   double scale();
   double offset_x();
   double offset_y();
@@ -77,6 +81,7 @@ public:
 private:
   // Member Variables
 	GLFWwindow* window_;
+  MouseOffsetFunc mouse_offset_function_;
 	bool initialized_;
 	bool finished_;
   int window_width_;

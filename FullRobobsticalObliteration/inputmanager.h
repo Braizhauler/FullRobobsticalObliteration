@@ -52,6 +52,10 @@ public:
                                int action,//GLFW_PRESS, GLFW_RELEASE 
                                           //-or- GLFW_REPEAT
                                int modifiers);
+  
+  static void SetMouseOffsets(double mouse_offset_x,
+                              double mouse_offset_y,
+                              double mouse_input_scale);
 private:
   //Member Variables
   InputManager();

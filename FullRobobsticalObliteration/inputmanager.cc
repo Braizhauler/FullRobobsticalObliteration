@@ -69,16 +69,22 @@ void InputManager::RegisterEvents(MyWindowWrapper* window) {
                         CursorPositionFunction,
                         MouseButtonFunction,
                         ScrollWheelFunction);
-  mouse_input_scale_ = window->scale();
-  mouse_offset_x_ = window->offset_x();
-  mouse_offset_y_ = window->offset_y();
+  window->RegisterMouseOffsets(SetMouseOffsets);
+}
+
+void InputManager::SetMouseOffsets(double mouse_offset_x,
+                                   double mouse_offset_y,
+                                   double mouse_input_scale) {
+  mouse_offset_x_ = mouse_offset_x;
+  mouse_offset_y_ = mouse_offset_y;
+  mouse_input_scale_ = mouse_input_scale;
 }
 
 /*******************************
 * Callbacks                   */
 void InputManager::CursorEnterFunction(GLFWwindow * window,
                                           int cursor_in_window) { //bool
-  cursor_in_window_=(bool)cursor_in_window;
+  cursor_in_window_=(cursor_in_window!=0);
 } 
 
 void InputManager::CursorPositionFunction(GLFWwindow * window,
