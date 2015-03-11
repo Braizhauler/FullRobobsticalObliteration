@@ -29,6 +29,10 @@ public:
   void loadImage(std::string filename);
   void del();
   //Accessors and Mutators
+  std::string SheetType();
+  void bindTexture();
+
+  float * getTextureCoordinates(int index);
 private:
 	std::string filename;
 
@@ -39,7 +43,7 @@ private:
 	int numberOfSprites;
 	   
 	bool bTexturesCurrentlyLoaded;
-	const GLuint iTextureName;
+	unsigned int iTextureName;
 	int sheetWidth;
 	int sheetHeight;
 	int spritesPerRow;

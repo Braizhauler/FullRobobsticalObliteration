@@ -34,7 +34,7 @@ double InputManager::mouse_offset_y_ = 0.0;
 
 double InputManager::time_mouse_down_[3] = {0.0, 0.0, 0.0};
 bool InputManager::cursor_in_window_=true;
-const double InputManager::k_mouse_click_sensitivity = 0.2;
+const double InputManager::k_mouse_click_sensitivity = 0.5;
 
 /*******************************
 * Accessor                    */

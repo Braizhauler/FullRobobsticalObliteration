@@ -93,7 +93,6 @@ void MyWindowWrapper::SwapBuffers() {
 
 
 void MyWindowWrapper::Resize(const int width,const int height)  {
-  
   int window_width_ = width;
   int window_height_ = height;
   glViewport(0,0,window_width_, window_height_);
@@ -151,6 +150,7 @@ void MyWindowWrapper::RegisterMouse(GLFWcursorenterfun cursorenterFunc,
 
 void MyWindowWrapper::RegisterMouseOffsets(const MouseOffsetFunc offsetfunc) {
   mouse_offset_function_ = offsetfunc;
+  mouse_offset_function_(display_offset_x_,display_offset_y_,display_scale_);
 }
 
 double MyWindowWrapper::scale() {

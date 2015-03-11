@@ -58,34 +58,29 @@ void SpriteAtlas::loadImage(std::string filename){
 }
 
 void SpriteAtlas::del(){
-	glDeleteBuffers(1, iTextureName);
+	glDeleteBuffers(1, &iTextureName);
 }
 
-std::string SpriteAtlas::SheetType(SpriteAtlas SA){
-	return SA.type;
+std::string SpriteAtlas::SheetType(){
+	return type;
 }
 
-void SpriteAtlas::bindTexture(SpriteAtlas SA){
+void SpriteAtlas::bindTexture(){
 	glBindTexture(GL_TEXTURE_2D, iTextureName);
 }
 
-void SpriteAtlas::getTextureCoordinates(SpriteAtlas SA, int index){
-	if(index < 0 & index >=SA.numberOfSprites){
+float * SpriteAtlas::getTextureCoordinates(int index){
+	if((index < 0) && (index >=numberOfSprites)){
 		std::cout << "Loading out of bound texture on sprite sheet";
 	}
-	float edges;
+	float edges[4];
 
-	edges["top"] = float(SA.spriteHeight*(index/SA.spritesPerRow))/SA.sheetHeight;
-	edges["bottom"] = float(SA.spriteHeight*(index/SA.spritesPerRow)+SA.spriteHeight)/SA.sheetHeight;
-	edges["left"] = float(SA.spriteWidth*(index % SA.spritesPerRow))/SA.sheetWidth;
-	edges["right"] = float(SA.spriteWidth*(index % SA.spritesPerRow)+SA.sheetWidth)/SA.sheetWidth;
+	edges[0] = float(spriteHeight*(index/spritesPerRow))/sheetHeight;
+	edges[1] = float(spriteHeight*(index/spritesPerRow)+spriteHeight)/sheetHeight;
+	edges[2] = float(spriteWidth*(index % spritesPerRow))/sheetWidth;
+	edges[3] = float(spriteWidth*(index % spritesPerRow)+sheetWidth)/sheetWidth;
 	return edges;
 }
-
-void SpriteAtlas::loadImage(SpriteAtlas SA, std::string filename){
-
-}
-
 
 /*******************************
 * Accessors and Mutators      */

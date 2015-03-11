@@ -61,7 +61,13 @@ public:
   void addChild(Widget*);
 
   //Accessors and Mutators
+  bool pressed();
+  void setPressed(bool);
 
+  bool focus();
+  void setFocus();
+  void clearFocus();
+  
   double width();
   //maintains left
   void setWidth(double);
@@ -101,7 +107,14 @@ private:
   double right_;
   double bottom_;
   double depth_;
-  float color_[3]; //0 red; 1 green; 2 blue;
+
+  bool is_pressed_;
+  bool has_focus_;
+
+  float button_color_[3]; //0 red; 1 green; 2 blue;
+  float button_shadow_[3]; //0 red; 1 green; 2 blue;
+  float pressed_color_[3]; //0 red; 1 green; 2 blue;
+  float pressed_shadow_[3]; //0 red; 1 green; 2 blue;
 };
 
 
