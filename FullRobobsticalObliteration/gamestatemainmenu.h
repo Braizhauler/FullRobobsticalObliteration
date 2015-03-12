@@ -53,7 +53,7 @@ public:
   void MouseButtonReleased(int button, double x_position, double y_position);
   void MouseButtonClicked(int button, double x_position, double y_position);
 
-  bool Opaque(void);
+  bool Opaque(void) const;
 
   void Focus(Focusable* new_focus);
 

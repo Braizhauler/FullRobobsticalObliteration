@@ -18,22 +18,13 @@
 GameStateMainMenu::GameStateMainMenu(GameStateManager* manager) {
   game_state_manager_ = manager;
   focus_ = nullptr;
-  WidgetLocation (6.0, 3.0, 3.0, 3.0, -1.0);
-  button_1_ = ButtonWidget(game_state_manager_);
+  button_1_ = ButtonWidget(game_state_manager_,
+                           WidgetLocation (6.0, 3.0, 3.0, 3.0, -1.0));
   button_1_.setColor(0.8f, 0.8f, 0.8f);
-  button_1_.setTop(3.0);
-  button_1_.setLeft(3.0);
-  button_1_.setHeight(3.0);
-  button_1_.setWidth(6.0);
-  button_1_.setDepth(-1.0);
 
-  button_2_ = ButtonWidget(game_state_manager_);
+  button_2_ = ButtonWidget(game_state_manager_,
+                           WidgetLocation (6.0, 3.0, 10.0, 3.0, -1.0));
   button_2_.setColor(0.8f, 0.8f, 0.8f);
-  button_2_.setTop(3.0);
-  button_2_.setLeft(10.0);
-  button_2_.setHeight(3.0);
-  button_2_.setWidth(6.0);
-  button_2_.setDepth(-1.0);
 }
 
 GameStateMainMenu::~GameStateMainMenu(void) {
@@ -106,7 +97,7 @@ void GameStateMainMenu::MouseButtonClicked(int button,
   }
 }
 
-bool GameStateMainMenu::Opaque(void) {
+bool GameStateMainMenu::Opaque(void) const{
   return false;
 }
 

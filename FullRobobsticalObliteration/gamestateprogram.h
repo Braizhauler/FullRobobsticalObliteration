@@ -25,9 +25,9 @@ public:
   //Methods
 
   //causes the GameState to draw all widgets
-  void Draw();
+  void Draw() const;
   //returns true if nothing is no other states are to be drawn under this state.
-  bool Opaque();
+  bool Opaque() const;
 
   //Loads the GameState onto the GameStateManager stack in active mode
   void Load();

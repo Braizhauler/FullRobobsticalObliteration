@@ -29,7 +29,7 @@ public:
   //Methods
 
   //returns true if nothing is no other states are to be drawn under this state.
-  virtual bool Opaque() = 0;
+  virtual bool Opaque() const = 0;
 
   //Loads the GameState onto the GameStateManager stack in active mode
   virtual void Load() = 0;
