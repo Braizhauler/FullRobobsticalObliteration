@@ -20,10 +20,17 @@
 
 #include "rectangleinspace.h"
 
-class Widget: public RectangleInSpace, public Renderable {
+class Widget: public virtual RectangleInSpace, public virtual Renderable {
 public:
   //inform children and parent when you are deconstructed
   virtual ~Widget(void) {}
+
+
+  //returns true if:
+  //x is between left and right
+  //y is between top and bottom
+  virtual bool containPoint(double x, double y)=0;
+  virtual bool containPoint(Point)=0;
 
   virtual Widget* parent()=0;
   virtual void setParent(Widget*)=0;
@@ -32,6 +39,7 @@ public:
   virtual bool isChild(Widget*)=0;
   virtual Widget* child(int)=0;
   virtual std::list<Widget*> children()=0;
+
 
   //informs the child to clear their parent,
   //then clears the child from our record

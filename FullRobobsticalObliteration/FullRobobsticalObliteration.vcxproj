@@ -124,6 +124,7 @@
     <ClCompile Include="gamestate.cc" />
     <ClCompile Include="gamestatemainmenu.cc" />
     <ClCompile Include="gamestatemanager.cc" />
+    <ClCompile Include="gamestateprogram.cc" />
     <ClCompile Include="gametime.cc" />
     <ClCompile Include="inputmanager.cc" />
     <ClCompile Include="main.cc" />
@@ -135,6 +136,7 @@
     <ClCompile Include="spriteatlas.cc" />
     <ClCompile Include="updateable.cc" />
     <ClCompile Include="widget.cc" />
+    <ClCompile Include="widgetlocation.cc" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="buttonwidget.h" />
@@ -143,6 +145,7 @@
     <ClInclude Include="gamestate.h" />
     <ClInclude Include="gamestatemainmenu.h" />
     <ClInclude Include="gamestatemanager.h" />
+    <ClInclude Include="gamestateprogram.h" />
     <ClInclude Include="gametime.h" />
     <ClInclude Include="inputmanager.h" />
     <ClInclude Include="mywindowwrapper.h" />
@@ -154,6 +157,7 @@
     <ClInclude Include="spriteatlas.h" />
     <ClInclude Include="updateable.h" />
     <ClInclude Include="widget.h" />
+    <ClInclude Include="widgetlocation.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\FullRobobsticalObliteration.uxf" />

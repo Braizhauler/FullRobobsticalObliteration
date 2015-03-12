@@ -163,15 +163,13 @@ void ButtonWidget::clearFocus() {
 double ButtonWidget::width() {
   return (right_ - left_);
 }
-
 void ButtonWidget::setWidth(double width) {
-  right_ = left_+width;
+  right_ = (left_ + width);
 }
 
 double ButtonWidget::height() {
   return (bottom_ - top_);
 }
-
 void ButtonWidget::setHeight(double height) {
   bottom_ = (top_ + height);
 }
@@ -180,41 +178,38 @@ void ButtonWidget::setHeight(double height) {
 double ButtonWidget::left() {
   return left_;
 }
-
-void ButtonWidget::setLeft(double left) {
-  left_ = left;
+void ButtonWidget::setLeft(double new_left) {
+  right_ += new_left - left_;
+  left_ = new_left;
 }
  
 double ButtonWidget::right() {
   return right_;
 }
-
-void ButtonWidget::setRight(double right) {
-  left_ += right - right_;
-  right_ = right;
+void ButtonWidget::setRight(double new_right) {
+  left_ += new_right - right_;
+  right_ = new_right;
 }
  
 double ButtonWidget::top() {
   return top_;
 }
-
-void ButtonWidget::setTop(double top) {
-  top_ = top;
+void ButtonWidget::setTop(double new_top) {
+  bottom_ += new_top - top_;
+  top_ = new_top;
 }
   
 double ButtonWidget::bottom() {
   return bottom_;
 }
-
-void ButtonWidget::setBottom(double bottom) {
-  top_ += bottom - bottom_;
-  bottom_ = bottom;
+void ButtonWidget::setBottom(double new_bottom) {
+  top_ += new_bottom - bottom_;
+  bottom_ = new_bottom;
 }
 
 double ButtonWidget::depth() {
   return depth_;
 }
-
 void ButtonWidget::setDepth(double depth) {
   depth_ = depth;
 }

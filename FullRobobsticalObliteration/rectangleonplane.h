@@ -18,14 +18,9 @@
 #include "rectangle.h"
 #include "point.h"
 
-class RectangleOnPlane: public Rectangle {
+class RectangleOnPlane: public virtual Rectangle {
 public:
   virtual ~RectangleOnPlane(void) {};
-  //returns true if:
-  //x is between left and right
-  //y is between top and bottom
-  virtual bool containPoint(double x, double y)=0;
-  virtual bool containPoint(Point)=0;
 
   virtual double left()=0;
   virtual double right()=0;

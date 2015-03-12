@@ -3,7 +3,7 @@
 * Author: Greg Howlett (GregTHowlett@Gmail.com)
 * Created: 2015 FEB 12
 * Version: 0
-* Revised: 2015 FEB 12
+* Revised: 2015 MAR 12
 *
 * RectangleInSpace:
 *   An interface for a rectangle on a plane
@@ -17,7 +17,7 @@
 
 #include "rectangleonplane.h"
 
-class RectangleInSpace:public RectangleOnPlane {
+class RectangleInSpace:public virtual RectangleOnPlane {
 public:
   virtual ~RectangleInSpace(void) {};
   virtual double depth()=0;

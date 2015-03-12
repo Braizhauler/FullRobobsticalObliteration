@@ -19,18 +19,18 @@
     <Filter Include="Header Files\States">
       <UniqueIdentifier>{9fd65ced-b5a9-4c82-b88e-38d6216c8c00}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Widgets">
+      <UniqueIdentifier>{7390a0f8-a621-498f-a4fd-c12564acba57}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\States">
+      <UniqueIdentifier>{74e7ae32-27da-4e47-b77e-febbbe507d65}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="gamestate.cc">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="mywindowwrapper.cc">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="gamestatemanager.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="renderable.cc">
@@ -54,23 +54,35 @@
     <ClCompile Include="rectangleinspace.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="widget.cc">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="rectangleonplane.cc">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="gamestatemainmenu.cc">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="framewidget.cc">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="buttonwidget.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="focusable.cc">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="buttonwidget.cc">
+      <Filter>Source Files\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="framewidget.cc">
+      <Filter>Source Files\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="widget.cc">
+      <Filter>Source Files\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="widgetlocation.cc">
+      <Filter>Source Files\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="gamestateprogram.cc">
+      <Filter>Source Files\States</Filter>
+    </ClCompile>
+    <ClCompile Include="gamestatemainmenu.cc">
+      <Filter>Source Files\States</Filter>
+    </ClCompile>
+    <ClCompile Include="gamestatemanager.cc">
+      <Filter>Source Files\States</Filter>
+    </ClCompile>
+    <ClCompile Include="gamestate.cc">
+      <Filter>Source Files\States</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -124,6 +136,12 @@
     </ClInclude>
     <ClInclude Include="spriteatlas.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="gamestateprogram.h">
+      <Filter>Header Files\States</Filter>
+    </ClInclude>
+    <ClInclude Include="widgetlocation.h">
+      <Filter>Header Files\Widgets</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
