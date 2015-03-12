@@ -56,7 +56,13 @@ void ButtonWidget::Draw(void) {
     glVertex3d(right_- 0.3,top_ + 0.3, depth_);
     glVertex3d(right_,top_,depth_);
   glEnd();
-  if(has_focus_) {
+
+}
+
+//TODO, Move focus from widget to interface Focusable and game states
+void ButtonWidget::Draw(bool has_focus) {
+  Draw();
+  if(has_focus) {
     glColor3f(0.8f, 0.8f, 0.0f);
     glBegin(GL_LINE_LOOP);
       glVertex3d(left_,top_,depth_);
@@ -66,7 +72,6 @@ void ButtonWidget::Draw(void) {
     glEnd();
   }
 }
-
 bool ButtonWidget::containPoint(Point point) {
   return containPoint(point.x, point.y);
 }

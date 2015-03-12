@@ -17,6 +17,8 @@
 
 GameStateMainMenu::GameStateMainMenu(GameStateManager* manager) {
   game_state_manager_ = manager;
+  focus_ = nullptr;
+
   button_1_ = ButtonWidget(game_state_manager_);
   button_1_.setColor(0.8f, 0.8f, 0.8f);
   button_1_.setTop(3.0);
@@ -108,13 +110,13 @@ bool GameStateMainMenu::Opaque(void) {
   return false;
 }
 
-void GameStateMainMenu::Focus(Widget* new_focus) {
-  button_1_.clearFocus();
-  button_2_.clearFocus();
-  new_focus->setFocus();
+void GameStateMainMenu::Focus(Focusable* new_focus) {
+  focus_ = new_focus;
 }
 
 void GameStateMainMenu::Draw(void) {
   button_1_.Draw();
   button_2_.Draw();
+  if(focus_ != nullptr)
+    focus_->Draw(true);
 }

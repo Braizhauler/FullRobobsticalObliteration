@@ -78,7 +78,7 @@ public:
   GLFWwindow * context(void);
 
   friend void MyWindowControl::ResizeWindow(GLFWwindow* window, int width, int height);
-private:
+private: 
   // Member Variables
 	GLFWwindow* window_;
   MouseOffsetFunc mouse_offset_function_;

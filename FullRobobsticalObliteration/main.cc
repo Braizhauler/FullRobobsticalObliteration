@@ -58,7 +58,9 @@ int main (int num_of_arugments, char * argument_list[])  {
 
   MyWindowWrapper window;
   
-  window.Init( mode->width, mode->height, "Full Robobstical Obliteration\0");
+  //DEBUG
+  //window.Init( mode->width, mode->height, "Full Robobstical Obliteration\0");
+  window.Init( 800, 600, "Full Robobstical Obliteration\0");
 
 
   // Initialize GLEW
