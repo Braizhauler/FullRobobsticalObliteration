@@ -83,9 +83,6 @@
     <ClInclude Include="inputmanager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="spriteatlas.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="updateable.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -123,6 +120,9 @@
       <Filter>Header Files\Widgets</Filter>
     </ClInclude>
     <ClInclude Include="focusable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="spriteatlas.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
