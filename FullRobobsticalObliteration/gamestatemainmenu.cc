@@ -3,7 +3,7 @@
 * Author: Greg Howlett (GregTHowlett@Gmail.com)
 * Created: 2015 MAR 01
 * Version: 0
-* Revised: 2015 MAR 01
+* Revised: 2015 MAR 12
 *
 * GameStateMainMenu:
 *   An implementation of GameState for a game states to be used by
@@ -18,7 +18,7 @@
 GameStateMainMenu::GameStateMainMenu(GameStateManager* manager) {
   game_state_manager_ = manager;
   focus_ = nullptr;
-
+  WidgetLocation (6.0, 3.0, 3.0, 3.0, -1.0);
   button_1_ = ButtonWidget(game_state_manager_);
   button_1_.setColor(0.8f, 0.8f, 0.8f);
   button_1_.setTop(3.0);
@@ -114,7 +114,7 @@ void GameStateMainMenu::Focus(Focusable* new_focus) {
   focus_ = new_focus;
 }
 
-void GameStateMainMenu::Draw(void) {
+void GameStateMainMenu::Draw(void) const {
   button_1_.Draw();
   button_2_.Draw();
   if(focus_ != nullptr)

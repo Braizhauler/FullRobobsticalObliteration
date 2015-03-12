@@ -3,7 +3,7 @@
 * Author: Greg Howlett (GregTHowlett@Gmail.com)
 * Created: 2015 MAR 01
 * Version: 0
-* Revised: 2015 MAR 01
+* Revised: 2015 MAR 12
 *
 * GameStateMainMenu:
 *   An implementation of GameState for a game states to be used by
@@ -57,7 +57,7 @@ public:
 
   void Focus(Focusable* new_focus);
 
-  void Draw(void);
+  void Draw(void) const;
 private:
   //Member Variables
   GameStateManager* game_state_manager_;

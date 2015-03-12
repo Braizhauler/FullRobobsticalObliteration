@@ -20,7 +20,7 @@ public:
   //Constructors and Destructor
   virtual ~Renderable(void) {};
 
-  virtual void Draw(void) = 0;
+  virtual void Draw(void) const = 0;
 };
 
 #endif //RENDERABLE_H

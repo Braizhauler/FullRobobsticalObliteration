@@ -43,7 +43,7 @@ public:
   void MouseButtonReleased(int button, double x_position, double  y_position);
   void MouseButtonClicked(int button, double cursor_x_, double cursor_y_);
 
-  void Draw();
+  void Draw() const;
   void Update(GameTime frameNumber);
 
   void Exit();

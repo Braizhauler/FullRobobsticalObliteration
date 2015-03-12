@@ -82,7 +82,7 @@ void GameStateManager::MouseButtonClicked(int button,
 
 
 //Calls the render of all active renderables, from the bottom up
-void GameStateManager::Draw() {
+void GameStateManager::Draw() const {
   
   // Set the background to the clear color
   glClear(GL_COLOR_BUFFER_BIT);

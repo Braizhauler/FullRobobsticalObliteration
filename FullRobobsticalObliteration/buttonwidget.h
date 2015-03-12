@@ -19,6 +19,7 @@
 
 #include "gamestatemanager.h"
 #include "widget.h"
+#include "widgetlocation.h"
 #include "focusable.h"
 
 class ButtonWidget: public Widget, public Focusable
@@ -26,10 +27,11 @@ class ButtonWidget: public Widget, public Focusable
 public:
   //Constructors, and Destructor
   ButtonWidget(GameStateManager* manager = nullptr);
+  ButtonWidget(GameStateManager* manager, const WidgetLocation location);
   ~ButtonWidget(void);
 
-  void Draw(void);
-  void Draw(const bool has_focus);
+  void Draw(void) const;
+  void Draw(const bool has_focus) const;
   
   bool containPoint(Point point);
   bool containPoint(double x, double y);

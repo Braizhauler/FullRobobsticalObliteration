@@ -21,7 +21,7 @@ public:
   //Constructors and Destructor
   virtual ~Focusable(void) {};
 
-  virtual void Draw(const bool focused) = 0;
+  virtual void Draw(const bool focused) const = 0;
 };
 
 #endif //FOCUSABLE_H
