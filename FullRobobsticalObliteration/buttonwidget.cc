@@ -16,9 +16,12 @@
 
 ButtonWidget::ButtonWidget(GameStateManager* manager) {
   game_state_manager_ = manager;
-  color_[0] = 1.0f;
-  color_[1] = 1.0f;
-  color_[2] = 1.0f;
+
+  setColor(0.8f,0.8f,0.8f);
+
+  has_focus_ = false;
+  is_pressed_ = false;
+
   top_= 0.0;
   bottom_= 5.0;
   left_= 0.0;
@@ -32,18 +35,43 @@ ButtonWidget::~ButtonWidget(void) {
 
 
 void ButtonWidget::Draw(void) {
-  glColor3f(color_[0],color_[1],color_[2]);
+  is_pressed_ ?
+    glColor3f(pressed_color_[0],pressed_color_[1],pressed_color_[2]) :
+    glColor3f(button_color_[0],button_color_[1],button_color_[2]);
   glBegin(GL_TRIANGLE_FAN);
     glVertex3d(left_,top_,depth_);
-    glColor3f(0.0f,1.0f,1.0f);
     glVertex3d(right_,top_,depth_);
-    glColor3f(1.0f,1.0f,1.0f);
     glVertex3d(right_,bottom_,depth_);
-    glColor3f(color_[0],color_[1],color_[2]);
     glVertex3d(left_,bottom_,depth_);
   glEnd();
+  if(is_pressed_)
+    glColor3f(pressed_shadow_[0], pressed_shadow_[1], pressed_shadow_[2]);
+  else
+    glColor3f(button_shadow_[0], button_shadow_[1], button_shadow_[2]);
+  glBegin(GL_TRIANGLE_FAN);
+    glVertex3d(right_, bottom_, depth_);
+    glVertex3d(left_, bottom_, depth_);
+    glVertex3d(left_+ 0.3,bottom_-0.3, depth_);
+    glVertex3d(right_- 0.3,bottom_-0.3, depth_);
+    glVertex3d(right_- 0.3,top_ + 0.3, depth_);
+    glVertex3d(right_,top_,depth_);
+  glEnd();
+
 }
 
+//TODO, Move focus from widget to interface Focusable and game states
+void ButtonWidget::Draw(bool has_focus) {
+  Draw();
+  if(has_focus) {
+    glColor3f(0.8f, 0.8f, 0.0f);
+    glBegin(GL_LINE_LOOP);
+      glVertex3d(left_,top_,depth_);
+      glVertex3d(right_,top_,depth_);
+      glVertex3d(right_,bottom_,depth_);
+      glVertex3d(left_,bottom_,depth_);
+    glEnd();
+  }
+}
 bool ButtonWidget::containPoint(Point point) {
   return containPoint(point.x, point.y);
 }
@@ -113,6 +141,25 @@ void ButtonWidget::deleteChildren() {
 void ButtonWidget::addChild(Widget*) {
 }
 
+bool ButtonWidget::pressed() {
+  return is_pressed_;
+}
+void ButtonWidget::setPressed(bool pressed_state) {
+  is_pressed_ = pressed_state;
+}
+
+bool ButtonWidget::focus() {
+  return has_focus_;
+}
+
+void ButtonWidget::setFocus() {
+  has_focus_ = true;
+}
+
+void ButtonWidget::clearFocus() {
+  has_focus_ = false;
+}
+
 double ButtonWidget::width() {
   return (right_ - left_);
 }
@@ -174,13 +221,22 @@ void ButtonWidget::setDepth(double depth) {
 
 
 const float* ButtonWidget::color() {
-  return color_;
+  return button_color_;
 }
 
 void ButtonWidget::setColor(const float red,
                             const float green,
                             const float blue) {
-  color_[0] = red;
-  color_[1] = green;
-  color_[2] = blue;
+  button_color_[0] = red;
+  button_color_[1] = green;
+  button_color_[2] = blue;
+  button_shadow_[0] = red / 2;
+  button_shadow_[1] = green / 2;
+  button_shadow_[2] = blue / 2;
+  pressed_color_[0] = red / 2;
+  pressed_color_[1] = green / 2;
+  pressed_color_[2] = blue / 2;
+  pressed_shadow_[0] = red / 4;
+  pressed_shadow_[1] = green / 4;
+  pressed_shadow_[2] = blue / 4;
 }

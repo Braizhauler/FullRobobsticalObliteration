@@ -23,6 +23,7 @@ MyWindowWrapper::MyWindowWrapper() {
   window_width_ = 0;
   window_height_ = 0;
   title_ = nullptr;
+  mouse_offset_function_ = nullptr;
 }
  
 MyWindowWrapper::~MyWindowWrapper(void) {
@@ -92,7 +93,6 @@ void MyWindowWrapper::SwapBuffers() {
 
 
 void MyWindowWrapper::Resize(const int width,const int height)  {
-  
   int window_width_ = width;
   int window_height_ = height;
   glViewport(0,0,window_width_, window_height_);
@@ -124,6 +124,9 @@ void MyWindowWrapper::Resize(const int width,const int height)  {
           -display_offset_y_, //top
           -1, //near
           10); //far
+
+  if(mouse_offset_function_ != nullptr)
+    mouse_offset_function_(display_offset_x_,display_offset_y_,display_scale_);
 }
 
 void MyWindowWrapper::RegisterResize(GLFWwindowsizefun)  {
@@ -143,6 +146,11 @@ void MyWindowWrapper::RegisterMouse(GLFWcursorenterfun cursorenterFunc,
   glfwSetMouseButtonCallback(window_, buttonFunc);
   glfwSetScrollCallback(window_, scrollwheelFunc);
   glfwSetCursorEnterCallback(window_, cursorenterFunc);
+}
+
+void MyWindowWrapper::RegisterMouseOffsets(const MouseOffsetFunc offsetfunc) {
+  mouse_offset_function_ = offsetfunc;
+  mouse_offset_function_(display_offset_x_,display_offset_y_,display_scale_);
 }
 
 double MyWindowWrapper::scale() {

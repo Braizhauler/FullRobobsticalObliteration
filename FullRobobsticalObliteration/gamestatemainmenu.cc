@@ -17,13 +17,23 @@
 
 GameStateMainMenu::GameStateMainMenu(GameStateManager* manager) {
   game_state_manager_ = manager;
-  button_ = ButtonWidget(game_state_manager_);
-  button_.setColor(1.0f, 0.0f, 0.5f);
-  button_.setTop(3.0);
-  button_.setLeft(3.0);
-  button_.setHeight(3.0);
-  button_.setWidth(3.0);
-  button_.setDepth(-1.0);
+  focus_ = nullptr;
+
+  button_1_ = ButtonWidget(game_state_manager_);
+  button_1_.setColor(0.8f, 0.8f, 0.8f);
+  button_1_.setTop(3.0);
+  button_1_.setLeft(3.0);
+  button_1_.setHeight(3.0);
+  button_1_.setWidth(6.0);
+  button_1_.setDepth(-1.0);
+
+  button_2_ = ButtonWidget(game_state_manager_);
+  button_2_.setColor(0.8f, 0.8f, 0.8f);
+  button_2_.setTop(3.0);
+  button_2_.setLeft(10.0);
+  button_2_.setHeight(3.0);
+  button_2_.setWidth(6.0);
+  button_2_.setDepth(-1.0);
 }
 
 GameStateMainMenu::~GameStateMainMenu(void) {
@@ -50,34 +60,63 @@ void GameStateMainMenu::Unload() {
 void GameStateMainMenu::CursorMove(bool left_mouse_button_down,
                                    double x_position,
                                    double y_position) {
+  if(!left_mouse_button_down) {
+    if(button_1_.pressed())
+      button_1_.setPressed(false);
+    if(button_2_.pressed())
+      button_2_.setPressed(false);
+  }
 }
 void GameStateMainMenu::MouseButtonPressed(int button,
                                            double x_position,
                                            double y_position) {
+  if(button_1_.containPoint(x_position,y_position) ) {
+    button_1_.setPressed(true);
+    Focus(&button_1_);
+  }
+  if(button_2_.containPoint(x_position,y_position) ) {
+    button_2_.setPressed(true);
+    Focus(&button_2_);
+  }
 }
 void GameStateMainMenu::MouseButtonReleased(int button,
                                             double x_position,
                                             double y_position) {
+  if(button_1_.pressed())
+    button_1_.setPressed(false);
+  if(button_2_.pressed())
+    button_2_.setPressed(false);
 }
 void GameStateMainMenu::MouseButtonClicked(int button,
                                            double x_position,
                                            double y_position) {
-  if(button_.containPoint(x_position,y_position) )
-    button_.setColor(0.0f,1.0f,0.0f);
+  if(button_1_.containPoint(x_position,y_position) ) {
+    const float * button_1_color( button_1_.color() );
+    if(button_1_color[0] == 0.6f)
+      button_1_.setColor(0.8f,0.8f,0.8f);
+    else
+      button_1_.setColor(0.6f,0.7f,0.9f);
+  }
+  if(button_2_.containPoint(x_position,y_position) ) {
+    const float * button_2_color( button_2_.color() );
+    if(button_2_color[0] == 0.6f)
+      button_2_.setColor(0.8f,0.8f,0.8f);
+    else
+      button_2_.setColor(0.6f,0.7f,0.9f);
+  }
 }
-
 
 bool GameStateMainMenu::Opaque(void) {
   return false;
 }
 
+void GameStateMainMenu::Focus(Focusable* new_focus) {
+  focus_ = new_focus;
+}
+
 void GameStateMainMenu::Draw(void) {
-  glBegin(GL_TRIANGLE_FAN);
-    glColor3f(0.3f, 0.3f, 0.3f);
-    glVertex3f( 0.0f,  0.0f, 0.0f);
-    glVertex3f(84.0f,  0.0f, 0.0f);
-    glVertex3f(84.0f, 54.0f, 0.0f);
-    glVertex3f( 0.0f, 54.0f, 0.0f);
-  glEnd();
-  button_.Draw();
+  button_1_.Draw();
+  button_2_.Draw();
+  if(focus_ != nullptr)
+    focus_->Draw(true);
 }

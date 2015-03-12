@@ -69,6 +69,9 @@
     <ClCompile Include="buttonwidget.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="focusable.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mywindowwrapper.h">
@@ -118,6 +121,9 @@
     </ClInclude>
     <ClInclude Include="buttonwidget.h">
       <Filter>Header Files\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="focusable.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -21,6 +21,7 @@
 
 #include "gamestate.h"
 #include "renderable.h"
+#include "focusable.h"
 #include "framewidget.h"
 #include "buttonwidget.h"
 
@@ -54,11 +55,15 @@ public:
 
   bool Opaque(void);
 
+  void Focus(Focusable* new_focus);
+
   void Draw(void);
 private:
   //Member Variables
   GameStateManager* game_state_manager_;
-  ButtonWidget button_;
+  Focusable* focus_;
+  ButtonWidget button_1_;
+  ButtonWidget button_2_;
 };
 
 

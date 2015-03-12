@@ -50,8 +50,6 @@ public:
 
   //adds the passed widget to our children record
   virtual void addChild(Widget*)=0;
-
-
 };
 
 #endif //WIDGET_H
