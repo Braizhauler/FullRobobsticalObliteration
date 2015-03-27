@@ -69,10 +69,6 @@ public:
   bool pressed();
   void setPressed(bool);
 
-  bool focus();
-  void setFocus();
-  void clearFocus();
-  
   double width();
   //maintains left
   void setWidth(double);
@@ -114,7 +110,6 @@ private:
   double depth_;
 
   bool is_pressed_;
-  bool has_focus_;
 
   float button_color_[3]; //0 red; 1 green; 2 blue;
   float button_shadow_[3]; //0 red; 1 green; 2 blue;

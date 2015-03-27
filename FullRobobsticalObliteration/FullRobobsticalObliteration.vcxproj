@@ -85,7 +85,7 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>glew32.lib;glfw3.lib;Opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glew32.lib;glfw3.lib;Opengl32.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -119,7 +119,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="buttonwidget.cc" />
+    <ClCompile Include="cardwidget.cc" />
     <ClCompile Include="focusable.cc" />
+    <ClCompile Include="fontdata.cc" />
     <ClCompile Include="framewidget.cc" />
     <ClCompile Include="gamestate.cc" />
     <ClCompile Include="gamestatemainmenu.cc" />
@@ -140,7 +142,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="buttonwidget.h" />
+    <ClInclude Include="cardwidget.h" />
     <ClInclude Include="focusable.h" />
+    <ClInclude Include="fontdata.h" />
     <ClInclude Include="framewidget.h" />
     <ClInclude Include="gamestate.h" />
     <ClInclude Include="gamestatemainmenu.h" />

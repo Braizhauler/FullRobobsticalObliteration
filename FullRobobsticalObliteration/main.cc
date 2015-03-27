@@ -24,6 +24,9 @@
 // Include GLFW
 #include <glfw3.h>
 
+//#include <ft2build.h>
+//#include FT_FREETYPE_H
+
 #include "mywindowwrapper.h"
 #include "gamestatemanager.h"
 #include "inputmanager.h"
@@ -34,7 +37,6 @@ std::map<GLFWwindow*, MyWindowWrapper*> glfw_to_mywindowwrapper;
 }
 
 int main (int num_of_arugments, char * argument_list[])  {
-  
   // Initialise GLFW
   if( !glfwInit() )
   {

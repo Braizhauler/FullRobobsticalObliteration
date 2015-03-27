@@ -19,7 +19,6 @@ ButtonWidget::ButtonWidget(GameStateManager* manager) {
 
   setColor(0.8f,0.8f,0.8f);
 
-  has_focus_ = false;
   is_pressed_ = false;
 
   top_= 0.0;
@@ -34,7 +33,6 @@ ButtonWidget::ButtonWidget(GameStateManager* manager, WidgetLocation location) {
 
   setColor(0.8f,0.8f,0.8f);
 
-  has_focus_ = false;
   is_pressed_ = false;
 
   top_= location.top();
@@ -159,18 +157,6 @@ bool ButtonWidget::pressed() {
 }
 void ButtonWidget::setPressed(bool pressed_state) {
   is_pressed_ = pressed_state;
-}
-
-bool ButtonWidget::focus() {
-  return has_focus_;
-}
-
-void ButtonWidget::setFocus() {
-  has_focus_ = true;
-}
-
-void ButtonWidget::clearFocus() {
-  has_focus_ = false;
 }
 
 double ButtonWidget::width() {

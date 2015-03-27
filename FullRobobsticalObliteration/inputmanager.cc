@@ -96,7 +96,7 @@ void InputManager::CursorPositionFunction(GLFWwindow * window,
     cursor_x_=(x_position/mouse_input_scale_) - mouse_offset_x_;
     cursor_y_=(y_position/mouse_input_scale_) - mouse_offset_y_;
     //DEBUG
-    std::cout<<"("<<cursor_x_<<", "<<cursor_y_<<")"<<std::endl;
+    //std::cout<<"("<<cursor_x_<<", "<<cursor_y_<<")"<<std::endl;
     game_state_manager_->CursorMove(mouse_button_[0], cursor_x_, cursor_y_);
   }
 } 
