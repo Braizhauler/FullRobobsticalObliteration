@@ -54,11 +54,15 @@ void GameStateMainMenu::Unload() {
 void GameStateMainMenu::CursorMove(bool left_mouse_button_down,
                                    double x_position,
                                    double y_position) {
+
   if(!left_mouse_button_down) {
     if(button_1_.pressed())
       button_1_.setPressed(false);
     if(button_2_.pressed())
       button_2_.setPressed(false);
+  }
+  if(card_1_.dragging()) {
+    card_1_.DragTo(x_position, y_position);
   }
 }
 void GameStateMainMenu::MouseButtonPressed(int button,
@@ -73,6 +77,7 @@ void GameStateMainMenu::MouseButtonPressed(int button,
     Focus(&button_2_);
   }
   if(card_1_.containPoint(x_position,y_position) ) {
+    card_1_.DragStart(x_position,y_position);
     Focus(&card_1_);
   }
 }
@@ -83,6 +88,8 @@ void GameStateMainMenu::MouseButtonReleased(int button,
     button_1_.setPressed(false);
   if(button_2_.pressed())
     button_2_.setPressed(false);
+  if(card_1_.dragging())
+    card_1_.DragEnd(x_position,y_position);
 }
 void GameStateMainMenu::MouseButtonClicked(int button,
                                            double x_position,

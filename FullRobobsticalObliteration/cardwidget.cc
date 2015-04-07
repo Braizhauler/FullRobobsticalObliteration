@@ -19,12 +19,9 @@ CardWidget::CardWidget(GameStateManager* manager) {
 
   setColor(0.8f,0.8f,0.8f);
 
+  dragging_ = false;
 
-  current_location_.setTop(0.0);
-  current_location_.setBottom(5.0);
-  current_location_.setLeft(0.0);
-  current_location_.setRight(10.0);
-  current_location_.setDepth(0.0);
+  current_location_ = WidgetLocation(8.0, 12.0, 0.0, 0.0, 0.0);
 }
 
 CardWidget::CardWidget(GameStateManager* manager, WidgetLocation location) {
@@ -32,11 +29,47 @@ CardWidget::CardWidget(GameStateManager* manager, WidgetLocation location) {
 
   setColor(0.8f,0.8f,0.8f);
 
+  dragging_ = false;
+
   current_location_ = location;
 }
 
 CardWidget::~CardWidget(void) {
 }
+
+const float* CardWidget::color() {
+  return color_;
+}
+
+void CardWidget::setColor(const float red,
+                          const float green,
+                          const float blue) {
+  color_[0] = red;
+  color_[1] = green;
+  color_[2] = blue;
+}
+
+const bool CardWidget::dragging() const {
+  return dragging_;
+}
+
+void CardWidget::DragStart(double x, double y) {
+  dragging_=true;
+  drag_location_=current_location_;
+  drag_point_.x=x-current_location_.left();
+  drag_point_.y=y-current_location_.top();
+}
+void CardWidget::DragTo(double x, double y) {
+  drag_location_.setLeft(x-drag_point_.x);
+  drag_location_.setTop(y-drag_point_.y);
+}
+void CardWidget::DragEnd(double x, double y) {
+  current_location_=drag_location_;
+  drag_point_.x=x;
+  drag_point_.y=y;
+  dragging_=false;
+}
+
 
 void CardWidget::Draw(void) const {
   glColor3f(color_[0],color_[1],color_[2]);
@@ -54,6 +87,25 @@ void CardWidget::Draw(void) const {
                current_location_.bottom(),
                current_location_.depth());
   glEnd();
+  if(dragging_) {
+    glColor3f(0.8f, 0.4f, 0.4f);
+    glLineWidth(3);
+      glBegin(GL_LINE_LOOP);
+      glVertex3d(drag_location_.left(),
+                 drag_location_.top(),
+                 drag_location_.depth());
+      glVertex3d(drag_location_.right(),
+                 drag_location_.top(),
+                 drag_location_.depth());
+      glVertex3d(drag_location_.right(),
+                 drag_location_.bottom(),
+                 drag_location_.depth());
+      glVertex3d(drag_location_.left(),
+                 drag_location_.bottom(),
+                 drag_location_.depth());
+    glEnd();
+    glLineWidth(1);
+  };
 }
 
 //TODO, Move focus from widget to interface Focusable and game states
@@ -151,16 +203,4 @@ const double CardWidget::depth() const {
 }
 void CardWidget::setDepth(double new_depth) {
  current_location_.setDepth(new_depth);
-}
-
-const float* CardWidget::color() {
-  return color_;
-}
-
-void CardWidget::setColor(const float red,
-                          const float green,
-                          const float blue) {
-  color_[0] = red;
-  color_[1] = green;
-  color_[2] = blue;
 }

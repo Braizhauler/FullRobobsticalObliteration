@@ -31,13 +31,26 @@ public:
   CardWidget(GameStateManager* manager, const WidgetLocation location);
   ~CardWidget(void);
 
+  const float* color();
+  void setColor(const float red, const float green, const float blue);
+
+  const bool dragging() const;
+
+  void DragStart(double x, double y);
+  void DragTo(double x, double y);
+  void DragEnd(double x, double y);
+
+  /*******************
+  * From Renderable */
   void Draw(void) const;
   void Draw(const bool has_focus) const;
   
+
+  /*******************
+  * From Widget */
   const bool containPoint(Point point);
   const bool containPoint(double x, double y);
 
-  //Methods
   const FrameWidget* parent() const;
   void setParent(FrameWidget*);
 
@@ -67,16 +80,14 @@ public:
   
   const double depth() const;
   void setDepth(double);
-
-  const float* color();
-  void setColor(const float red, const float green, const float blue);
 private:
   //Member Variables
   GameStateManager* game_state_manager_;
   FrameWidget* parent_;
-  bool dragging;
+  bool dragging_;
+  Point drag_point_;
   WidgetLocation current_location_;
-  WidgetLocation former_location_;
+  WidgetLocation drag_location_;
   float color_[3];
 };
 
