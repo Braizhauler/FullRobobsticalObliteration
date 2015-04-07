@@ -3,7 +3,7 @@
 * Author: Greg Howlett (GregTHowlett@Gmail.com)
 * Created: 2015 FEB 17
 * Version: 0
-* Revised: 2015 MAR 10
+* Revised: 2015 MAR 27
 *
 * Button_Widget:
 *   A gui widget which has a responds to mouse clicks
@@ -19,8 +19,11 @@
 
 #include "gamestatemanager.h"
 #include "widget.h"
+#include "framewidget.h"
 #include "widgetlocation.h"
 #include "focusable.h"
+
+
 
 class ButtonWidget: public Widget, public Focusable
 {
@@ -33,15 +36,15 @@ public:
   void Draw(void) const;
   void Draw(const bool has_focus) const;
   
-  bool containPoint(Point point);
-  bool containPoint(double x, double y);
+  const bool containPoint(Point point);
+  const bool containPoint(double x, double y);
 
   //Methods
-  Widget* parent();
-  void setParent(Widget*);
+  const FrameWidget* parent() const;
+  void setParent(FrameWidget*);
 
   //returns true if argument is a child of this
-  bool isChild(Widget* widget);
+  const bool isChild(Widget* widget);
   //returns a widget in position child_number
   Widget* child(int child_number);
   //returns the list of widget pointers that are children of this
@@ -66,34 +69,34 @@ public:
   void addChild(Widget*);
 
   //Accessors and Mutators
-  bool pressed();
+  const bool pressed() const;
   void setPressed(bool);
 
-  double width();
+  const double width() const;
   //maintains left
   void setWidth(double);
 
-  double height();
+  const double height() const;
   //maintains top
   void setHeight(double);
   
-  double left();
+  const double left() const;
   //maintains width
   void setLeft(double);
   
-  double right();
+  const double right() const;
   //maintains width
   void setRight(double);
   
-  double top();
+  const double top() const;
   //maintains height
   void setTop(double);
   
-  double bottom();
+  const double bottom() const;
   //maintains height
   void setBottom(double);
   
-  double depth();
+  const double depth() const;
   void setDepth(double);
 
   const float* color();
@@ -101,7 +104,7 @@ public:
 private:
   //Member Variables
   GameStateManager* game_state_manager_;
-  Widget* parent_;
+  FrameWidget* parent_;
   std::list<Widget*> child_list_;
   double top_;
   double left_;

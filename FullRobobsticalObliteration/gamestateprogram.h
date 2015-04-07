@@ -16,6 +16,8 @@
 #define GAME_STATE_PROGRAM_H_
 
 #include "gamestate.h"
+#include "cardwidget.h"
+
 class GameStateProgram : public GameState
 {
 public:
@@ -56,6 +58,9 @@ public:
   void MouseButtonClicked(int button,
                            double x_position,
                            double y_position);
+private:
+  CardWidget card_;
+  GameStateManager* manager_;
 };
 
 #endif//GAME_STATE_PROGRAM_H_

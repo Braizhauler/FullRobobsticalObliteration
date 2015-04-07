@@ -19,7 +19,6 @@ InputManager::InputManager(GameStateManager* state_manager) {
   game_state_manager_ = state_manager;
 }
 
-
 InputManager* InputManager::input_manager_instance_ = nullptr;
 
 GameStateManager* InputManager::game_state_manager_ = nullptr;

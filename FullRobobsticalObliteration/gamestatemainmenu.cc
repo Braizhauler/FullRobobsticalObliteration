@@ -25,6 +25,9 @@ GameStateMainMenu::GameStateMainMenu(GameStateManager* manager) {
   button_2_ = ButtonWidget(game_state_manager_,
                            WidgetLocation (6.0, 3.0, 10.0, 3.0, -1.0));
   button_2_.setColor(0.8f, 0.8f, 0.8f);
+
+  card_1_ = CardWidget(game_state_manager_,
+                       WidgetLocation (8.0, 12.0, 10.0, 10.0, 1.0));
 }
 
 GameStateMainMenu::~GameStateMainMenu(void) {
@@ -69,6 +72,9 @@ void GameStateMainMenu::MouseButtonPressed(int button,
     button_2_.setPressed(true);
     Focus(&button_2_);
   }
+  if(card_1_.containPoint(x_position,y_position) ) {
+    Focus(&card_1_);
+  }
 }
 void GameStateMainMenu::MouseButtonReleased(int button,
                                             double x_position,
@@ -108,6 +114,7 @@ void GameStateMainMenu::Focus(Focusable* new_focus) {
 void GameStateMainMenu::Draw(void) const {
   button_1_.Draw();
   button_2_.Draw();
+  card_1_.Draw();
   if(focus_ != nullptr)
     focus_->Draw(true);
 }

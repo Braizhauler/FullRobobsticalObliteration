@@ -1,9 +1,9 @@
 /*******************************************************************************
 * File: cardwidget.cc
 * Author: Greg Howlett (GregTHowlett@Gmail.com)
-* Created: 2015 Feb 20
+* Created: 2015 MAR 27
 * Version: 0
-* Revised: 2015 MAR 10
+* Revised: 2015 MAR 27
 *
 * CardWidget:
 *   A gui widget which has a responds to mouse clicks
@@ -19,11 +19,12 @@ CardWidget::CardWidget(GameStateManager* manager) {
 
   setColor(0.8f,0.8f,0.8f);
 
-  top_= 0.0;
-  bottom_= 5.0;
-  left_= 0.0;
-  right_= 10.0;
-  depth_ = 0.0;
+
+  current_location_.setTop(0.0);
+  current_location_.setBottom(5.0);
+  current_location_.setLeft(0.0);
+  current_location_.setRight(10.0);
+  current_location_.setDepth(0.0);
 }
 
 CardWidget::CardWidget(GameStateManager* manager, WidgetLocation location) {
@@ -31,11 +32,7 @@ CardWidget::CardWidget(GameStateManager* manager, WidgetLocation location) {
 
   setColor(0.8f,0.8f,0.8f);
 
-  top_= location.top();
-  bottom_= location.bottom();
-  left_= location.left();
-  right_= location.right();
-  depth_ = location.depth();
+  current_location_ = location;
 }
 
 CardWidget::~CardWidget(void) {
@@ -44,10 +41,18 @@ CardWidget::~CardWidget(void) {
 void CardWidget::Draw(void) const {
   glColor3f(color_[0],color_[1],color_[2]);
   glBegin(GL_TRIANGLE_FAN);
-    glVertex3d(left_,top_,depth_);
-    glVertex3d(right_,top_,depth_);
-    glVertex3d(right_,bottom_,depth_);
-    glVertex3d(left_,bottom_,depth_);
+    glVertex3d(current_location_.left(),
+               current_location_.top(),
+               current_location_.depth());
+    glVertex3d(current_location_.right(),
+               current_location_.top(),
+               current_location_.depth());
+    glVertex3d(current_location_.right(),
+               current_location_.bottom(),
+               current_location_.depth());
+    glVertex3d(current_location_.left(),
+               current_location_.bottom(),
+               current_location_.depth());
   glEnd();
 }
 
@@ -56,22 +61,32 @@ void CardWidget::Draw(bool has_focus) const {
   Draw();
   if(has_focus) {
     glColor3f(0.8f, 0.8f, 0.0f);
+    glLineWidth(3);
     glBegin(GL_LINE_LOOP);
-      glVertex3d(left_,top_,depth_);
-      glVertex3d(right_,top_,depth_);
-      glVertex3d(right_,bottom_,depth_);
-      glVertex3d(left_,bottom_,depth_);
+    glVertex3d(current_location_.left(),
+               current_location_.top(),
+               current_location_.depth());
+    glVertex3d(current_location_.right(),
+               current_location_.top(),
+               current_location_.depth());
+    glVertex3d(current_location_.right(),
+               current_location_.bottom(),
+               current_location_.depth());
+    glVertex3d(current_location_.left(),
+               current_location_.bottom(),
+               current_location_.depth());
     glEnd();
+    glLineWidth(1);
   }
 }
-bool CardWidget::containPoint(Point point) {
+const bool CardWidget::containPoint(Point point) {
   return containPoint(point.x, point.y);
 }
 
   
-bool CardWidget::containPoint(double x, double y) {
-  if( (left_ <= x) && (x <= right_) ) {
-    if( (top_ <= y) && (y <= bottom_) ) {
+const bool CardWidget::containPoint(double x, double y) {
+  if( (current_location_.left() <= x) && (x <= current_location_.right()) ) {
+    if( (current_location_.top()<= y) && (y <= current_location_.bottom()) ) {
       return true;
     }
   }
@@ -79,114 +94,64 @@ bool CardWidget::containPoint(double x, double y) {
 }
 
 
-Widget* CardWidget::parent() {
+const FrameWidget* CardWidget::parent() const {
   return parent_;
 }
 
-void CardWidget::setParent(Widget* new_parent) {
-  parent_->clearChild(this);
+void CardWidget::setParent(FrameWidget* new_parent) {
+  new_parent->clearChild(this);
   parent_ = new_parent;
 }
 
-//returns true if supplied widget * is a child of this.
-bool CardWidget::isChild(Widget* widget)  {
-  for(std::list<Widget*>::iterator child_iterator = child_list_.begin();
-      child_iterator != child_list_.end(); ++child_iterator)
-    if (widget == *child_iterator)
-      return true;
-  return false;
+const double CardWidget::width() const {
+  return current_location_.width();
+}
+void CardWidget::setWidth(double new_width) {
+  current_location_.setWidth(new_width);
 }
 
-Widget* CardWidget::child(int child_number) {
-  std::list<Widget*>::iterator child_iterator = child_list_.begin();
-  for(int counter = 0; counter < child_number; ++counter)
-    ++child_iterator;
-  return *child_iterator;
+const double CardWidget::height() const {
+  return current_location_.height();
 }
-
-std::list<Widget*> CardWidget::children() {
-  return child_list_;
-}
-
-//informs the child to clear their parent,
-//then clears the child from our record
-void CardWidget::clearChild(int) {
-}
-
-void CardWidget::clearChild(Widget*) {
-}
-
-// informs all children to to clear their parent,
-//    then clears the all children from the our record
-void CardWidget::clearChildren() {
-} 
-
-//calls the child's decontructor then removes it from our children record
-void CardWidget::deleteChild(int) {
-}
-
-//calls each childs' decontructor then removes them from our children record
-void CardWidget::deleteChildren() {
-}
-
-//adds the passed widget to our children record
-void CardWidget::addChild(Widget*) {
-}
-
-double CardWidget::width() {
-  return (right_ - left_);
-}
-void CardWidget::setWidth(double width) {
-  right_ = (left_ + width);
-}
-
-double CardWidget::height() {
-  return (bottom_ - top_);
-}
-void CardWidget::setHeight(double height) {
-  bottom_ = (top_ + height);
+void CardWidget::setHeight(double new_height) {
+  current_location_.setHeight(new_height);
 }
 
   
-double CardWidget::left() {
-  return left_;
+const double CardWidget::left() const{
+  return current_location_.left();
 }
 void CardWidget::setLeft(double new_left) {
-  right_ += new_left - left_;
-  left_ = new_left;
+  current_location_.setLeft(new_left);
 }
  
-double CardWidget::right() {
-  return right_;
+const double CardWidget::right() const{
+  return current_location_.right();
 }
 void CardWidget::setRight(double new_right) {
-  left_ += new_right - right_;
-  right_ = new_right;
+  current_location_.setRight(new_right);
 }
  
-double CardWidget::top() {
-  return top_;
+const double CardWidget::top() const {
+  return current_location_.top();
 }
 void CardWidget::setTop(double new_top) {
-  bottom_ += new_top - top_;
-  top_ = new_top;
+  current_location_.setTop(new_top);
 }
   
-double CardWidget::bottom() {
-  return bottom_;
+const double CardWidget::bottom() const {
+  return current_location_.bottom();
 }
 void CardWidget::setBottom(double new_bottom) {
-  top_ += new_bottom - bottom_;
-  bottom_ = new_bottom;
+  current_location_.setBottom(new_bottom);
 }
 
-double CardWidget::depth() {
-  return depth_;
+const double CardWidget::depth() const {
+  return current_location_.depth();
 }
-void CardWidget::setDepth(double depth) {
-  depth_ = depth;
+void CardWidget::setDepth(double new_depth) {
+ current_location_.setDepth(new_depth);
 }
-
 
 const float* CardWidget::color() {
   return color_;

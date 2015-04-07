@@ -3,7 +3,7 @@
 * Author: Greg Howlett (GregTHowlett@Gmail.com)
 * Created: 2015 Feb 20
 * Version: 0
-* Revised: 2015 MAR 10
+* Revised: 2015 MAR 27
 *
 * ButtonWidget:
 *   A gui widget which has a responds to mouse clicks
@@ -83,12 +83,12 @@ void ButtonWidget::Draw(bool has_focus) const {
     glEnd();
   }
 }
-bool ButtonWidget::containPoint(Point point) {
+const bool ButtonWidget::containPoint(Point point) {
   return containPoint(point.x, point.y);
 }
 
   
-bool ButtonWidget::containPoint(double x, double y) {
+const bool ButtonWidget::containPoint(double x, double y) {
   if( (left_ <= x) && (x <= right_) ) {
     if( (top_ <= y) && (y <= bottom_) ) {
       return true;
@@ -98,17 +98,17 @@ bool ButtonWidget::containPoint(double x, double y) {
 }
 
 
-Widget* ButtonWidget::parent() {
+const FrameWidget* ButtonWidget::parent() const {
   return parent_;
 }
 
-void ButtonWidget::setParent(Widget* new_parent) {
+void ButtonWidget::setParent(FrameWidget* new_parent) {
   parent_->clearChild(this);
   parent_ = new_parent;
 }
 
 //returns true if supplied widget * is a child of this.
-bool ButtonWidget::isChild(Widget* widget)  {
+const bool ButtonWidget::isChild(Widget* widget)  {
   for(std::list<Widget*>::iterator child_iterator = child_list_.begin();
       child_iterator != child_list_.end(); ++child_iterator)
     if (widget == *child_iterator)
@@ -152,21 +152,21 @@ void ButtonWidget::deleteChildren() {
 void ButtonWidget::addChild(Widget*) {
 }
 
-bool ButtonWidget::pressed() {
+const bool ButtonWidget::pressed() const{
   return is_pressed_;
 }
 void ButtonWidget::setPressed(bool pressed_state) {
   is_pressed_ = pressed_state;
 }
 
-double ButtonWidget::width() {
+const double ButtonWidget::width() const {
   return (right_ - left_);
 }
 void ButtonWidget::setWidth(double width) {
   right_ = (left_ + width);
 }
 
-double ButtonWidget::height() {
+const double ButtonWidget::height() const {
   return (bottom_ - top_);
 }
 void ButtonWidget::setHeight(double height) {
@@ -174,7 +174,7 @@ void ButtonWidget::setHeight(double height) {
 }
 
   
-double ButtonWidget::left() {
+const double ButtonWidget::left() const {
   return left_;
 }
 void ButtonWidget::setLeft(double new_left) {
@@ -182,7 +182,7 @@ void ButtonWidget::setLeft(double new_left) {
   left_ = new_left;
 }
  
-double ButtonWidget::right() {
+const double ButtonWidget::right() const {
   return right_;
 }
 void ButtonWidget::setRight(double new_right) {
@@ -190,7 +190,7 @@ void ButtonWidget::setRight(double new_right) {
   right_ = new_right;
 }
  
-double ButtonWidget::top() {
+const double ButtonWidget::top() const {
   return top_;
 }
 void ButtonWidget::setTop(double new_top) {
@@ -198,7 +198,7 @@ void ButtonWidget::setTop(double new_top) {
   top_ = new_top;
 }
   
-double ButtonWidget::bottom() {
+const double ButtonWidget::bottom() const {
   return bottom_;
 }
 void ButtonWidget::setBottom(double new_bottom) {
@@ -206,7 +206,7 @@ void ButtonWidget::setBottom(double new_bottom) {
   bottom_ = new_bottom;
 }
 
-double ButtonWidget::depth() {
+const double ButtonWidget::depth() const {
   return depth_;
 }
 void ButtonWidget::setDepth(double depth) {

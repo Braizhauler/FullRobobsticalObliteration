@@ -20,7 +20,7 @@
 class RectangleInSpace:public virtual RectangleOnPlane {
 public:
   virtual ~RectangleInSpace(void) {};
-  virtual double depth()=0;
+  virtual const double depth() const=0;
   virtual void setDepth(double)=0;
 };
 

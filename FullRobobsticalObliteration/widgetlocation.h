@@ -32,28 +32,28 @@ public:
   ~WidgetLocation(void);
   
   //preserves left
-  double width();
+  const double width() const;
   void setWidth(double);
   
   //perserves width
-  double left();
+  const double left() const;
   void setLeft(double);
   
   //perserves width
-  double right();
+  const double right() const;
   void setRight(double);
 
-  double height();
+  const double height() const;
   void setHeight(double);
 
-  double top();
+  const double top() const;
   void setTop(double);
 
-  double bottom();
+  const double bottom() const;
   void setBottom(double);
 
   
-  double depth();
+  const double depth() const;
   void setDepth(double);
 private:
   double left_;

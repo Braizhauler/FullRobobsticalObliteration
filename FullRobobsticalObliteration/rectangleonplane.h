@@ -22,10 +22,10 @@ class RectangleOnPlane: public virtual Rectangle {
 public:
   virtual ~RectangleOnPlane(void) {};
 
-  virtual double left()=0;
-  virtual double right()=0;
-  virtual double top()=0;
-  virtual double bottom()=0;
+  virtual const double left() const=0;
+  virtual const double right() const=0;
+  virtual const double top() const=0;
+  virtual const double bottom() const=0;
   
   virtual void setLeft(double)=0;
   virtual void setRight(double)=0;

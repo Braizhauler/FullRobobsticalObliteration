@@ -16,23 +16,24 @@
 
 FrameWidget::FrameWidget(GameStateManager* manager) {
     game_state_manager_ = manager;
+    parent_ = nullptr;
 }
 
 
 FrameWidget::~FrameWidget(void) {
 }
 
-Widget* FrameWidget::parent() {
+const FrameWidget* FrameWidget::parent() const{
   return parent_;
 }
 
-void FrameWidget::setParent(Widget* new_parent) {
+void FrameWidget::setParent(FrameWidget* new_parent) {
   parent_->clearChild(this);
   parent_ = new_parent;
 }
 
 //returns true if supplied widget * is a child of this.
-bool FrameWidget::isChild(Widget* widget)  {
+const bool FrameWidget::isChild(Widget* widget)  {
   for(std::list<Widget*>::iterator child_iterator = child_list_.begin();
       child_iterator != child_list_.end(); ++child_iterator)
     if (widget == *child_iterator)

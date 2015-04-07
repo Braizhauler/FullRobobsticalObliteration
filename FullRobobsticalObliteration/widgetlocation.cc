@@ -42,14 +42,14 @@ WidgetLocation::WidgetLocation(double width,
 WidgetLocation::~WidgetLocation(void) {
 }
 
-double WidgetLocation::width() {
+const double WidgetLocation::width() const {
   return right_-left_;
 }
 void WidgetLocation::setWidth(double new_width) {
   right_ = left_ + new_width;
 }
  
-double WidgetLocation::left() {
+const double WidgetLocation::left() const {
   return left_;
 }
 void WidgetLocation::setLeft(double new_left) {
@@ -57,7 +57,7 @@ void WidgetLocation::setLeft(double new_left) {
   left_ = new_left;
 }
   
-double WidgetLocation::right() {
+const double WidgetLocation::right() const {
   return right_;
 }
 void WidgetLocation::setRight(double new_right) {
@@ -65,14 +65,14 @@ void WidgetLocation::setRight(double new_right) {
   right_ = new_right;
 }
 
-double WidgetLocation::height() {
+const double WidgetLocation::height() const {
   return bottom_ - top_;
 }
 void WidgetLocation::setHeight(double new_height) {
   bottom_ = top_ + new_height;
 }
 
-double WidgetLocation::top() {
+const double WidgetLocation::top() const {
   return top_;
 }
 void WidgetLocation::setTop(double new_top) {
@@ -80,7 +80,7 @@ void WidgetLocation::setTop(double new_top) {
   top_ = new_top;
 }
 
-double WidgetLocation::bottom() {
+const double WidgetLocation::bottom() const {
   return bottom_;
 }
 void WidgetLocation::setBottom(double new_bottom) {
@@ -88,7 +88,7 @@ void WidgetLocation::setBottom(double new_bottom) {
   bottom_ = new_bottom;
 }
   
-double WidgetLocation::depth(){
+const double WidgetLocation::depth() const {
   return depth_;
 }
 void WidgetLocation::setDepth(double new_depth){

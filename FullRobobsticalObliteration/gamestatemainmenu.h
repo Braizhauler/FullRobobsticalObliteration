@@ -24,6 +24,7 @@
 #include "focusable.h"
 #include "framewidget.h"
 #include "buttonwidget.h"
+#include "cardwidget.h"
 
 class GameStateMainMenu : public GameState
 {
@@ -64,6 +65,7 @@ private:
   Focusable* focus_;
   ButtonWidget button_1_;
   ButtonWidget button_2_;
+  CardWidget card_1_;
 };
 
 

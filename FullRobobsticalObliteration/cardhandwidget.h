@@ -1,36 +1,35 @@
 /*******************************************************************************
-* File: framewidget.h
+* File: cardhandwidget.h
 * Author: Greg Howlett (GregTHowlett@Gmail.com)
-* Created: 2015 MAR 06
+* Created: 2015 MAR 30
 * Version: 0
-* Revised: 2015 MAR 06
+* Revised: 2015 MAR 30
 *
-* FrameWidget:
-*   A basic gui widget primarily ment for use as a widget container
+* Button_Widget:
+*   A gui widget which has a responds to mouse clicks
 *
 * © [2015] Dwarfholm.com
 * All Rights Reserved.
 *******************************************************************************/
 
-#ifndef FRAME_WIDGET_H
-#define FRAME_WIDGET_H
-
-#include <list>
+#ifndef CARD_HAND_WIDGET_H
+#define CARD_HAND_WIDGET_H
 
 #include "gamestatemanager.h"
 #include "widget.h"
 
-class FrameWidget: public Widget {
+class CardHandWidget: public Widget{
 public:
-  //Constructors, and Destructor
-  FrameWidget(GameStateManager* manager);
-  ~FrameWidget(void);
+  CardHandWidget(GameStateManager* manager);
+  ~CardHandWidget(void);
 
+  /********************
+  * From Widget      */  
+  const bool containPoint(Point point);
+  const bool containPoint(double x, double y);
 
-  /*******************
-  * From Widget */
-  const FrameWidget* parent() const;
-  void setParent(FrameWidget*);
+  Widget* parent();
+  void setParent(Widget*);
   
   //returns true if argument is a child of this
   const bool isChild(Widget* widget);
@@ -57,10 +56,8 @@ public:
   //adds the passed widget to our children record
   void addChild(Widget*);
 
-  //Accessors and Mutators
-
-  /**********************
-  * RectangleInSpace   */
+  /*************************
+  * From RectangleInSpace */
   double width();
   //maintains left
   void setWidth(double);
@@ -91,10 +88,11 @@ public:
   /*******************
   * From Renderable */
   void Draw();
+
 private:
   //Member Variables
   GameStateManager* game_state_manager_;
-  FrameWidget* parent_;
+  Widget* parent_;
   std::list<Widget*> child_list_;
   double top_;
   double left_;
@@ -102,6 +100,4 @@ private:
   double bottom_;
   double depth_;
 };
-
-
-#endif //FRAME_WIDGET_H
+#endif//CARD_HAND_WIDGET_H
