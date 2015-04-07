@@ -88,9 +88,11 @@ void GameStateMainMenu::MouseButtonReleased(int button,
     button_1_.setPressed(false);
   if(button_2_.pressed())
     button_2_.setPressed(false);
-  if(card_1_.dragging())
-    card_1_.DragEnd(x_position,y_position);
+  if(card_1_.dragging())  {
+    card_1_.MoveTo(card_1_.DragEnd(x_position,y_position));
+  }
 }
+
 void GameStateMainMenu::MouseButtonClicked(int button,
                                            double x_position,
                                            double y_position) {

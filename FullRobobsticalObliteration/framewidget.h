@@ -29,7 +29,7 @@ public:
 
   /*******************
   * From Widget */
-  const FrameWidget* parent() const;
+  FrameWidget* parent() const;
   void setParent(FrameWidget*);
   
   //returns true if argument is a child of this
@@ -61,31 +61,31 @@ public:
 
   /**********************
   * RectangleInSpace   */
-  double width();
+  double width() const;
   //maintains left
   void setWidth(double);
 
-  double height();
+  double height() const;
   //maintains top
   void setHeight(double);
   
-  double left();
+  double left() const;
   //maintains width
   void setLeft(double);
   
-  double right();
+  double right() const;
   //maintains width
   void setRight(double);
   
-  double top();
+  double top() const;
   //maintains height
   void setTop(double);
   
-  double bottom();
+  double bottom() const;
   //maintains height
   void setBottom(double);
   
-  double depth();
+  double depth() const;
   void setDepth(double);
 
   /*******************

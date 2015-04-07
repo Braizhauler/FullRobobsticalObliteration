@@ -19,8 +19,8 @@ class Rectangle
 {
 public:
   virtual ~Rectangle(void) {};
-  virtual const double width() const=0;
-  virtual const double height() const=0;
+  virtual double width() const=0;
+  virtual double height() const=0;
   virtual void setWidth(double)=0;
   virtual void setHeight(double)=0;
 };

@@ -31,29 +31,31 @@ public:
 
   ~WidgetLocation(void);
   
+  void MoveTo(const Point);
+
   //preserves left
-  const double width() const;
+  double width() const;
   void setWidth(double);
   
   //perserves width
-  const double left() const;
+  double left() const;
   void setLeft(double);
   
   //perserves width
-  const double right() const;
+  double right() const;
   void setRight(double);
 
-  const double height() const;
+  double height() const;
   void setHeight(double);
 
-  const double top() const;
+  double top() const;
   void setTop(double);
 
-  const double bottom() const;
+  double bottom() const;
   void setBottom(double);
 
   
-  const double depth() const;
+  double depth() const;
   void setDepth(double);
 private:
   double left_;

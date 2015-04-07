@@ -63,11 +63,11 @@ void CardWidget::DragTo(double x, double y) {
   drag_location_.setLeft(x-drag_point_.x);
   drag_location_.setTop(y-drag_point_.y);
 }
-void CardWidget::DragEnd(double x, double y) {
-  current_location_=drag_location_;
-  drag_point_.x=x;
-  drag_point_.y=y;
+Point CardWidget::DragEnd(double x, double y) {
   dragging_=false;
+  drag_point_.x=drag_location_.left();
+  drag_point_.y=drag_location_.top();
+  return drag_point_;
 }
 
 
@@ -131,12 +131,12 @@ void CardWidget::Draw(bool has_focus) const {
     glLineWidth(1);
   }
 }
-const bool CardWidget::containPoint(Point point) {
+const bool CardWidget::containPoint(const Point point) const{
   return containPoint(point.x, point.y);
 }
 
   
-const bool CardWidget::containPoint(double x, double y) {
+const bool CardWidget::containPoint(const double x, const double y) const{
   if( (current_location_.left() <= x) && (x <= current_location_.right()) ) {
     if( (current_location_.top()<= y) && (y <= current_location_.bottom()) ) {
       return true;
@@ -145,8 +145,11 @@ const bool CardWidget::containPoint(double x, double y) {
   return false;
 }
 
+void CardWidget::MoveTo(const Point point) {
+  current_location_.MoveTo(point);
+}
 
-const FrameWidget* CardWidget::parent() const {
+FrameWidget* CardWidget::parent() const {
   return parent_;
 }
 
@@ -155,14 +158,14 @@ void CardWidget::setParent(FrameWidget* new_parent) {
   parent_ = new_parent;
 }
 
-const double CardWidget::width() const {
+double CardWidget::width() const {
   return current_location_.width();
 }
 void CardWidget::setWidth(double new_width) {
   current_location_.setWidth(new_width);
 }
 
-const double CardWidget::height() const {
+double CardWidget::height() const {
   return current_location_.height();
 }
 void CardWidget::setHeight(double new_height) {
@@ -170,35 +173,35 @@ void CardWidget::setHeight(double new_height) {
 }
 
   
-const double CardWidget::left() const{
+double CardWidget::left() const{
   return current_location_.left();
 }
 void CardWidget::setLeft(double new_left) {
   current_location_.setLeft(new_left);
 }
  
-const double CardWidget::right() const{
+double CardWidget::right() const{
   return current_location_.right();
 }
 void CardWidget::setRight(double new_right) {
   current_location_.setRight(new_right);
 }
  
-const double CardWidget::top() const {
+double CardWidget::top() const {
   return current_location_.top();
 }
 void CardWidget::setTop(double new_top) {
   current_location_.setTop(new_top);
 }
   
-const double CardWidget::bottom() const {
+double CardWidget::bottom() const {
   return current_location_.bottom();
 }
 void CardWidget::setBottom(double new_bottom) {
   current_location_.setBottom(new_bottom);
 }
 
-const double CardWidget::depth() const {
+double CardWidget::depth() const {
   return current_location_.depth();
 }
 void CardWidget::setDepth(double new_depth) {

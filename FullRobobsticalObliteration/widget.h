@@ -21,6 +21,7 @@
 #include "renderable.h"
 #include "rectangleinspace.h"
 
+struct Point;
 class FrameWidget;
 
 class Widget: public virtual RectangleInSpace, public virtual Renderable {
@@ -32,10 +33,12 @@ public:
   //returns true if:
   //x is between left and right
   //y is between top and bottom
-  virtual const bool containPoint(double x, double y)=0;
-  virtual const bool containPoint(Point)=0;
+  virtual const bool containPoint(const double x, const double y) const=0;
+  virtual const bool containPoint(const Point) const=0;
 
-  virtual const FrameWidget* parent() const=0;
+  virtual void MoveTo(const Point)=0;
+
+  virtual FrameWidget* parent() const=0;
   virtual void setParent(FrameWidget*)=0;
 };
 

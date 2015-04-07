@@ -83,12 +83,12 @@ void ButtonWidget::Draw(bool has_focus) const {
     glEnd();
   }
 }
-const bool ButtonWidget::containPoint(Point point) {
+const bool ButtonWidget::containPoint(const Point point) const {
   return containPoint(point.x, point.y);
 }
 
   
-const bool ButtonWidget::containPoint(double x, double y) {
+const bool ButtonWidget::containPoint(const double x, const double y) const {
   if( (left_ <= x) && (x <= right_) ) {
     if( (top_ <= y) && (y <= bottom_) ) {
       return true;
@@ -98,7 +98,13 @@ const bool ButtonWidget::containPoint(double x, double y) {
 }
 
 
-const FrameWidget* ButtonWidget::parent() const {
+void ButtonWidget::MoveTo(const Point point) {
+  left_ = point.x;
+  top_ = point.y;
+}
+
+
+FrameWidget* ButtonWidget::parent() const {
   return parent_;
 }
 
@@ -159,14 +165,14 @@ void ButtonWidget::setPressed(bool pressed_state) {
   is_pressed_ = pressed_state;
 }
 
-const double ButtonWidget::width() const {
+double ButtonWidget::width() const {
   return (right_ - left_);
 }
 void ButtonWidget::setWidth(double width) {
   right_ = (left_ + width);
 }
 
-const double ButtonWidget::height() const {
+double ButtonWidget::height() const {
   return (bottom_ - top_);
 }
 void ButtonWidget::setHeight(double height) {
@@ -174,7 +180,7 @@ void ButtonWidget::setHeight(double height) {
 }
 
   
-const double ButtonWidget::left() const {
+double ButtonWidget::left() const {
   return left_;
 }
 void ButtonWidget::setLeft(double new_left) {
@@ -182,7 +188,7 @@ void ButtonWidget::setLeft(double new_left) {
   left_ = new_left;
 }
  
-const double ButtonWidget::right() const {
+double ButtonWidget::right() const {
   return right_;
 }
 void ButtonWidget::setRight(double new_right) {
@@ -190,7 +196,7 @@ void ButtonWidget::setRight(double new_right) {
   right_ = new_right;
 }
  
-const double ButtonWidget::top() const {
+double ButtonWidget::top() const {
   return top_;
 }
 void ButtonWidget::setTop(double new_top) {
@@ -198,7 +204,7 @@ void ButtonWidget::setTop(double new_top) {
   top_ = new_top;
 }
   
-const double ButtonWidget::bottom() const {
+double ButtonWidget::bottom() const {
   return bottom_;
 }
 void ButtonWidget::setBottom(double new_bottom) {
@@ -206,7 +212,7 @@ void ButtonWidget::setBottom(double new_bottom) {
   bottom_ = new_bottom;
 }
 
-const double ButtonWidget::depth() const {
+double ButtonWidget::depth() const {
   return depth_;
 }
 void ButtonWidget::setDepth(double depth) {

@@ -36,11 +36,13 @@ public:
   void Draw(void) const;
   void Draw(const bool has_focus) const;
   
-  const bool containPoint(Point point);
-  const bool containPoint(double x, double y);
+  const bool containPoint(const Point point) const;
+  const bool containPoint(const double x, const double y) const;
+
+  void MoveTo(const Point point);
 
   //Methods
-  const FrameWidget* parent() const;
+  FrameWidget* parent() const;
   void setParent(FrameWidget*);
 
   //returns true if argument is a child of this
@@ -72,31 +74,31 @@ public:
   const bool pressed() const;
   void setPressed(bool);
 
-  const double width() const;
+  double width() const;
   //maintains left
   void setWidth(double);
 
-  const double height() const;
+  double height() const;
   //maintains top
   void setHeight(double);
   
-  const double left() const;
+  double left() const;
   //maintains width
   void setLeft(double);
   
-  const double right() const;
+  double right() const;
   //maintains width
   void setRight(double);
   
-  const double top() const;
+  double top() const;
   //maintains height
   void setTop(double);
   
-  const double bottom() const;
+  double bottom() const;
   //maintains height
   void setBottom(double);
   
-  const double depth() const;
+  double depth() const;
   void setDepth(double);
 
   const float* color();

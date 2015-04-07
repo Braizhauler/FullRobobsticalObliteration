@@ -23,7 +23,7 @@ FrameWidget::FrameWidget(GameStateManager* manager) {
 FrameWidget::~FrameWidget(void) {
 }
 
-const FrameWidget* FrameWidget::parent() const{
+FrameWidget* FrameWidget::parent() const{
   return parent_;
 }
 
@@ -77,7 +77,7 @@ void FrameWidget::deleteChildren() {
 void FrameWidget::addChild(Widget*) {
 }
 
-double FrameWidget::width() {
+double FrameWidget::width() const {
   return (right_ - left_);
 }
 
@@ -85,7 +85,7 @@ void FrameWidget::setWidth(double width) {
   right_ = left_+width;
 }
 
-double FrameWidget::height() {
+double FrameWidget::height() const {
   return (bottom_ - top_);
 }
 
@@ -94,7 +94,7 @@ void FrameWidget::setHeight(double height) {
 }
 
   
-double FrameWidget::left() {
+double FrameWidget::left() const {
   return left_;
 }
 
@@ -102,7 +102,7 @@ void FrameWidget::setLeft(double left) {
   left_ = left;
 }
  
-double FrameWidget::right() {
+double FrameWidget::right() const {
   return right_;
 }
 
@@ -111,7 +111,7 @@ void FrameWidget::setRight(double right) {
   right_ = right;
 }
  
-double FrameWidget::top() {
+double FrameWidget::top() const {
   return top_;
 }
 
@@ -119,7 +119,7 @@ void FrameWidget::setTop(double top) {
   top_ = top;
 }
   
-double FrameWidget::bottom() {
+double FrameWidget::bottom() const {
   return bottom_;
 }
 
@@ -128,7 +128,7 @@ void FrameWidget::setBottom(double bottom) {
   bottom_ = bottom;
 }
 
-double FrameWidget::depth() {
+double FrameWidget::depth() const {
   return depth_;
 }
 
