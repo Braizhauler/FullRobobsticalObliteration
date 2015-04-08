@@ -168,7 +168,7 @@
       <Filter>Header Files\Widgets</Filter>
     </ClInclude>
     <ClInclude Include="cardhandwidget.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Widgets</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

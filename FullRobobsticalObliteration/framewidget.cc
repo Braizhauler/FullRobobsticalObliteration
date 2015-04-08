@@ -3,7 +3,7 @@
 * Author: Greg Howlett (GregTHowlett@Gmail.com)
 * Created: 2015 MAR 06
 * Version: 0
-* Revised: 2015 MAR 06
+* Revised: 2015 APR 07
 *
 * FrameWidget:
 *   A basic gui widget primarily ment for use as a widget container
@@ -23,6 +23,24 @@ FrameWidget::FrameWidget(GameStateManager* manager) {
 FrameWidget::~FrameWidget(void) {
 }
 
+const bool FrameWidget::containPoint(const double x, const double y) const {
+  if( (current_location_.left() <= x) && (x <= current_location_.right()) ) {
+    if( (current_location_.top()<= y) && (y <= current_location_.bottom()) ) {
+      return true;
+    }
+  }
+  return false;
+}
+
+const bool FrameWidget::containPoint(const Point point) const {
+  return containPoint(point.x, point.y);
+}
+
+void FrameWidget::MoveTo(const Point upper_left) {
+  current_location_.MoveTo(upper_left);
+}
+
+
 FrameWidget* FrameWidget::parent() const{
   return parent_;
 }
@@ -30,6 +48,10 @@ FrameWidget* FrameWidget::parent() const{
 void FrameWidget::setParent(FrameWidget* new_parent) {
   parent_->clearChild(this);
   parent_ = new_parent;
+}
+
+void FrameWidget::Draw() {
+  
 }
 
 //returns true if supplied widget * is a child of this.
@@ -54,88 +76,72 @@ std::list<Widget*> FrameWidget::children() {
 
 //informs the child to clear their parent,
 //then clears the child from our record
-void FrameWidget::clearChild(int) {
-}
-
-void FrameWidget::clearChild(Widget*) {
+void FrameWidget::clearChild(Widget* child_to_remove) {
+  child_to_remove->setParent(nullptr);
+  child_list_.remove(child_to_remove);
 }
 
 // informs all children to to clear their parent,
 //    then clears the all children from the our record
 void FrameWidget::clearChildren() {
+  for(std::list<Widget*>::iterator current = child_list_.begin(),
+      end = child_list_.end();
+      current != end;
+      ++current)
+    (*current)->setParent(nullptr);
+  child_list_.clear();
 } 
 
-//calls the child's decontructor then removes it from our children record
-void FrameWidget::deleteChild(int) {
-}
-
-//calls each childs' decontructor then removes them from our children record
-void FrameWidget::deleteChildren() {
-}
-
 //adds the passed widget to our children record
-void FrameWidget::addChild(Widget*) {
+void FrameWidget::addChild(Widget* new_child) {
+  child_list_.push_back(new_child);
 }
 
 double FrameWidget::width() const {
-  return (right_ - left_);
+  return current_location_.width();
 }
-
-void FrameWidget::setWidth(double width) {
-  right_ = left_+width;
+void FrameWidget::setWidth(double new_width) {
+  current_location_.setWidth(new_width);
 }
 
 double FrameWidget::height() const {
-  return (bottom_ - top_);
+  return current_location_.height();
 }
-
-void FrameWidget::setHeight(double height) {
-  bottom_ = (top_ + height);
+void FrameWidget::setHeight(double new_height) {
+  current_location_.setHeight(new_height);
 }
-
   
-double FrameWidget::left() const {
-  return left_;
+double FrameWidget::left() const{
+  return current_location_.left();
 }
-
-void FrameWidget::setLeft(double left) {
-  left_ = left;
+void FrameWidget::setLeft(double new_left) {
+  current_location_.setLeft(new_left);
 }
  
-double FrameWidget::right() const {
-  return right_;
+double FrameWidget::right() const{
+  return current_location_.right();
 }
-
-void FrameWidget::setRight(double right) {
-  left_ += right - right_;
-  right_ = right;
+void FrameWidget::setRight(double new_right) {
+  current_location_.setRight(new_right);
 }
  
 double FrameWidget::top() const {
-  return top_;
+  return current_location_.top();
 }
-
-void FrameWidget::setTop(double top) {
-  top_ = top;
+void FrameWidget::setTop(double new_top) {
+  current_location_.setTop(new_top);
 }
   
 double FrameWidget::bottom() const {
-  return bottom_;
+  return current_location_.bottom();
 }
-
-void FrameWidget::setBottom(double bottom) {
-  top_ += bottom - bottom_;
-  bottom_ = bottom;
+void FrameWidget::setBottom(double new_bottom) {
+  current_location_.setBottom(new_bottom);
 }
 
 double FrameWidget::depth() const {
-  return depth_;
+  return current_location_.depth();
 }
-
-void FrameWidget::setDepth(double depth) {
-  depth_ = depth;
-}
-
-void FrameWidget::Draw() {
-  
+void FrameWidget::setDepth(double new_depth) {
+ current_location_.setDepth(new_depth);
 }

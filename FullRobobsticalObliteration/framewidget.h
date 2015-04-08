@@ -3,7 +3,7 @@
 * Author: Greg Howlett (GregTHowlett@Gmail.com)
 * Created: 2015 MAR 06
 * Version: 0
-* Revised: 2015 MAR 06
+* Revised: 2015 APR 07
 *
 * FrameWidget:
 *   A basic gui widget primarily ment for use as a widget container
@@ -19,6 +19,7 @@
 
 #include "gamestatemanager.h"
 #include "widget.h"
+#include "widgetlocation.h"
 
 class FrameWidget: public Widget {
 public:
@@ -29,9 +30,16 @@ public:
 
   /*******************
   * From Widget */
+  const bool containPoint(const double x, const double y) const;
+  const bool containPoint(const Point) const;
+
+  void MoveTo(const Point);
+
   FrameWidget* parent() const;
   void setParent(FrameWidget*);
   
+  void Draw();
+
   //returns true if argument is a child of this
   const bool isChild(Widget* widget);
   //returns a widget in position child_number
@@ -41,18 +49,11 @@ public:
 
   //informs the child to clear their parent,
   //then clears the child from our record
-  void clearChild(int); 
   void clearChild(Widget*); 
 
   // informs all children to to clear their parent,
   //    then clears the all children from the our record
   void clearChildren(); 
-
-  //calls the child's decontructor then removes it from our children record
-  void deleteChild(int);
-
-  //calls each childs' decontructor then removes them from our children record
-  void deleteChildren(); 
 
   //adds the passed widget to our children record
   void addChild(Widget*);
@@ -88,19 +89,12 @@ public:
   double depth() const;
   void setDepth(double);
 
-  /*******************
-  * From Renderable */
-  void Draw();
 private:
   //Member Variables
   GameStateManager* game_state_manager_;
   FrameWidget* parent_;
   std::list<Widget*> child_list_;
-  double top_;
-  double left_;
-  double right_;
-  double bottom_;
-  double depth_;
+  WidgetLocation current_location_;
 };
 
 

@@ -171,7 +171,6 @@ double CardWidget::height() const {
 void CardWidget::setHeight(double new_height) {
   current_location_.setHeight(new_height);
 }
-
   
 double CardWidget::left() const{
   return current_location_.left();
