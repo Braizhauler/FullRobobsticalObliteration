@@ -3,7 +3,7 @@
 * Author: Greg Howlett (GregTHowlett@Gmail.com)
 * Created: 2015 MAR 12
 * Version: 0
-* Revised: 2015 MAR 12
+* Revised: 2015 APR 08
 *
 * GameStateProgram:
 *   A GameState in which the user recieves a hand of cards, can view the
@@ -58,6 +58,11 @@ public:
   void MouseButtonClicked(int button,
                            double x_position,
                            double y_position);
+  //Key Actions
+  void Select_Next();
+  void Select_Prev();
+  void Hotkey(const int);
+  void Activate_Selection();
 private:
   CardWidget card_;
   GameStateManager* manager_;

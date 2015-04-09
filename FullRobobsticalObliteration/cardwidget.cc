@@ -145,6 +145,13 @@ const bool CardWidget::containPoint(const double x, const double y) const{
   return false;
 }
 
+void CardWidget::MoveTo(const double x, const double y) {
+  Point point;
+  point.x = x;
+  point.y = y;
+  current_location_.MoveTo(point);
+}
+
 void CardWidget::MoveTo(const Point point) {
   current_location_.MoveTo(point);
 }

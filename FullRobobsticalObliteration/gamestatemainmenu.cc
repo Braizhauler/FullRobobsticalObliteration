@@ -35,6 +35,8 @@ GameStateMainMenu::~GameStateMainMenu(void) {
 
 //Loads the GameStateMainMenu onto the GameStateManager stack in active mode
 void GameStateMainMenu::Load() {
+  button_1_.MoveTo(3.0, 3.0);
+  button_2_.MoveTo(10.0, 3.0);
 }
 
 //Called when GameState when another GameState is preparing
@@ -86,8 +88,11 @@ void GameStateMainMenu::MouseButtonReleased(int button,
                                             double y_position) {
   if(button_1_.pressed())
     button_1_.setPressed(false);
-  if(button_2_.pressed())
+  if(button_2_.pressed()) {
     button_2_.setPressed(false);
+    if(button_2_.containPoint(x_position,y_position))
+      game_state_manager_->Push(game_state_program_);
+  }
   if(card_1_.dragging())  {
     card_1_.MoveTo(card_1_.DragEnd(x_position,y_position));
   }
@@ -111,6 +116,16 @@ void GameStateMainMenu::MouseButtonClicked(int button,
       button_2_.setColor(0.6f,0.7f,0.9f);
   }
 }
+//Key Actions
+void GameStateMainMenu::Select_Next() {
+}
+void GameStateMainMenu::Select_Prev() {
+}
+void GameStateMainMenu::Hotkey(const int position) {
+}
+void GameStateMainMenu::Activate_Selection() {
+}
+
 
 bool GameStateMainMenu::Opaque(void) const{
   return false;
@@ -126,4 +141,8 @@ void GameStateMainMenu::Draw(void) const {
   card_1_.Draw();
   if(focus_ != nullptr)
     focus_->Draw(true);
+}
+
+void GameStateMainMenu::LinkProgramState(GameState* state) {
+  game_state_program_ = state;
 }

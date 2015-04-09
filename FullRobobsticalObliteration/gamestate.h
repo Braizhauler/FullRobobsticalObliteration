@@ -58,6 +58,12 @@ public:
   virtual void MouseButtonClicked(int button,
                                   double x_position,
                                   double y_position) = 0;
+  //Key Actions
+  virtual void Select_Next() = 0;
+  virtual void Select_Prev() = 0;
+  virtual void Hotkey(const int) = 0;
+  virtual void Activate_Selection() = 0;
+
   //Accessors and Mutators
 private:
 };

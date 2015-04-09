@@ -97,12 +97,15 @@ const bool ButtonWidget::containPoint(const double x, const double y) const {
   return false;
 }
 
+void ButtonWidget::MoveTo(const double x, const double y) {
+  left_ = x;
+  top_  = y;
+}
 
 void ButtonWidget::MoveTo(const Point point) {
   left_ = point.x;
   top_ = point.y;
 }
-
 
 FrameWidget* ButtonWidget::parent() const {
   return parent_;

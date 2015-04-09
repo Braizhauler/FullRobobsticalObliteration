@@ -37,6 +37,7 @@ public:
   virtual const bool containPoint(const Point) const=0;
 
   virtual void MoveTo(const Point)=0;
+  virtual void MoveTo(const double x, const double y)=0;
 
   virtual FrameWidget* parent() const=0;
   virtual void setParent(FrameWidget*)=0;

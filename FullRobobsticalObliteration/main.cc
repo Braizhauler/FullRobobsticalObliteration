@@ -31,6 +31,7 @@
 #include "gamestatemanager.h"
 #include "inputmanager.h"
 #include "gamestatemainmenu.h"
+#include "gamestateprogram.h"
 
 namespace MyWindowControl{
 std::map<GLFWwindow*, MyWindowWrapper*> glfw_to_mywindowwrapper;
@@ -81,7 +82,10 @@ int main (int num_of_arugments, char * argument_list[])  {
   input_manager->RegisterEvents(&window);
 
   GameStateMainMenu state_menu(&state_manager);
+  GameStateProgram state_program(&state_manager);
   state_manager.Push(&state_menu);
+  
+  state_menu.LinkProgramState(&state_program);
   do {  
     window.ProccessOSEvents();
 

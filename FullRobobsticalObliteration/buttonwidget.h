@@ -40,6 +40,7 @@ public:
   const bool containPoint(const double x, const double y) const;
 
   void MoveTo(const Point point);
+  void MoveTo(const double x, const double y);
 
   //Methods
   FrameWidget* parent() const;

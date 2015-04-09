@@ -27,13 +27,13 @@ public:
   FrameWidget(GameStateManager* manager);
   ~FrameWidget(void);
 
-
   /*******************
   * From Widget */
-  const bool containPoint(const double x, const double y) const;
   const bool containPoint(const Point) const;
+  const bool containPoint(const double x, const double y) const;
 
   void MoveTo(const Point);
+  void MoveTo(const double x, const double y);
 
   FrameWidget* parent() const;
   void setParent(FrameWidget*);
@@ -89,7 +89,7 @@ public:
   double depth() const;
   void setDepth(double);
 
-private:
+protected:
   //Member Variables
   GameStateManager* game_state_manager_;
   FrameWidget* parent_;

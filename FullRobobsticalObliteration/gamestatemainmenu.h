@@ -26,6 +26,8 @@
 #include "buttonwidget.h"
 #include "cardwidget.h"
 
+class GameStateProgram;
+
 class GameStateMainMenu : public GameState
 {
 public:
@@ -53,15 +55,23 @@ public:
   void MouseButtonPressed(int button, double x_position, double y_position);
   void MouseButtonReleased(int button, double x_position, double y_position);
   void MouseButtonClicked(int button, double x_position, double y_position);
+  //Key Actions
+  void Select_Next();
+  void Select_Prev();
+  void Hotkey(const int);
+  void Activate_Selection();
 
   bool Opaque(void) const;
 
   void Focus(Focusable* new_focus);
 
   void Draw(void) const;
+
+  void LinkProgramState(GameState* state);
 private:
   //Member Variables
   GameStateManager* game_state_manager_;
+  GameState* game_state_program_;
   Focusable* focus_;
   ButtonWidget button_1_;
   ButtonWidget button_2_;

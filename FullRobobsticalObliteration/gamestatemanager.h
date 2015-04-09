@@ -3,7 +3,7 @@
 * Author: Greg Howlett (GregTHowlett@Gmail.com)
 * Created: 2014 DEC 22
 * Version: 0
-* Revised: 2014 DEC 24
+* Revised: 2015 APR 08
 *
 * GameStateManager:
 *   A file for keeping track of current state, and redirecting calls to
@@ -42,6 +42,11 @@ public:
   void MouseButtonPressed(int button, double x_position, double y_position);
   void MouseButtonReleased(int button, double x_position, double  y_position);
   void MouseButtonClicked(int button, double cursor_x_, double cursor_y_);
+  //Key Actions
+  void Select_Next();
+  void Select_Prev();
+  void Hotkey(const int);
+  void Activate_Selection();
 
   void Draw() const;
   void Update(GameTime frameNumber);

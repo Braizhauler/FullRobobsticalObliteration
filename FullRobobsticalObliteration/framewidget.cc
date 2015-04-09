@@ -36,9 +36,17 @@ const bool FrameWidget::containPoint(const Point point) const {
   return containPoint(point.x, point.y);
 }
 
+void FrameWidget::MoveTo(const double x, const double y) {
+  Point upper_left;
+  upper_left.x = x;
+  upper_left.y = y;
+  current_location_.MoveTo(upper_left);
+}
+
 void FrameWidget::MoveTo(const Point upper_left) {
   current_location_.MoveTo(upper_left);
 }
+
 
 
 FrameWidget* FrameWidget::parent() const{
@@ -51,7 +59,9 @@ void FrameWidget::setParent(FrameWidget* new_parent) {
 }
 
 void FrameWidget::Draw() {
-  
+    for(std::list<Widget*>::iterator child_iterator = child_list_.begin();
+      child_iterator != child_list_.end(); ++child_iterator)
+      (*child_iterator)->Draw();
 }
 
 //returns true if supplied widget * is a child of this.

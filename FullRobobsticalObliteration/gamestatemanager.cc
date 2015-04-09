@@ -81,6 +81,19 @@ void GameStateManager::MouseButtonClicked(int button,
 
 
 
+void GameStateManager::Select_Next() {
+  active_state_.back()->Select_Next();
+}
+void GameStateManager::Select_Prev() {
+  active_state_.back()->Select_Prev();
+}
+void GameStateManager::Hotkey(const int key_number) {
+  active_state_.back()->Hotkey(key_number);
+}
+void GameStateManager::Activate_Selection() {
+  active_state_.back()->Activate_Selection();
+}
+
 //Calls the render of all active renderables, from the bottom up
 void GameStateManager::Draw() const {
   
@@ -113,17 +126,13 @@ void GameStateManager::Exit() {
 
 void GameStateManager::RestackRenderables() {
   active_renderable_.clear();
-  std::vector<GameState*>::reverse_iterator renderable_inspector;
-  std::vector<GameState*>::reverse_iterator b = active_state_.rbegin();
-  std::vector<GameState*>::reverse_iterator e = active_state_.rend();
-  for(renderable_inspector = active_state_.rbegin();
-      renderable_inspector != active_state_.rend() &&
-      !( (*renderable_inspector)->Opaque() );
-      ++renderable_inspector)
-    {}
-      
-  while (renderable_inspector != active_state_.rbegin()) {
-    --renderable_inspector;
-    active_renderable_.push_back(*renderable_inspector);
+  int number_of_game_states = active_state_.size();
+  int game_state_counter;
+  for(game_state_counter=number_of_game_states-1;
+      game_state_counter>0&&!(active_state_[game_state_counter]->Opaque());
+      --game_state_counter);
+  while (game_state_counter<number_of_game_states) {
+    active_renderable_.push_back(active_state_[game_state_counter]);
+    ++game_state_counter;
   }
 }
