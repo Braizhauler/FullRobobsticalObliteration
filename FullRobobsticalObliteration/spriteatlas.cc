@@ -163,6 +163,6 @@ bool SpriteAtlas::fileExists(std::string filename){
 	std::ifstream iff(filename.c_str());  
 	return iff.is_open(); 
 }
-
+;
 /*******************************
 * Accessors and Mutators      */

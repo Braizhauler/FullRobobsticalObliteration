@@ -24,7 +24,8 @@
 class FrameWidget: public Widget {
 public:
   //Constructors, and Destructor
-  FrameWidget(GameStateManager* manager);
+  FrameWidget(GameStateManager* manager=nullptr);
+  FrameWidget(GameStateManager* manager,WidgetLocation location);
   ~FrameWidget(void);
 
   /*******************

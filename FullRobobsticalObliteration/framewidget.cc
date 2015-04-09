@@ -17,8 +17,13 @@
 FrameWidget::FrameWidget(GameStateManager* manager) {
     game_state_manager_ = manager;
     parent_ = nullptr;
+    child_list_.clear();
 }
 
+FrameWidget::FrameWidget(GameStateManager* manager, WidgetLocation location) {
+  game_state_manager_ = manager;
+  current_location_ = location;
+}
 
 FrameWidget::~FrameWidget(void) {
 }
@@ -58,10 +63,25 @@ void FrameWidget::setParent(FrameWidget* new_parent) {
   parent_ = new_parent;
 }
 
-void FrameWidget::Draw() {
-    for(std::list<Widget*>::iterator child_iterator = child_list_.begin();
+void FrameWidget::Draw(){
+  glColor3f(0.7f,0.0f,0.2f);
+  glBegin(GL_TRIANGLE_FAN);
+    glVertex3d(current_location_.left(),
+               current_location_.top(),
+               current_location_.depth());
+    glVertex3d(current_location_.right(),
+               current_location_.top(),
+               current_location_.depth());
+    glVertex3d(current_location_.right(),
+               current_location_.bottom(),
+               current_location_.depth());
+    glVertex3d(current_location_.left(),
+               current_location_.bottom(),
+               current_location_.depth());
+  glEnd();
+  for(std::list<Widget*>::const_iterator child_iterator=child_list_.begin();
       child_iterator != child_list_.end(); ++child_iterator)
-      (*child_iterator)->Draw();
+    (*child_iterator)->Draw();
 }
 
 //returns true if supplied widget * is a child of this.

@@ -17,6 +17,7 @@
 
 #include "gamestate.h"
 #include "cardwidget.h"
+#include "cardhandwidget.h"
 
 class GameStateProgram : public GameState
 {
@@ -27,7 +28,7 @@ public:
   //Methods
 
   //causes the GameState to draw all widgets
-  void Draw() const;
+  void Draw();
   //returns true if nothing is no other states are to be drawn under this state.
   bool Opaque() const;
 
@@ -65,6 +66,7 @@ public:
   void Activate_Selection();
 private:
   CardWidget card_;
+  CardHandWidget player_hand_;
   GameStateManager* manager_;
 };
 

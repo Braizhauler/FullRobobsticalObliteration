@@ -42,8 +42,8 @@ public:
 
   /*******************
   * From Renderable */
-  void Draw(void) const;
-  void Draw(const bool has_focus) const;
+  void Draw();
+  void Draw(const bool has_focus);
   
 
   /*******************

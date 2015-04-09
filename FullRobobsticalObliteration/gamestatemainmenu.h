@@ -65,7 +65,7 @@ public:
 
   void Focus(Focusable* new_focus);
 
-  void Draw(void) const;
+  void Draw();
 
   void LinkProgramState(GameState* state);
 private:

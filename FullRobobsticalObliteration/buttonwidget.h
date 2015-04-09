@@ -33,8 +33,8 @@ public:
   ButtonWidget(GameStateManager* manager, const WidgetLocation location);
   ~ButtonWidget(void);
 
-  void Draw(void) const;
-  void Draw(const bool has_focus) const;
+  void Draw();
+  void Draw(const bool has_focus);
   
   const bool containPoint(const Point point) const;
   const bool containPoint(const double x, const double y) const;

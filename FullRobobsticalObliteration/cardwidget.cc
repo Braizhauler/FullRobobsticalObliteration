@@ -71,7 +71,7 @@ Point CardWidget::DragEnd(double x, double y) {
 }
 
 
-void CardWidget::Draw(void) const {
+void CardWidget::Draw() {
   glColor3f(color_[0],color_[1],color_[2]);
   glBegin(GL_TRIANGLE_FAN);
     glVertex3d(current_location_.left(),
@@ -109,7 +109,7 @@ void CardWidget::Draw(void) const {
 }
 
 //TODO, Move focus from widget to interface Focusable and game states
-void CardWidget::Draw(bool has_focus) const {
+void CardWidget::Draw(bool has_focus) {
   Draw();
   if(has_focus) {
     glColor3f(0.8f, 0.8f, 0.0f);

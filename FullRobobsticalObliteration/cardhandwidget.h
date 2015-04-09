@@ -20,7 +20,8 @@
 
 class CardHandWidget: public FrameWidget{
 public:
-  CardHandWidget(GameStateManager* manager);
+  CardHandWidget(GameStateManager* manager=nullptr);
+  CardHandWidget(GameStateManager* manager,WidgetLocation location);
   ~CardHandWidget(void);
 
   /*******************

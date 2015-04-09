@@ -45,7 +45,7 @@ ButtonWidget::ButtonWidget(GameStateManager* manager, WidgetLocation location) {
 ButtonWidget::~ButtonWidget(void) {
 }
 
-void ButtonWidget::Draw(void) const {
+void ButtonWidget::Draw() {
   is_pressed_ ?
     glColor3f(pressed_color_[0],pressed_color_[1],pressed_color_[2]) :
     glColor3f(button_color_[0],button_color_[1],button_color_[2]);
@@ -71,7 +71,7 @@ void ButtonWidget::Draw(void) const {
 }
 
 //TODO, Move focus from widget to interface Focusable and game states
-void ButtonWidget::Draw(bool has_focus) const {
+void ButtonWidget::Draw(bool has_focus) {
   Draw();
   if(has_focus) {
     glColor3f(0.8f, 0.8f, 0.0f);

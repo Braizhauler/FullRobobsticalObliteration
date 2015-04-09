@@ -153,7 +153,7 @@ void GameStateMainMenu::Focus(Focusable* new_focus) {
   focus_ = new_focus;
 }
 
-void GameStateMainMenu::Draw(void) const {
+void GameStateMainMenu::Draw() {
   button_1_.Draw();
   button_2_.Draw();
   card_1_.Draw();

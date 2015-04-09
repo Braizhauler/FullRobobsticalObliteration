@@ -48,7 +48,7 @@ public:
   void Hotkey(const int);
   void Activate_Selection();
 
-  void Draw() const;
+  void Draw();
   void Update(GameTime frameNumber);
 
   void Exit();

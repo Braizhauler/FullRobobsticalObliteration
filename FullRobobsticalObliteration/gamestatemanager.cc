@@ -95,7 +95,7 @@ void GameStateManager::Activate_Selection() {
 }
 
 //Calls the render of all active renderables, from the bottom up
-void GameStateManager::Draw() const {
+void GameStateManager::Draw() {
   
   // Set the background to the clear color
   glClear(GL_COLOR_BUFFER_BIT);

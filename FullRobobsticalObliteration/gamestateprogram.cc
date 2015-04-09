@@ -12,7 +12,6 @@
 * © [2015] Dwarfholm.com
 * All Rights Reserved.
 *******************************************************************************/
-
 #include "gamestateprogram.h"
 
 
@@ -21,14 +20,17 @@ GameStateProgram::GameStateProgram(GameStateManager* manager)
   manager_=manager;
   card_ = CardWidget(manager_,
                      WidgetLocation (8.0, 12.0, 15.0, 10.0, 1.0));
+  player_hand_ = CardHandWidget(manager_,
+                       WidgetLocation (20.0, 20.0, 40.0, 12.0, 1.0));
 }
 
 GameStateProgram::~GameStateProgram(void)
 {
 }
 
-void GameStateProgram::Draw() const{
+void GameStateProgram::Draw(){
   card_.Draw();
+  player_hand_.Draw();
 }
 
 //returns true if nothing is no other states are to be drawn under this state.
