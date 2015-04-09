@@ -3,7 +3,7 @@
 * Author: Greg Howlett (GregTHowlett@Gmail.com)
 * Created: 2015 MAR 01
 * Version: 0
-* Revised: 2015 MAR 12
+* Revised: 2015 APR 09
 *
 * GameStateMainMenu:
 *   An implementation of GameState for a game states to be used by
@@ -34,7 +34,7 @@ public:
   GameStateMainMenu(GameStateManager* manager);
   ~GameStateMainMenu(void);
   //Methods
-
+  void Activate_Button_Widget(int button_number);
   //Loads the GameStateMainMenu onto the GameStateManager stack in active mode
   void Load();
    

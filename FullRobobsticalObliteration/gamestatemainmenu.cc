@@ -3,7 +3,7 @@
 * Author: Greg Howlett (GregTHowlett@Gmail.com)
 * Created: 2015 MAR 01
 * Version: 0
-* Revised: 2015 MAR 12
+* Revised: 2015 APR 09
 *
 * GameStateMainMenu:
 *   An implementation of GameState for a game states to be used by
@@ -19,11 +19,11 @@ GameStateMainMenu::GameStateMainMenu(GameStateManager* manager) {
   game_state_manager_ = manager;
   focus_ = nullptr;
   button_1_ = ButtonWidget(game_state_manager_,
-                           WidgetLocation (6.0, 3.0, 3.0, 3.0, -1.0));
+                           WidgetLocation (32.0, 32.0, 20.0, 6.0, -1.0));
   button_1_.setColor(0.8f, 0.8f, 0.8f);
 
   button_2_ = ButtonWidget(game_state_manager_,
-                           WidgetLocation (6.0, 3.0, 10.0, 3.0, -1.0));
+                           WidgetLocation (32.0, 42.0, 20.0, 6.0, -1.0));
   button_2_.setColor(0.8f, 0.8f, 0.8f);
 
   card_1_ = CardWidget(game_state_manager_,
@@ -35,8 +35,8 @@ GameStateMainMenu::~GameStateMainMenu(void) {
 
 //Loads the GameStateMainMenu onto the GameStateManager stack in active mode
 void GameStateMainMenu::Load() {
-  button_1_.MoveTo(3.0, 3.0);
-  button_2_.MoveTo(10.0, 3.0);
+  button_1_.MoveTo(32.0, 32.0);
+  button_2_.MoveTo(32.0, 42.0);
 }
 
 //Called when GameState when another GameState is preparing
@@ -73,12 +73,10 @@ void GameStateMainMenu::MouseButtonPressed(int button,
   if(button_1_.containPoint(x_position,y_position) ) {
     button_1_.setPressed(true);
     Focus(&button_1_);
-  }
-  if(button_2_.containPoint(x_position,y_position) ) {
+  } else if(button_2_.containPoint(x_position,y_position) ) {
     button_2_.setPressed(true);
     Focus(&button_2_);
-  }
-  if(card_1_.containPoint(x_position,y_position) ) {
+  } else if(card_1_.containPoint(x_position,y_position) ) {
     card_1_.DragStart(x_position,y_position);
     Focus(&card_1_);
   }
@@ -88,42 +86,62 @@ void GameStateMainMenu::MouseButtonReleased(int button,
                                             double y_position) {
   if(button_1_.pressed())
     button_1_.setPressed(false);
-  if(button_2_.pressed()) {
+  else if(button_2_.pressed())
     button_2_.setPressed(false);
-    if(button_2_.containPoint(x_position,y_position))
-      game_state_manager_->Push(game_state_program_);
-  }
-  if(card_1_.dragging())  {
+  else if(card_1_.dragging())
     card_1_.MoveTo(card_1_.DragEnd(x_position,y_position));
-  }
 }
 
 void GameStateMainMenu::MouseButtonClicked(int button,
                                            double x_position,
                                            double y_position) {
   if(button_1_.containPoint(x_position,y_position) ) {
-    const float * button_1_color( button_1_.color() );
-    if(button_1_color[0] == 0.6f)
+    Activate_Button_Widget(1);
+  }
+  if(button_2_.containPoint(x_position,y_position) ) {
+    Activate_Button_Widget(2);
+  }
+}
+
+void GameStateMainMenu::Activate_Button_Widget(int button_number) {
+  const float * button_color;
+  switch(button_number) {
+    
+  case 1:
+    button_color = button_1_.color();
+    if(button_color[0] == 0.6f)
       button_1_.setColor(0.8f,0.8f,0.8f);
     else
       button_1_.setColor(0.6f,0.7f,0.9f);
-  }
-  if(button_2_.containPoint(x_position,y_position) ) {
-    const float * button_2_color( button_2_.color() );
-    if(button_2_color[0] == 0.6f)
-      button_2_.setColor(0.8f,0.8f,0.8f);
-    else
-      button_2_.setColor(0.6f,0.7f,0.9f);
+    break;
+  case 2:
+    game_state_manager_->Push(game_state_program_);
+    break;
   }
 }
 //Key Actions
 void GameStateMainMenu::Select_Next() {
+  if(focus_ == &button_1_) {
+    Focus(&button_2_);
+  } else if(focus_ == &button_2_) {
+    Focus(&card_1_);
+  } else if(focus_ == &card_1_) {
+    Focus(&button_1_);
+  } else {
+    Focus(&button_1_);
+  }
 }
 void GameStateMainMenu::Select_Prev() {
 }
 void GameStateMainMenu::Hotkey(const int position) {
 }
 void GameStateMainMenu::Activate_Selection() {
+  if(focus_!=nullptr) {
+    if(focus_==&button_1_)
+      Activate_Button_Widget(1);
+    if(focus_==&button_2_)
+      Activate_Button_Widget(2);
+  }
 }
 
 

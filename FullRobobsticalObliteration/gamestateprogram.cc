@@ -20,7 +20,7 @@ GameStateProgram::GameStateProgram(GameStateManager* manager)
 {
   manager_=manager;
   card_ = CardWidget(manager_,
-                     WidgetLocation (8.0, 12.0, 10.0, 10.0, 1.0));
+                     WidgetLocation (8.0, 12.0, 15.0, 10.0, 1.0));
 }
 
 GameStateProgram::~GameStateProgram(void)
@@ -38,7 +38,7 @@ bool GameStateProgram::Opaque() const {
 
 //Loads the GameState onto the GameStateManager stack in active mode
 void GameStateProgram::Load() {
-  card_.MoveTo(10.0, 10.0); 
+  card_.MoveTo(15.0, 10.0); 
 }
 
 //Called when GameState when another GameState is preparing

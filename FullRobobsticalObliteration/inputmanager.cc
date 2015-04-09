@@ -148,32 +148,34 @@ void InputManager::KeyboardFunction(GLFWwindow * window,
                                     int action,//GLFW_PRESS, GLFW_RELEASE
                                                //-or- GLFW_REPEAT
                                     int modifiers) {
-  switch (key) {
-    case KEYBIND_EXIT:
-      game_state_manager_->Exit();
-      break;
-    case KEYBIND_SELECT_NEXT:
-      game_state_manager_->Select_Next();
-      break;
-    case KEYBIND_ACTIVATE:
-      game_state_manager_->Activate_Selection();
-      break;
-    case KEYBIND_HOTKEY_1:
-      game_state_manager_->Hotkey(1);
-      break;
-    case KEYBIND_HOTKEY_2:
-      game_state_manager_->Hotkey(2);
-      break;
-    case KEYBIND_HOTKEY_3:
-      game_state_manager_->Hotkey(3);
-      break;
-    case KEYBIND_HOTKEY_4:
-      game_state_manager_->Hotkey(4);
-      break;
-    case KEYBIND_HOTKEY_5:
-      game_state_manager_->Hotkey(5);
-      break;
-    default:
-      ;
+  if((action==GLFW_RELEASE)||(action==GLFW_REPEAT)) {
+    switch (key) {
+      case KEYBIND_EXIT:
+        game_state_manager_->Exit();
+        break;
+      case KEYBIND_SELECT_NEXT:
+        game_state_manager_->Select_Next();
+        break;
+      case KEYBIND_ACTIVATE:
+        game_state_manager_->Activate_Selection();
+        break;
+      case KEYBIND_HOTKEY_1:
+        game_state_manager_->Hotkey(1);
+        break;
+      case KEYBIND_HOTKEY_2:
+        game_state_manager_->Hotkey(2);
+        break;
+      case KEYBIND_HOTKEY_3:
+        game_state_manager_->Hotkey(3);
+        break;
+      case KEYBIND_HOTKEY_4:
+        game_state_manager_->Hotkey(4);
+        break;
+      case KEYBIND_HOTKEY_5:
+        game_state_manager_->Hotkey(5);
+        break;
+      default:
+        ;
+    }
   }
 }

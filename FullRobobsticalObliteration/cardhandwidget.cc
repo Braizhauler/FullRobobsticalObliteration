@@ -3,7 +3,7 @@
 * Author: Greg Howlett (GregTHowlett@Gmail.com)
 * Created: 2015 MAR 30
 * Version: 0
-* Revised: 2015 MAR 31
+* Revised: 2015 APR 09
 *
 * CardHandWidget:
 *   A basic gui widget primarily ment for use as a widget container
