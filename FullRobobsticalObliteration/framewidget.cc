@@ -17,7 +17,6 @@
 FrameWidget::FrameWidget(GameStateManager* manager) {
     game_state_manager_ = manager;
     parent_ = nullptr;
-    child_list_.clear();
 }
 
 FrameWidget::FrameWidget(GameStateManager* manager, WidgetLocation location) {

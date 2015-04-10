@@ -14,6 +14,8 @@
 
 #include "cardhandwidget.h"
 
+const double CARD_EXPOSE_RATE = 0.1;
+
 CardHandWidget::CardHandWidget(GameStateManager* manager):FrameWidget(manager) {
   current_location_=WidgetLocation(8.0,8.0,0.0,0.0,0.0);
 }
@@ -21,6 +23,7 @@ CardHandWidget::CardHandWidget(GameStateManager* manager):FrameWidget(manager) {
 CardHandWidget::CardHandWidget(GameStateManager* manager,
                                WidgetLocation location):
                                FrameWidget(manager, location) {
+  child_list_.clear();
 }
 
 
@@ -43,7 +46,29 @@ void CardHandWidget::Draw() {
                current_location_.bottom(),
                current_location_.depth());
   glEnd();
-  for(std::list<Widget*>::const_iterator child_iterator=child_list_.begin();
+  for(std::list<Widget*>::iterator child_iterator=child_list_.begin();
       child_iterator != child_list_.end(); ++child_iterator)
     (*child_iterator)->Draw();
 }
+
+void CardHandWidget::Nuetral() {
+}
+
+int CardHandWidget::CusorOverCard(const double x, const double y) {
+  if(!containPoint(x,y))
+    return -2;
+  else {
+    int card_number=child_list_.size()-1;
+    std::list<Widget*>::reverse_iterator child_iterator=child_list_.rbegin();
+    std::list<Widget*>::reverse_iterator end = child_list_.rend();
+    while(child_iterator != end &&
+          !(*child_iterator)->containPoint(x,y)) {
+      ++child_iterator;
+      --card_number;
+    }
+    return card_number;
+  }
+
+}
+void ExpandCard(int card_number);
+void RaiseCard(int card_number);

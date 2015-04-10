@@ -15,6 +15,8 @@
 #ifndef GAME_STATE_PROGRAM_H_
 #define GAME_STATE_PROGRAM_H_
 
+#include <iostream>
+
 #include "gamestate.h"
 #include "cardwidget.h"
 #include "cardhandwidget.h"
@@ -65,7 +67,7 @@ public:
   void Hotkey(const int);
   void Activate_Selection();
 private:
-  CardWidget card_;
+  CardWidget card_[9];
   CardHandWidget player_hand_;
   GameStateManager* manager_;
 };

@@ -18,10 +18,14 @@
 GameStateProgram::GameStateProgram(GameStateManager* manager)
 {
   manager_=manager;
-  card_ = CardWidget(manager_,
-                     WidgetLocation (8.0, 12.0, 15.0, 10.0, 1.0));
   player_hand_ = CardHandWidget(manager_,
-                       WidgetLocation (20.0, 20.0, 40.0, 12.0, 1.0));
+                       WidgetLocation(44.0, 16.0, 40.0, 38.0, 0.0));
+  for(int card_count=0; card_count<9; ++card_count) {
+    card_[card_count] = CardWidget(manager_,
+                        WidgetLocation (8.0, 12.0,
+                                        40.0+card_count*4.0 , 42.0, -1.0));
+    player_hand_.addChild(&card_[card_count]);
+  }
 }
 
 GameStateProgram::~GameStateProgram(void)
@@ -29,7 +33,6 @@ GameStateProgram::~GameStateProgram(void)
 }
 
 void GameStateProgram::Draw(){
-  card_.Draw();
   player_hand_.Draw();
 }
 
@@ -40,7 +43,6 @@ bool GameStateProgram::Opaque() const {
 
 //Loads the GameState onto the GameStateManager stack in active mode
 void GameStateProgram::Load() {
-  card_.MoveTo(15.0, 10.0); 
 }
 
 //Called when GameState when another GameState is preparing
@@ -61,6 +63,7 @@ void GameStateProgram::Unload() {
 void GameStateProgram::CursorMove(bool left_mouse_button_down,
                                   double x_position,
                                   double y_position){
+  std::cout<< player_hand_.CusorOverCard(x_position, y_position) <<std::endl;
 }
 
 void GameStateProgram::MouseButtonPressed(int button,

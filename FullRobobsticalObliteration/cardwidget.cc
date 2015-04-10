@@ -77,12 +77,16 @@ void CardWidget::Draw() {
     glVertex3d(current_location_.left(),
                current_location_.top(),
                current_location_.depth());
+    
+    glColor3f(0.0,color_[1],color_[2]);
     glVertex3d(current_location_.right(),
                current_location_.top(),
                current_location_.depth());
+    glColor3f(color_[0],0.0,color_[2]);
     glVertex3d(current_location_.right(),
                current_location_.bottom(),
                current_location_.depth());
+    glColor3f(color_[0],color_[1],0.0);
     glVertex3d(current_location_.left(),
                current_location_.bottom(),
                current_location_.depth());

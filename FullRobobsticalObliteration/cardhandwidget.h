@@ -17,6 +17,7 @@
 
 #include "gamestatemanager.h"
 #include "framewidget.h"
+#include "cardwidget.h"
 
 class CardHandWidget: public FrameWidget{
 public:
@@ -28,7 +29,13 @@ public:
   * From Renderable */
   void Draw();
 
+  void Nuetral();
+  
+  //Takes cursor coodinates
+  //Returns an int for the card number the cursor is over.
+  int CusorOverCard(const double x, const double y);
+  void ExpandCard(int card_number);
+  void RaiseCard(int card_number);
 private:
-
 };
 #endif//CARD_HAND_WIDGET_H
