@@ -30,8 +30,8 @@ public:
 
   /*******************
   * From Widget */
-  const bool containPoint(const Point) const;
-  const bool containPoint(const double x, const double y) const;
+  const bool ContainPoint(const Point) const;
+  const bool ContainPoint(const double x, const double y) const;
 
   void MoveTo(const Point);
   void MoveTo(const double x, const double y);

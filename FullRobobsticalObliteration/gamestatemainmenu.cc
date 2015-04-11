@@ -19,11 +19,11 @@ GameStateMainMenu::GameStateMainMenu(GameStateManager* manager) {
   game_state_manager_ = manager;
   focus_ = nullptr;
   button_1_ = ButtonWidget(game_state_manager_,
-                           WidgetLocation (32.0, 32.0, 20.0, 6.0, -1.0));
+                           WidgetLocation (20.0, 6.0, 32.0, 32.0, -1.0));
   button_1_.setColor(0.8f, 0.8f, 0.8f);
 
   button_2_ = ButtonWidget(game_state_manager_,
-                           WidgetLocation (32.0, 42.0, 20.0, 6.0, -1.0));
+                           WidgetLocation (20.0, 6.0, 32.0, 42.0, -1.0));
   button_2_.setColor(0.8f, 0.8f, 0.8f);
 
   card_1_ = CardWidget(game_state_manager_,
@@ -70,13 +70,13 @@ void GameStateMainMenu::CursorMove(bool left_mouse_button_down,
 void GameStateMainMenu::MouseButtonPressed(int button,
                                            double x_position,
                                            double y_position) {
-  if(button_1_.containPoint(x_position,y_position) ) {
+  if(button_1_.ContainPoint(x_position,y_position) ) {
     button_1_.setPressed(true);
     Focus(&button_1_);
-  } else if(button_2_.containPoint(x_position,y_position) ) {
+  } else if(button_2_.ContainPoint(x_position,y_position) ) {
     button_2_.setPressed(true);
     Focus(&button_2_);
-  } else if(card_1_.containPoint(x_position,y_position) ) {
+  } else if(card_1_.ContainPoint(x_position,y_position) ) {
     card_1_.DragStart(x_position,y_position);
     Focus(&card_1_);
   }
@@ -95,10 +95,10 @@ void GameStateMainMenu::MouseButtonReleased(int button,
 void GameStateMainMenu::MouseButtonClicked(int button,
                                            double x_position,
                                            double y_position) {
-  if(button_1_.containPoint(x_position,y_position) ) {
+  if(button_1_.ContainPoint(x_position,y_position) ) {
     Activate_Button_Widget(1);
   }
-  if(button_2_.containPoint(x_position,y_position) ) {
+  if(button_2_.ContainPoint(x_position,y_position) ) {
     Activate_Button_Widget(2);
   }
 }

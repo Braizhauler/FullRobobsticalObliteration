@@ -27,7 +27,7 @@ FrameWidget::FrameWidget(GameStateManager* manager, WidgetLocation location) {
 FrameWidget::~FrameWidget(void) {
 }
 
-const bool FrameWidget::containPoint(const double x, const double y) const {
+const bool FrameWidget::ContainPoint(const double x, const double y) const {
   if( (current_location_.left() <= x) && (x <= current_location_.right()) ) {
     if( (current_location_.top()<= y) && (y <= current_location_.bottom()) ) {
       return true;
@@ -36,8 +36,8 @@ const bool FrameWidget::containPoint(const double x, const double y) const {
   return false;
 }
 
-const bool FrameWidget::containPoint(const Point point) const {
-  return containPoint(point.x, point.y);
+const bool FrameWidget::ContainPoint(const Point point) const {
+  return ContainPoint(point.x, point.y);
 }
 
 void FrameWidget::MoveTo(const double x, const double y) {

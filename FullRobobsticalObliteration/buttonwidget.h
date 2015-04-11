@@ -36,40 +36,18 @@ public:
   void Draw();
   void Draw(const bool has_focus);
   
-  const bool containPoint(const Point point) const;
-  const bool containPoint(const double x, const double y) const;
+  const bool ContainPoint(const Point point) const;
+  const bool ContainPoint(const double x, const double y) const;
 
   void MoveTo(const Point point);
   void MoveTo(const double x, const double y);
 
+  void SizeTo(const Widget* model);
+  void SizeTo(const double width, const double height);
+
   //Methods
   FrameWidget* parent() const;
   void setParent(FrameWidget*);
-
-  //returns true if argument is a child of this
-  const bool isChild(Widget* widget);
-  //returns a widget in position child_number
-  Widget* child(int child_number);
-  //returns the list of widget pointers that are children of this
-  std::list<Widget*> children();
-
-  //informs the child to clear their parent,
-  //then clears the child from our record
-  void clearChild(int); 
-  void clearChild(Widget*); 
-
-  // informs all children to to clear their parent,
-  //    then clears the all children from the our record
-  void clearChildren(); 
-
-  //calls the child's decontructor then removes it from our children record
-  void deleteChild(int);
-
-  //calls each childs' decontructor then removes them from our children record
-  void deleteChildren(); 
-
-  //adds the passed widget to our children record
-  void addChild(Widget*);
 
   //Accessors and Mutators
   const bool pressed() const;
@@ -108,12 +86,8 @@ private:
   //Member Variables
   GameStateManager* game_state_manager_;
   FrameWidget* parent_;
-  std::list<Widget*> child_list_;
-  double top_;
-  double left_;
-  double right_;
-  double bottom_;
-  double depth_;
+
+  WidgetLocation current_location_;
 
   bool is_pressed_;
 

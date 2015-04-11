@@ -48,11 +48,14 @@ public:
 
   /*******************
   * From Widget */
-  const bool containPoint(const Point point) const;
-  const bool containPoint(const double x, const double y) const;
+  const bool ContainPoint(const Point point) const;
+  const bool ContainPoint(const double x, const double y) const;
 
   void MoveTo(const Point point);
   void MoveTo(const double x, const double y);
+  
+  void SizeTo(const Widget* model);
+  void SizeTo(const double width, const double height);
 
   FrameWidget* parent() const;
   void setParent(FrameWidget*);

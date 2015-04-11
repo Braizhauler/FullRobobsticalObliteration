@@ -135,12 +135,12 @@ void CardWidget::Draw(bool has_focus) {
     glLineWidth(1);
   }
 }
-const bool CardWidget::containPoint(const Point point) const{
-  return containPoint(point.x, point.y);
+const bool CardWidget::ContainPoint(const Point point) const{
+  return ContainPoint(point.x, point.y);
 }
 
   
-const bool CardWidget::containPoint(const double x, const double y) const{
+const bool CardWidget::ContainPoint(const double x, const double y) const{
   if( (current_location_.left() <= x) && (x <= current_location_.right()) ) {
     if( (current_location_.top()<= y) && (y <= current_location_.bottom()) ) {
       return true;
@@ -158,6 +158,18 @@ void CardWidget::MoveTo(const double x, const double y) {
 
 void CardWidget::MoveTo(const Point point) {
   current_location_.MoveTo(point);
+}
+
+void CardWidget::SizeTo(const double x, const double y) {
+  Point point;
+  point.x = x;
+  point.y = y;
+  current_location_.MoveTo(point);
+}
+
+void CardWidget::SizeTo(const Widget* model) {
+  current_location_.setWidth(model->width());
+  current_location_.setHeight(model->height());
 }
 
 FrameWidget* CardWidget::parent() const {

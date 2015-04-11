@@ -33,11 +33,14 @@ public:
   //returns true if:
   //x is between left and right
   //y is between top and bottom
-  virtual const bool containPoint(const double x, const double y) const=0;
-  virtual const bool containPoint(const Point) const=0;
+  virtual const bool ContainPoint(const double x, const double y) const=0;
+  virtual const bool ContainPoint(const Point) const=0;
 
   virtual void MoveTo(const Point)=0;
   virtual void MoveTo(const double x, const double y)=0;
+
+  virtual void SizeTo(const Widget *)=0;
+  virtual void SizeTo(const double width, const double height)=0;
 
   virtual FrameWidget* parent() const=0;
   virtual void setParent(FrameWidget*)=0;

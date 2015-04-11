@@ -20,12 +20,8 @@ ButtonWidget::ButtonWidget(GameStateManager* manager) {
   setColor(0.8f,0.8f,0.8f);
 
   is_pressed_ = false;
+  current_location_ = WidgetLocation(2.0,5.0,0.0,0.0,0.0);
 
-  top_= 0.0;
-  bottom_= 5.0;
-  left_= 0.0;
-  right_= 10.0;
-  depth_ = 0.0;
 }
 
 ButtonWidget::ButtonWidget(GameStateManager* manager, WidgetLocation location) {
@@ -35,11 +31,7 @@ ButtonWidget::ButtonWidget(GameStateManager* manager, WidgetLocation location) {
 
   is_pressed_ = false;
 
-  top_= location.top();
-  bottom_= location.bottom();
-  left_= location.left();
-  right_= location.right();
-  depth_ = location.depth();
+  current_location_ = location;
 }
 
 ButtonWidget::~ButtonWidget(void) {
@@ -50,22 +42,42 @@ void ButtonWidget::Draw() {
     glColor3f(pressed_color_[0],pressed_color_[1],pressed_color_[2]) :
     glColor3f(button_color_[0],button_color_[1],button_color_[2]);
   glBegin(GL_TRIANGLE_FAN);
-    glVertex3d(left_,top_,depth_);
-    glVertex3d(right_,top_,depth_);
-    glVertex3d(right_,bottom_,depth_);
-    glVertex3d(left_,bottom_,depth_);
+    glVertex3d(current_location_.left(),
+               current_location_.top(),
+               current_location_.depth());
+    glVertex3d(current_location_.right(),
+               current_location_.top(),
+               current_location_.depth());
+    glVertex3d(current_location_.right(),
+               current_location_.bottom(),
+               current_location_.depth());
+    glVertex3d(current_location_.left(),
+               current_location_.bottom(),
+               current_location_.depth());
   glEnd();
   if(is_pressed_)
     glColor3f(pressed_shadow_[0], pressed_shadow_[1], pressed_shadow_[2]);
   else
     glColor3f(button_shadow_[0], button_shadow_[1], button_shadow_[2]);
   glBegin(GL_TRIANGLE_FAN);
-    glVertex3d(right_, bottom_, depth_);
-    glVertex3d(left_, bottom_, depth_);
-    glVertex3d(left_+ 0.3,bottom_-0.3, depth_);
-    glVertex3d(right_- 0.3,bottom_-0.3, depth_);
-    glVertex3d(right_- 0.3,top_ + 0.3, depth_);
-    glVertex3d(right_,top_,depth_);
+    glVertex3d(current_location_.right(),
+               current_location_.bottom(),
+               current_location_.depth());
+    glVertex3d(current_location_.left(),
+               current_location_.bottom(),
+               current_location_.depth());
+    glVertex3d(current_location_.left()+0.3,
+               current_location_.bottom()-0.3,
+               current_location_.depth());
+    glVertex3d(current_location_.right()-0.3,
+               current_location_.bottom()-0.3,
+               current_location_.depth());
+    glVertex3d(current_location_.right()-0.3,
+               current_location_.top()+0.3,
+               current_location_.depth());
+    glVertex3d(current_location_.right(),
+               current_location_.top(),
+               current_location_.depth());
   glEnd();
 
 }
@@ -76,21 +88,29 @@ void ButtonWidget::Draw(bool has_focus) {
   if(has_focus) {
     glColor3f(0.8f, 0.8f, 0.0f);
     glBegin(GL_LINE_LOOP);
-      glVertex3d(left_,top_,depth_);
-      glVertex3d(right_,top_,depth_);
-      glVertex3d(right_,bottom_,depth_);
-      glVertex3d(left_,bottom_,depth_);
+    glVertex3d(current_location_.left(),
+               current_location_.top(),
+               current_location_.depth());
+    glVertex3d(current_location_.right(),
+               current_location_.top(),
+               current_location_.depth());
+    glVertex3d(current_location_.right(),
+               current_location_.bottom(),
+               current_location_.depth());
+    glVertex3d(current_location_.left(),
+               current_location_.bottom(),
+               current_location_.depth());
     glEnd();
   }
 }
-const bool ButtonWidget::containPoint(const Point point) const {
-  return containPoint(point.x, point.y);
+const bool ButtonWidget::ContainPoint(const Point point) const {
+  return ContainPoint(point.x, point.y);
 }
 
   
-const bool ButtonWidget::containPoint(const double x, const double y) const {
-  if( (left_ <= x) && (x <= right_) ) {
-    if( (top_ <= y) && (y <= bottom_) ) {
+const bool ButtonWidget::ContainPoint(const double x, const double y) const {
+  if( (current_location_.left() <= x) && (x <= current_location_.right()) ) {
+    if( (current_location_.top() <= y) && (y <= current_location_.bottom()) ) {
       return true;
     }
   }
@@ -98,13 +118,21 @@ const bool ButtonWidget::containPoint(const double x, const double y) const {
 }
 
 void ButtonWidget::MoveTo(const double x, const double y) {
-  left_ = x;
-  top_  = y;
+  current_location_.setLeft(x);
+  current_location_.setTop(y);
 }
 
 void ButtonWidget::MoveTo(const Point point) {
-  left_ = point.x;
-  top_ = point.y;
+  current_location_.MoveTo(point);
+}
+
+void ButtonWidget::SizeTo(const double x, const double y) {
+  setWidth(x);
+  setHeight(y);
+}
+
+void ButtonWidget::SizeTo(const Widget * model) {
+  SizeTo(model->width(),model->height());
 }
 
 FrameWidget* ButtonWidget::parent() const {
@@ -116,51 +144,6 @@ void ButtonWidget::setParent(FrameWidget* new_parent) {
   parent_ = new_parent;
 }
 
-//returns true if supplied widget * is a child of this.
-const bool ButtonWidget::isChild(Widget* widget)  {
-  for(std::list<Widget*>::iterator child_iterator = child_list_.begin();
-      child_iterator != child_list_.end(); ++child_iterator)
-    if (widget == *child_iterator)
-      return true;
-  return false;
-}
-
-Widget* ButtonWidget::child(int child_number) {
-  std::list<Widget*>::iterator child_iterator = child_list_.begin();
-  for(int counter = 0; counter < child_number; ++counter)
-    ++child_iterator;
-  return *child_iterator;
-}
-
-std::list<Widget*> ButtonWidget::children() {
-  return child_list_;
-}
-
-//informs the child to clear their parent,
-//then clears the child from our record
-void ButtonWidget::clearChild(int) {
-}
-
-void ButtonWidget::clearChild(Widget*) {
-}
-
-// informs all children to to clear their parent,
-//    then clears the all children from the our record
-void ButtonWidget::clearChildren() {
-} 
-
-//calls the child's decontructor then removes it from our children record
-void ButtonWidget::deleteChild(int) {
-}
-
-//calls each childs' decontructor then removes them from our children record
-void ButtonWidget::deleteChildren() {
-}
-
-//adds the passed widget to our children record
-void ButtonWidget::addChild(Widget*) {
-}
-
 const bool ButtonWidget::pressed() const{
   return is_pressed_;
 }
@@ -168,59 +151,56 @@ void ButtonWidget::setPressed(bool pressed_state) {
   is_pressed_ = pressed_state;
 }
 
+
 double ButtonWidget::width() const {
-  return (right_ - left_);
+  return current_location_.width();
 }
-void ButtonWidget::setWidth(double width) {
-  right_ = (left_ + width);
+void ButtonWidget::setWidth(double new_width) {
+  current_location_.setWidth(new_width);
 }
 
 double ButtonWidget::height() const {
-  return (bottom_ - top_);
+  return current_location_.height();
 }
-void ButtonWidget::setHeight(double height) {
-  bottom_ = (top_ + height);
+void ButtonWidget::setHeight(double new_height) {
+  current_location_.setHeight(new_height);
 }
-
   
-double ButtonWidget::left() const {
-  return left_;
+double ButtonWidget::left() const{
+  return current_location_.left();
 }
 void ButtonWidget::setLeft(double new_left) {
-  right_ += new_left - left_;
-  left_ = new_left;
+  current_location_.setLeft(new_left);
 }
  
-double ButtonWidget::right() const {
-  return right_;
+double ButtonWidget::right() const{
+  return current_location_.right();
 }
 void ButtonWidget::setRight(double new_right) {
-  left_ += new_right - right_;
-  right_ = new_right;
+  current_location_.setRight(new_right);
 }
  
 double ButtonWidget::top() const {
-  return top_;
+  return current_location_.top();
 }
 void ButtonWidget::setTop(double new_top) {
-  bottom_ += new_top - top_;
-  top_ = new_top;
+  current_location_.setTop(new_top);
 }
   
 double ButtonWidget::bottom() const {
-  return bottom_;
+  return current_location_.bottom();
 }
 void ButtonWidget::setBottom(double new_bottom) {
-  top_ += new_bottom - bottom_;
-  bottom_ = new_bottom;
+  current_location_.setBottom(new_bottom);
 }
 
 double ButtonWidget::depth() const {
-  return depth_;
+  return current_location_.depth();
 }
-void ButtonWidget::setDepth(double depth) {
-  depth_ = depth;
+void ButtonWidget::setDepth(double new_depth) {
+ current_location_.setDepth(new_depth);
 }
+
 
 
 const float* ButtonWidget::color() {
