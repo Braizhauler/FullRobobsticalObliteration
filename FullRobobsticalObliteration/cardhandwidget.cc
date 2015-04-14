@@ -38,12 +38,35 @@ FrameWidget* CardHandWidget::parent() const{
 }
 
 void CardHandWidget::setParent(FrameWidget* new_parent) {
-  parent_->clearChild(this);
   parent_ = new_parent;
 }
 
+//informs the child to clear their parent,
+//then clears the child from our record
+void CardHandWidget::ClearChild(CardWidget* card) {
+  child_list_.remove(card);
+  cards_total_ = child_list_.size();
+  if(cards_total_> 0) {
+    if(card_width_*cards_total_<= current_location_.width()) {
+      card_spacing_ = card_width_;
+    } else {
+      card_spacing_ = (current_location_.width()-(2*card_width_))
+                      /(cards_total_-2);
+    }
+  }
+  std::list<CardWidget*>::iterator child_iter = child_list_.begin();
+  std::list<CardWidget*>::iterator end_child_list = child_list_.end();
+  int count=0;
+  while(child_iter!=end_child_list) {
+    (*child_iter)->setLeft(current_location_.left()+(count*card_spacing_));
+    (*child_iter)->setBottom(current_location_.bottom());
+    ++count;
+    ++child_iter;
+  }
+}
+
 void CardHandWidget::Draw(Focusable* focus) {
-    glColor3f(0.5f,0.0f,0.1f);
+  glColor3f(0.5f,0.0f,0.1f);
   glBegin(GL_TRIANGLE_FAN);
     glVertex3d(current_location_.left(),
                current_location_.top(),
@@ -105,10 +128,17 @@ void CardHandWidget::Draw() {
 }
 
 void CardHandWidget::addChild(CardWidget* new_child) {
+  std::list<CardWidget*>::iterator child_iter = child_list_.begin();
+  std::list<CardWidget*>::iterator end_child_list = child_list_.end();
   if(child_list_.empty()) {
     card_width_=new_child->width();
     card_height_=new_child->height();
   } else {
+    while(child_iter!=end_child_list) {
+      if(new_child==(*child_iter))
+        return;
+      ++child_iter;
+    }
     new_child->SizeTo(card_width_,card_height_);
   }
   child_list_.push_back(new_child);
@@ -121,9 +151,9 @@ void CardHandWidget::addChild(CardWidget* new_child) {
                       /(cards_total_-2);
     }
   }
-  std::list<CardWidget*>::iterator child_iter = child_list_.begin();
-  std::list<CardWidget*>::iterator end_child_list = child_list_.end();
   int count=0;
+  child_iter = child_list_.begin();
+  end_child_list = child_list_.end();
   while(child_iter!=end_child_list) {
     (*child_iter)->setLeft(current_location_.left()+(count*card_spacing_));
     (*child_iter)->setBottom(current_location_.bottom());
@@ -163,7 +193,6 @@ void CardHandWidget::SizeTo(const double x, const double y) {
 void CardHandWidget::SizeTo(const Widget * model) {
   SizeTo(model->width(),model->height());
 }
-
 
 CardWidget* CardHandWidget::NextCard(Widget* current_card) {
   std::list<CardWidget*>::iterator child_iterator=child_list_.begin(),
@@ -239,6 +268,7 @@ void CardHandWidget::LowerAllCards() {
 }
 
 void CardHandWidget::CollapseAllCards() {
+  card_expanded_=nullptr;
 }
 
 double CardHandWidget::width() const {

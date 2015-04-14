@@ -100,7 +100,7 @@
       <Filter>Source Files\Widgets</Filter>
     </ClCompile>
     <ClCompile Include="registerwidget.cc">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Widgets</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -174,7 +174,7 @@
       <Filter>Header Files\Widgets</Filter>
     </ClInclude>
     <ClInclude Include="registerwidget.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Widgets</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

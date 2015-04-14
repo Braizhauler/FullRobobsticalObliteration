@@ -19,21 +19,30 @@ GameStateProgram::GameStateProgram(GameStateManager* manager)
 {
   manager_=manager;
   dragged_=nullptr;
+  register_dragging_from_=-1;
   player_hand_ = CardHandWidget(manager_,
-                       WidgetLocation(33.0, 12.0, 40.0, 38.0, 0.0));
-  for(int card_count=0; card_count<9; ++card_count) {
+                       WidgetLocation(33.0, 12.0, 51.0, 38.0, 0.0));
+  for(int register_count=0;register_count<NUMBER_OF_REGISTERS;++register_count){
+    register_[register_count]=
+                RegisterWidget(manager,
+                               WidgetLocation(7.0,12.0,
+                                              10.0+register_count*7.0,38.0,
+                                              0.0));
+  }
+  for(int card_count=0; card_count<MAX_NUMBER_OF_CARDS_IN_HAND; ++card_count) {
     card_[card_count] = CardWidget(manager_,
-                        WidgetLocation (6.0, 9.0,
-                                        40.0+card_count*4.0 , 42.0, -1.0));
+                                   WidgetLocation(6.0, 9.0,
+                                                40.0+card_count*4.0,42.0,-1.0));
     player_hand_.addChild(&card_[card_count]);
   }
 }
 
-GameStateProgram::~GameStateProgram(void)
-{
+GameStateProgram::~GameStateProgram(void) {
 }
 
 void GameStateProgram::Draw(){
+  for(int register_count=0;register_count<NUMBER_OF_REGISTERS;++register_count)
+    register_[register_count].Draw();
   player_hand_.Draw(focus_);
 }
 
@@ -83,6 +92,18 @@ void GameStateProgram::MouseButtonPressed(int button,
     player_hand_.RaiseCard(temp);
     focus_=(Focusable*)temp;
     dragged_->DragStart(x_position, y_position);
+  } else {
+    for(int current_register=0;
+        current_register<NUMBER_OF_REGISTERS;
+        ++current_register) {
+      if(!register_[current_register].IsClear()) {
+        if(register_[current_register].PointInSlot(x_position, y_position)) {
+          dragged_= register_[current_register].Card();
+          dragged_->DragStart(x_position, y_position);
+          register_dragging_from_=current_register;
+        }
+      }
+    }
   }
 }
 
@@ -91,6 +112,21 @@ void GameStateProgram::MouseButtonReleased(int button,
                                            double y_position){
   if(dragged_!=nullptr) {
     dragged_->DragEnd(x_position, y_position);
+    if(register_dragging_from_>=0) {
+      register_[register_dragging_from_].SetCard(nullptr);
+      register_dragging_from_=-1;
+    }
+    bool card_added_to_register=false;
+    for(int slot=0;slot<NUMBER_OF_REGISTERS;++slot) {
+      if(register_[slot].IsClear()&&
+         register_[slot].PointInSlot(x_position, y_position)) {
+        player_hand_.ClearChild(dragged_);
+        register_[slot].SetCard(dragged_);
+        card_added_to_register=true;
+      }
+    }
+    if(!card_added_to_register)
+      player_hand_.addChild(dragged_);
     dragged_=nullptr;
   }
   player_hand_.CollapseAllCards();

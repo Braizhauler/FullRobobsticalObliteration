@@ -20,11 +20,9 @@
 #include "gamestate.h"
 #include "cardwidget.h"
 #include "cardhandwidget.h"
+#include "registerwidget.h"
 
-const int MAX_NUMBER_OF_CARDS_IN_HAND = 9;
-
-class GameStateProgram : public GameState
-{
+class GameStateProgram : public GameState {
 public:
   //Constructors, and Destructor
   GameStateProgram(GameStateManager* manager);
@@ -69,9 +67,13 @@ public:
   void Hotkey(const int);
   void Activate_Selection();
 private:
+  static const int MAX_NUMBER_OF_CARDS_IN_HAND = 9;
+  static const int NUMBER_OF_REGISTERS = 5;
   CardWidget* dragged_;
+  int register_dragging_from_;
   Focusable * focus_;
   CardWidget card_[MAX_NUMBER_OF_CARDS_IN_HAND];
+  RegisterWidget register_[NUMBER_OF_REGISTERS];
   CardHandWidget player_hand_;
   GameStateManager* manager_;
 };

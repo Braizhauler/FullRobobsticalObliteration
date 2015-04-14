@@ -35,11 +35,11 @@ public:
 
   //informs the child to clear their parent,
   //then clears the child from our record
-  void clearChild(Widget*); 
+  void ClearChild(CardWidget*); 
 
   // informs all children to to clear their parent,
   //    then clears the all children from the our record
-  void clearChildren(); 
+  void ClearChildren(); 
 
   //adds the passed widget to our children record
   void addChild(Widget*);
