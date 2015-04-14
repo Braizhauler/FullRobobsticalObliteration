@@ -9,7 +9,7 @@
 * All Rights Reserved.
 *******************************************************************************/
 
-#include "MyWindowWrapper.h"
+#include "mywindowwrapper.h"
 
 
 /*******************************

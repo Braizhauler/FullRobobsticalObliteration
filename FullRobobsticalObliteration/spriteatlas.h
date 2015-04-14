@@ -17,7 +17,7 @@
 
 #include <string>
 #include <fstream>
-
+/*
 class SpriteAtlas
 {
 public:
@@ -51,6 +51,6 @@ private:
 	int sheetHeight;
 	int spritesPerRow;
 };
+*/
 
-
-#endif SPRITE_ATLAS_H
+#endif//SPRITE_ATLAS_H

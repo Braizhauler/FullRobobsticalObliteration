@@ -9,20 +9,9 @@
 *******************************************************************************/
 
 #include "spriteatlas.h"
-#include <string>
-#include <iostream>
-#include <fstream>
-
-// Include GLEW
-#include <GL/glew.h>
-
-// Include GLFW
-#include <glfw3.h>
-
-using std::ios;
 
 /*******************************
-* Constructors and Destructor */
+* Constructors and Destructor *
 std::string type;
 
 SpriteAtlas::SpriteAtlas(std::string tstType, int iWidthOfSpriteInPixels, int iHeightOfSpriteInPixels, int iMaxNumberOfSprites=0, std::string filename="spritesheet.jpg"){
@@ -54,7 +43,7 @@ bool SpriteAtlas::Init(void) {
 }
 
 /*******************************
-* Methods                     */
+* Methods                     *
 
 void SpriteAtlas::del(){
 	glDeleteBuffers(1, &iTextureName);
@@ -163,6 +152,6 @@ bool SpriteAtlas::fileExists(std::string filename){
 	std::ifstream iff(filename.c_str());  
 	return iff.is_open(); 
 }
-;
+;*/
 /*******************************
 * Accessors and Mutators      */

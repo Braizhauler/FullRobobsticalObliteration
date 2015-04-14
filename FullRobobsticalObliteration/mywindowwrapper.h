@@ -17,7 +17,7 @@
 #define MY_WINDOW_WRAPPER_H_
 
 #include <glfw3.h>
-#include <string>
+#include <cstring>
 #include <math.h>
 #ifndef M_PI 
 #define M_PI   (3.14159265358979323846)
