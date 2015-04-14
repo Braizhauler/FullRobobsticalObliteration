@@ -21,6 +21,8 @@
 #include "cardwidget.h"
 #include "cardhandwidget.h"
 
+const int MAX_NUMBER_OF_CARDS_IN_HAND = 9;
+
 class GameStateProgram : public GameState
 {
 public:
@@ -67,7 +69,9 @@ public:
   void Hotkey(const int);
   void Activate_Selection();
 private:
-  CardWidget card_[9];
+  CardWidget* dragged_;
+  Focusable * focus_;
+  CardWidget card_[MAX_NUMBER_OF_CARDS_IN_HAND];
   CardHandWidget player_hand_;
   GameStateManager* manager_;
 };

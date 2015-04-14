@@ -15,8 +15,8 @@
 #include "framewidget.h"
 
 FrameWidget::FrameWidget(GameStateManager* manager) {
-    game_state_manager_ = manager;
-    parent_ = nullptr;
+  game_state_manager_ = manager;
+  parent_ = nullptr;
 }
 
 FrameWidget::FrameWidget(GameStateManager* manager, WidgetLocation location) {
@@ -50,8 +50,6 @@ void FrameWidget::MoveTo(const double x, const double y) {
 void FrameWidget::MoveTo(const Point upper_left) {
   current_location_.MoveTo(upper_left);
 }
-
-
 
 FrameWidget* FrameWidget::parent() const{
   return parent_;

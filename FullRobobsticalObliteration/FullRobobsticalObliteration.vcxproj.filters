@@ -99,6 +99,9 @@
     <ClCompile Include="cardhandwidget.cc">
       <Filter>Source Files\Widgets</Filter>
     </ClCompile>
+    <ClCompile Include="registerwidget.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mywindowwrapper.h">
@@ -169,6 +172,9 @@
     </ClInclude>
     <ClInclude Include="cardhandwidget.h">
       <Filter>Header Files\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="registerwidget.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

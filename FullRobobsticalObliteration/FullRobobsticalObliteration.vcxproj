@@ -136,6 +136,7 @@
     <ClCompile Include="rectangle.cpp" />
     <ClCompile Include="rectangleinspace.cc" />
     <ClCompile Include="rectangleonplane.cc" />
+    <ClCompile Include="registerwidget.cc" />
     <ClCompile Include="renderable.cc" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="spriteatlas.cc" />
@@ -162,6 +163,7 @@
     <ClInclude Include="rectangle.h" />
     <ClInclude Include="rectangleinspace.h" />
     <ClInclude Include="rectangleonplane.h" />
+    <ClInclude Include="registerwidget.h" />
     <ClInclude Include="renderable.h" />
     <ClInclude Include="spriteatlas.h" />
     <ClInclude Include="updateable.h" />
