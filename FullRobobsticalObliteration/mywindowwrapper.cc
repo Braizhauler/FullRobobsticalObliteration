@@ -122,8 +122,8 @@ void MyWindowWrapper::Resize(const int width,const int height)  {
           display_width_ + display_offset_x_, //right
           display_height_ + display_offset_y_, //bottom
           -display_offset_y_, //top
-          -1, //near
-          10); //far
+          -20, //near
+          20); //far
 
   if(mouse_offset_function_ != nullptr)
     mouse_offset_function_(display_offset_x_,display_offset_y_,display_scale_);

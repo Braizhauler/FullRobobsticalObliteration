@@ -17,6 +17,8 @@
 
 GameStateProgram::GameStateProgram(GameStateManager* manager)
 {
+  board_=GameBoardWidget(manager_,
+                         WidgetLocation(60.0, 30.0, 0.0, 6.0, 0.0));
   manager_=manager;
   dragged_=nullptr;
   register_dragging_from_=-1;
@@ -41,9 +43,12 @@ GameStateProgram::~GameStateProgram(void) {
 }
 
 void GameStateProgram::Draw(){
+  board_.Draw();
   for(int register_count=0;register_count<NUMBER_OF_REGISTERS;++register_count)
     register_[register_count].Draw();
   player_hand_.Draw(focus_);
+  if(dragged_!=nullptr)
+    dragged_->Draw();
 }
 
 //returns true if nothing is no other states are to be drawn under this state.
@@ -80,6 +85,10 @@ void GameStateProgram::CursorMove(bool left_mouse_button_down,
     if(card_at_cursor!=nullptr) {
       player_hand_.ExpandCard(card_at_cursor);
     }
+    
+    if(left_mouse_button_down)
+      if(board_.ContainPoint(x_position,y_position))
+        board_.setAngle(board_.angle()-5.0);
   }
 }
 

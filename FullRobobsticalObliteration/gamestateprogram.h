@@ -21,6 +21,7 @@
 #include "cardwidget.h"
 #include "cardhandwidget.h"
 #include "registerwidget.h"
+#include "gameboardwidget.h"
 
 class GameStateProgram : public GameState {
 public:
@@ -74,6 +75,7 @@ private:
   Focusable * focus_;
   CardWidget card_[MAX_NUMBER_OF_CARDS_IN_HAND];
   RegisterWidget register_[NUMBER_OF_REGISTERS];
+  GameBoardWidget board_;
   CardHandWidget player_hand_;
   GameStateManager* manager_;
 };

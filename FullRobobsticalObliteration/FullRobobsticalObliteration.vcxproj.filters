@@ -93,13 +93,13 @@
     <ClCompile Include="cardpile.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source.cpp">
-      <Filter>Header Files</Filter>
-    </ClCompile>
     <ClCompile Include="cardhandwidget.cc">
       <Filter>Source Files\Widgets</Filter>
     </ClCompile>
     <ClCompile Include="registerwidget.cc">
+      <Filter>Source Files\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="gameboardwidget.cc">
       <Filter>Source Files\Widgets</Filter>
     </ClCompile>
   </ItemGroup>
@@ -114,9 +114,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="updateable.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="gametime.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="rectangle.h">
@@ -174,6 +171,12 @@
       <Filter>Header Files\Widgets</Filter>
     </ClInclude>
     <ClInclude Include="registerwidget.h">
+      <Filter>Header Files\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="gameboardwidget.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="gametime.h">
       <Filter>Header Files\Widgets</Filter>
     </ClInclude>
   </ItemGroup>

@@ -125,6 +125,7 @@
     <ClCompile Include="focusable.cc" />
     <ClCompile Include="fontdata.cc" />
     <ClCompile Include="framewidget.cc" />
+    <ClCompile Include="gameboardwidget.cc" />
     <ClCompile Include="gamestate.cc" />
     <ClCompile Include="gamestatemainmenu.cc" />
     <ClCompile Include="gamestatemanager.cc" />
@@ -138,7 +139,6 @@
     <ClCompile Include="rectangleonplane.cc" />
     <ClCompile Include="registerwidget.cc" />
     <ClCompile Include="renderable.cc" />
-    <ClCompile Include="Source.cpp" />
     <ClCompile Include="spriteatlas.cc" />
     <ClCompile Include="updateable.cc" />
     <ClCompile Include="widget.cc" />
@@ -152,6 +152,7 @@
     <ClInclude Include="focusable.h" />
     <ClInclude Include="fontdata.h" />
     <ClInclude Include="framewidget.h" />
+    <ClInclude Include="gameboardwidget.h" />
     <ClInclude Include="gamestate.h" />
     <ClInclude Include="gamestatemainmenu.h" />
     <ClInclude Include="gamestatemanager.h" />

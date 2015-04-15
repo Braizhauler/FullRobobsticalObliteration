@@ -20,6 +20,7 @@
 
 #include "renderable.h"
 #include "rectangleinspace.h"
+#include "widgetlocation.h"
 
 struct Point;
 class FrameWidget;
