@@ -89,11 +89,9 @@ void GameStateProgram::CursorMove(bool left_mouse_button_down,
     
     if(left_mouse_button_down) {
       if(board_.ContainPoint(x_position,y_position)) {
-          double vert_off_center = (y_position-18.0);
           board_.setAngle(board_.angle()
-                          +(0.2*vert_off_center
-                          +0.01*vert_off_center*abs(vert_off_center))*
-                          (last_mouse_position_.x-x_position));
+                          +(0.2*(y_position-18.0)* 
+                          (last_mouse_position_.x-x_position)));
       }
     }
   }
