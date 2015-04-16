@@ -71,6 +71,8 @@ int main (int num_of_arugments, char * argument_list[])  {
   // Set Background to Dark Gray
   glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
   
+  SpriteAtlas SA = SpriteAtlas();
+
   GameStateManager state_manager(&window);
   InputManager* input_manager;
   

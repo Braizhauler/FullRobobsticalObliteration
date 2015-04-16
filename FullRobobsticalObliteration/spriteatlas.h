@@ -33,7 +33,7 @@ class SpriteAtlas
 {
 public:
   //Constructors, Init, and Destructor
-  SpriteAtlas(std::string filename);
+  SpriteAtlas();
   bool Init(void);
   ~SpriteAtlas(void);
 
@@ -45,6 +45,7 @@ public:
   void SpriteAtlas::loadImage(std::string filename);
   bool fileExists(std::string filename);
   void SpriteAtlas::bindTexture();
+  int * getCoordinates(std::string filename);
 
   //Accessors and Mutators
   std::string SheetType();

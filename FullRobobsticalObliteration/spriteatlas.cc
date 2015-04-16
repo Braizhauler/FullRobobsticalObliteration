@@ -25,12 +25,12 @@ using namespace cimg_library;
 std::string type;
 
 
-SpriteAtlas::SpriteAtlas(std::string targetfile="spritesheet.jpg"){
+SpriteAtlas::SpriteAtlas(){
 	
-	std::string filename = targetfile;
-	if(filename!=""){
+	/*std::string filename = targetfile;*/
+	/*if(filename!=""){*/
 		loadImage(filename);
-	}
+	/*}*/
 }
 
 
@@ -49,17 +49,23 @@ void SpriteAtlas::del(){
 
 void SpriteAtlas::loadImage(std::string filename){
 
-	CImg<unsigned char> src("Graphics/fro_fullsheet.png");
-	int width = src.width();
-	int height = src.height();
-	unsigned char* allPixels[1792][4096];
-	for (int i = 0; i < width; i++){
-		for (int j = 0; j < height; j++){
-			allPixels[j][i]= src.data(j,i);
-		}
-	}
-	
-	//return 0; 
+	CImg<unsigned char> src("../Graphics/fro_fullsheet.bmp");
+	std::cout << "IMAGE LOADED!";
+
+	GLuint froTexture = 0;
+
+	glGenTextures(1, &froTexture);
+	glBindTexture(GL_TEXTURE_2D, froTexture);
+	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, src.width(), src.height(), 0, GL_RGBA, GL_UNSIGNED_BYTE, src);
 }
 
 void displayTexture(std::string targetTexture, char*** memoryImage){
