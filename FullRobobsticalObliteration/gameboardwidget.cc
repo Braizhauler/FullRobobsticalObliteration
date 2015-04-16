@@ -1,5 +1,8 @@
 #include "gameboardwidget.h"
 
+const double GameBoardWidget::WALL_THICKNESS = 0.05; 
+const double GameBoardWidget::WALL_HEIGHT = 0.25; 
+
 GameBoardWidget::GameBoardWidget (void) {
   current_location_=WidgetLocation(60.0,30.0,0.0,0.0,0.0);
   game_state_manager_ = nullptr;
@@ -60,33 +63,18 @@ void GameBoardWidget::Draw(){
                current_location_.depth());
   glEnd();
   Setup3dRendering();
-  /*glColor3f(0.3f,0.3f,0.7f);
-  glBegin(GL_TRIANGLE_FAN);
-    glVertex3d(-1.0,1.0,-2.0);
-    glVertex3d(-1.0,-1.0,-2.0);
-    glVertex3d(1.0,-1.0,-2.0);
-  glColor3f(0.6f,0.6f,0.9f);
-    glVertex3d(1.0,1.0,-2.0);
-  glEnd();*/
+  /* from
+    0<angle_<90 --> (0,0) far 
+    90<angle_<180 --> (0,0) right 
+    180<angle_<270 --> (0,0) near 
+    270<angle_<360 --> (0,0) left
+ */
   RenderTiles();
   Setup2dRendering();
-  /* Needle
-  glColor3f(0.1f,0.0f,0.2f);
-  glBegin(GL_TRIANGLE_FAN);
-    glVertex3d(current_location_.left()+29,
-               current_location_.top(),
-               current_location_.depth());
-    glVertex3d(current_location_.right()-29,
-               current_location_.top(),
-               current_location_.depth());
-    glVertex3d(current_location_.left()+current_location_.width()/2.0,
-               current_location_.top()+current_location_.height()/2.0-6.75,
-               current_location_.depth());
-  glEnd();*/
 }
 
 void GameBoardWidget::Setup3dRendering() {
-  glClear(GL_DEPTH_BUFFER_BIT);
+  //glEnable(GL_DEPTH);
   glPushMatrix();
   glTranslated((current_location_.left()+current_location_.width())/2.0,
                 current_location_.top()+current_location_.height()/2.0,0.0);
@@ -94,62 +82,85 @@ void GameBoardWidget::Setup3dRendering() {
   glMatrixMode(GL_MODELVIEW);
   glPushMatrix();
   glTranslated (0.0,-(NUMBER_OF_TILES_ACROSS/2.0),-16.5);
-  //glTranslated (0.0,0.0,-10.0);
-  //glTranslated (-(current_location_.left()+current_location_.width())/2.0,
-  //             -current_location_.top()-current_location_.height()/2.0,0.0);
-  //double scale = current_location_.width()/(1.732*NUMBER_OF_TILES_ACROSS);
-  //double scale = current_location_.width()/(1.732*NUMBER_OF_TILES_ACROSS);
   double scale = current_location_.width()/(NUMBER_OF_TILES_ACROSS);
   glScaled(scale,scale,1.0);
   glRotatef(60.0, 1.0, 0.0, 0.0);
   glRotatef(angle_, 0.0, 0.0, 1.0);
   glTranslated(-(NUMBER_OF_TILES_ACROSS/2.0),-(NUMBER_OF_TILES_ACROSS/2.0),0);
+  //glClear(GL_DEPTH_BUFFER_BIT);
 }
 
 void GameBoardWidget::Setup2dRendering() {
   glPopMatrix();
   glMatrixMode(GL_PROJECTION);
   glPopMatrix();
+  //glDisable(GL_DEPTH);
 }
 
 void GameBoardWidget::RenderTiles() {
-  for(int x=0;x<NUMBER_OF_TILES_ACROSS;++x)
-    for(int y=0;y<NUMBER_OF_TILES_ACROSS;++y) {
-      if((x+y)%2==0)
+  glBegin(GL_QUADS);
+  for(Point tile=Point(0.0,0.0);tile.x<NUMBER_OF_TILES_ACROSS;++tile.x)
+    for(tile.y=0.0;tile.y<NUMBER_OF_TILES_ACROSS;++tile.y) {
+      if(tile.x+tile.y==0)
+        glColor3f(1.0f,0.3f,0.3f);
+      else if(((int)(tile.x+tile.y))%2==0)
         glColor3f(0.3f,0.3f,0.7f);
       else
-        glColor3f(0.5f,0.5f,0.5f);
-      glBegin(GL_TRIANGLE_FAN);
-        glVertex3i(x,y, 0);
-        glVertex3i(x+1,y, 0);
-        glVertex3i(x+1,y+1,0);
-        glVertex3i(x,y+1,0);
-      glEnd();
+        glColor3f(0.6f,0.6f,0.4f);
+      RenderATile(tile);
     }
+  glEnd();
   glColor3f(1.0f,1.0f,1.0f);
-  glBegin(GL_TRIANGLE_FAN);
+  glBegin(GL_QUADS);
     glVertex3i(3,3,0);
     glVertex3i(3,3,1);
     glVertex3i(3,4,1);
     glVertex3i(3,4,0);
   glEnd();
-  glBegin(GL_TRIANGLE_FAN);
+  glBegin(GL_QUAD_STRIP);
+    glVertex3i(1,0,0);
+    glVertex3i(1,0,1);
     glVertex3i(0,0,0);
+    glVertex3i(0,0,1);
     glVertex3i(0,1,0);
     glVertex3i(0,1,1);
-    glVertex3i(0,0,1);
-    glVertex3i(1,0,1);
-    glVertex3i(1,0,0);
   glEnd();
 }
-void GameBoardWidget::RenderATile(Point corner, Point tile) {
+void GameBoardWidget::RenderATile(Point tile) {
+    glVertex3d(tile.x    ,tile.y    ,0.0);
+    glVertex3d(tile.x+1.0,tile.y    ,0.0);
+    glVertex3d(tile.x+1.0,tile.y+1.0,0.0);
+    glVertex3d(tile.x    ,tile.y+1.0,0.0);
+    RenderAWall(tile);
 }
 
+void GameBoardWidget::RenderAWall(Point tile) {
+    glColor3f(0.5f,0.5f,0.5f);
+     if(angle_>180) {
+      glVertex3d(tile.x-WALL_THICKNESS,tile.y    ,0.0);
+      glVertex3d(tile.x-WALL_THICKNESS,tile.y    ,WALL_HEIGHT);
+      glVertex3d(tile.x-WALL_THICKNESS,tile.y+1.0,WALL_HEIGHT);
+      glVertex3d(tile.x-WALL_THICKNESS,tile.y+1.0,0.0);
+    }
+    if(angle_<180) {
+      glVertex3d(tile.x+WALL_THICKNESS,tile.y    ,0.0);
+      glVertex3d(tile.x+WALL_THICKNESS,tile.y    ,WALL_HEIGHT);
+      glVertex3d(tile.x+WALL_THICKNESS,tile.y+1.0,WALL_HEIGHT);
+      glVertex3d(tile.x+WALL_THICKNESS,tile.y+1.0,0.0);
+    }
+    glColor3f(0.7f,0.7f,0.7f);
+    glVertex3d(tile.x-WALL_THICKNESS,tile.y    ,WALL_HEIGHT);
+    glVertex3d(tile.x-WALL_THICKNESS,tile.y+1.0,WALL_HEIGHT);
+    glVertex3d(tile.x+WALL_THICKNESS,tile.y+1.0,WALL_HEIGHT);
+    glVertex3d(tile.x+WALL_THICKNESS,tile.y    ,WALL_HEIGHT);
+}
 double GameBoardWidget::angle() const {
   return angle_;
 }
 void GameBoardWidget::setAngle(const double new_angle) {
   angle_ = new_angle;
+  while (angle_<  0)angle_+=360.0;
+  while (angle_>=360)angle_-=360.0;
 }
 
 double GameBoardWidget::width() const {

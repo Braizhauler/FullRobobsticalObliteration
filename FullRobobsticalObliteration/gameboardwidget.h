@@ -66,9 +66,12 @@ private:
   void Setup2dRendering();
   void ResetRendering();
   void RenderTiles();
-  void RenderATile(Point corner, Point tile);
+  void RenderATile(Point tile);
+  void RenderAWall(Point tile);
 
   static const int NUMBER_OF_TILES_ACROSS = 8; 
+  static const double WALL_HEIGHT; 
+  static const double WALL_THICKNESS; 
   double angle_;
   WidgetLocation current_location_;
   GameStateManager* game_state_manager_;

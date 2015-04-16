@@ -19,6 +19,7 @@ GameStateProgram::GameStateProgram(GameStateManager* manager)
 {
   board_=GameBoardWidget(manager_,
                          WidgetLocation(60.0, 30.0, 0.0, 6.0, 0.0));
+  board_.setAngle(90.0);
   manager_=manager;
   dragged_=nullptr;
   register_dragging_from_=-1;

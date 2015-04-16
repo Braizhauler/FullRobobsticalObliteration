@@ -173,10 +173,10 @@
     <ClInclude Include="registerwidget.h">
       <Filter>Header Files\Widgets</Filter>
     </ClInclude>
-    <ClInclude Include="gameboardwidget.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="gametime.h">
+      <Filter>Header Files\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="gameboardwidget.h">
       <Filter>Header Files\Widgets</Filter>
     </ClInclude>
   </ItemGroup>
