@@ -47,7 +47,7 @@ void SpriteAtlas::del(){
 	glDeleteBuffers(1, &iTextureName);
 }
 
-void loadImage(std::string filename){
+void SpriteAtlas::loadImage(std::string filename){
 
 	CImg<unsigned char> src("Graphics/fro_fullsheet.png");
 	int width = src.width();
