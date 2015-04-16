@@ -41,6 +41,13 @@ const bool MyWindowWrapper::Init(int width, int height, const char * title)  {
   glfwWindowHint(GLFW_REFRESH_RATE, mode->refreshRate);
   //glfwWindowHint(GLFW_DECORATED, GL_FALSE);//Remove title bar, acting wierd
 
+  glEnable(GL_DEPTH_TEST);
+  glEnable(GL_TEXTURE_2D);
+  glDrawBuffer( GL_BACK );
+  glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+  glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+
+
   window_width_ = width;
   window_height_ = height;
   size_t title_length = strlen(title);

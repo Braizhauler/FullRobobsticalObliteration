@@ -117,4 +117,15 @@ void GameStateMainMenu::Focus(Widget* new_focus) {
 void GameStateMainMenu::Draw(void) {
   button_1_.Draw();
   button_2_.Draw();
+  glColor3d(1.0,1.0,1.0);
+  glBegin(GL_QUADS);
+    glTexCoord2d(0.0,0.0); 
+    glVertex2d(25.0,0.0);
+    glTexCoord2d(0.0,1.0); 
+    glVertex2d(75.0,0.0);
+    glTexCoord2d(1.0,1.0); 
+    glVertex2d(75.0,50.0);
+    glTexCoord2d(1.0,0.0); 
+    glVertex2d(25.0,50.0);
+  glEnd();
 }
