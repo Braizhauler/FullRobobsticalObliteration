@@ -17,6 +17,7 @@
 
 #define cimg_plugin "plugins/jpeg_buffer.h"
 
+
 using std::ios;
 using namespace cimg_library; 
 
@@ -49,12 +50,12 @@ void SpriteAtlas::del(){
 
 void SpriteAtlas::loadImage(std::string filename){
 
-	CImg<unsigned char> src("../Graphics/fro_fullsheet.bmp");
+	CImg<unsigned char> src("../Graphics/fro_fullsheet.png");
 	std::cout << "IMAGE LOADED!";
 
 	GLuint froTexture = 0;
 
-	glGenTextures(1, &froTexture);
+	/*glGenTextures(1, &froTexture);*/
 	glBindTexture(GL_TEXTURE_2D, froTexture);
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 
