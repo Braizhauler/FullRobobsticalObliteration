@@ -22,24 +22,21 @@ class SpriteAtlas
 {
 public:
   //Constructors, Init, and Destructor
-  SpriteAtlas(std::string ststType, int iWidthOfSpriteInPixels, int iHeightOfSpriteInPixels, int iMaxNumberOfSprites, unsigned char filename);
+  SpriteAtlas(std::string filename);
   bool Init(void);
   ~SpriteAtlas(void);
 
   //Methods
-  void loadImage(unsigned char filename);
   void del();
   std::string SheetType(SpriteAtlas SA);
   void bindTexture(SpriteAtlas SA);
   float getTextureCoordinates(SpriteAtlas SA, int index);
-  void SpriteAtlas::loadImage(SpriteAtlas SA, unsigned char filename);
-  bool fileExists(unsigned char filename);
-  std::string SpriteAtlas::SheetType(SpriteAtlas SA);
+  void SpriteAtlas::loadImage(std::string filename);
+  bool fileExists(std::string filename);
   void SpriteAtlas::bindTexture();
 
   //Accessors and Mutators
   std::string SheetType();
-  void bindTexture();
 
   float * getTextureCoordinates(int index);
 private:
@@ -59,9 +56,6 @@ private:
 
 	bool fileSeemsValid;
 
-	unsigned char databuffer [8];
-
-	GLenum colorMode;
 };
 
 

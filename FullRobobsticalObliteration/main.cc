@@ -28,6 +28,7 @@
 #include "gamestatemanager.h"
 #include "inputmanager.h"
 #include "gamestatemainmenu.h"
+#include "spriteatlas.h"
 
 namespace MyWindowControl{
 std::map<GLFWwindow*, MyWindowWrapper*> glfw_to_mywindowwrapper;
@@ -78,6 +79,7 @@ int main (int num_of_arugments, char * argument_list[])  {
 
   GameStateMainMenu state_menu(&state_manager);
   state_manager.Push(&state_menu);
+
   do {  
     window.ProccessOSEvents();
 

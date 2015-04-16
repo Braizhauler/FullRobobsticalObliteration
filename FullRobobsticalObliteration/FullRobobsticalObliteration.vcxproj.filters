@@ -39,9 +39,6 @@
     <ClCompile Include="inputmanager.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="spriteatlas.cc">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="updateable.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -69,6 +66,12 @@
     <ClCompile Include="buttonwidget.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="spriteatlas.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Jzon.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mywindowwrapper.h">
@@ -78,9 +81,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="inputmanager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="spriteatlas.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="updateable.h">
@@ -118,6 +118,15 @@
     </ClInclude>
     <ClInclude Include="buttonwidget.h">
       <Filter>Header Files\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="CImg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="spriteatlas.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Jzon.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

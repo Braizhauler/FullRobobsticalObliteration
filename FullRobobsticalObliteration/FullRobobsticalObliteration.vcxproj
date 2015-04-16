@@ -125,6 +125,7 @@
     <ClCompile Include="gamestatemanager.cc" />
     <ClCompile Include="gametime.cc" />
     <ClCompile Include="inputmanager.cc" />
+    <ClCompile Include="Jzon.cpp" />
     <ClCompile Include="main.cc" />
     <ClCompile Include="mywindowwrapper.cc" />
     <ClCompile Include="rectangle.cpp" />
@@ -137,12 +138,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="buttonwidget.h" />
+    <ClInclude Include="CImg.h" />
     <ClInclude Include="framewidget.h" />
     <ClInclude Include="gamestate.h" />
     <ClInclude Include="gamestatemainmenu.h" />
     <ClInclude Include="gamestatemanager.h" />
     <ClInclude Include="gametime.h" />
     <ClInclude Include="inputmanager.h" />
+    <ClInclude Include="Jzon.h" />
     <ClInclude Include="mywindowwrapper.h" />
     <ClInclude Include="point.h" />
     <ClInclude Include="rectangle.h" />

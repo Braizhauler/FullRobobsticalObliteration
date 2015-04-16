@@ -1,3 +1,4 @@
+{"robot1":[
 	{"name":"0", "left":"512", "top":"0", "right":"640", "bottom":"128"},
 	{"name":"r1_2", "left":"640", "top":"0", "right":"768", "bottom":"128"},
 	{"name":"r1_3", "left":"768", "top":"0", "right":"896", "bottom":"128"},
@@ -14,6 +15,10 @@
 	{"name":"r1_14", "left":"1152", "top":"128", "right":"1280", "bottom":"256"},
 	{"name":"r1_15", "left":"1280", "top":"128", "right":"1408", "bottom":"256"},
 	{"name":"r1_16", "left":"1408", "top":"128", "right":"1536", "bottom":"256"},
+
+]}
+
+{"robot2":[
 	{"name":"r2_1", "left":"512", "top":"256", "right":"640", "bottom":"384"},
 	{"name":"r2_2", "left":"640", "top":"256", "right":"768", "bottom":"384"},
 	{"name":"r2_3", "left":"768", "top":"256", "right":"896", "bottom":"384"},
@@ -30,6 +35,10 @@
 	{"name":"r2_14", "left":"1152", "top":"384", "right":"1280", "bottom":"512"},
 	{"name":"r2_15", "left":"1280", "top":"384", "right":"1408", "bottom":"512"},
 	{"name":"r2_16", "left":"1408", "top":"384", "right":"1536", "bottom":"512"},
+
+]}
+
+{"robot3":[
 	{"name":"r3_1", "left":"512", "top":"512", "right":"640", "bottom":"640"},
 	{"name":"r3_1", "left":"640", "top":"512", "right":"768", "bottom":"640"},
 	{"name":"r3_1", "left":"768", "top":"512", "right":"896", "bottom":"640"},
@@ -46,6 +55,9 @@
 	{"name":"r3_1", "left":"1152", "top":"640", "right":"1280", "bottom":"768"},
 	{"name":"r3_1", "left":"1280", "top":"640", "right":"1408", "bottom":"768"},
 	{"name":"r3_1", "left":"1408", "top":"640", "right":"1536", "bottom":"768"},
+]}
+
+{"robot4":[
 	{"name":"r4_1", "left":"512", "top":"768", "right":"640", "bottom":"896"},
 	{"name":"r4_1", "left":"640", "top":"768", "right":"768", "bottom":"896"},
 	{"name":"r4_1", "left":"768", "top":"768", "right":"896", "bottom":"896"},
@@ -62,6 +74,9 @@
 	{"name":"r4_1", "left":"1152", "top":"896", "right":"1280", "bottom":"1024"},
 	{"name":"r4_1", "left":"1280", "top":"896", "right":"1408", "bottom":"1024"},
 	{"name":"r4_1", "left":"1408", "top":"896", "right":"1536", "bottom":"1024"},
+]}
+
+{"robot5":[
 	{"name":"r5_1", "left":"512", "top":"1024", "right":"640", "bottom":"1152"},
 	{"name":"r5_1", "left":"640", "top":"1024", "right":"768", "bottom":"1152"},
 	{"name":"r5_1", "left":"768", "top":"1024", "right":"896", "bottom":"1152"},
@@ -78,6 +93,10 @@
 	{"name":"r5_1", "left":"1152", "top":"1152", "right":"1280", "bottom":"1280"},
 	{"name":"r5_1", "left":"1280", "top":"1152", "right":"1408", "bottom":"1280"},
 	{"name":"r5_1", "left":"1408", "top":"1152", "right":"1536", "bottom":"1280"},
+
+]}
+
+{"robot6":[
 	{"name":"r6_1", "left":"512", "top":"1280", "right":"640", "bottom":"1408"},
 	{"name":"r6_1", "left":"640", "top":"1280", "right":"768", "bottom":"1408"},
 	{"name":"r6_1", "left":"768", "top":"1280", "right":"896", "bottom":"1408"},
@@ -94,6 +113,11 @@
 	{"name":"r6_1", "left":"1152", "top":"1408", "right":"1280", "bottom":"1536"},
 	{"name":"r6_1", "left":"1280", "top":"1408", "right":"1408", "bottom":"1536"},
 	{"name":"r6_1", "left":"1408", "top":"1408", "right":"1536", "bottom":"1536"},
+
+
+]}
+
+{"robot7":[
 	{"name":"r7_1", "left":"512", "top":"1536", "right":"640", "bottom":"1664"},
 	{"name":"r7_1", "left":"640", "top":"1536", "right":"768", "bottom":"1664"},
 	{"name":"r7_1", "left":"768", "top":"1536", "right":"896", "bottom":"1664"},
@@ -110,6 +134,10 @@
 	{"name":"r7_1", "left":"1152", "top":"1664", "right":"1280", "bottom":"1792"},
 	{"name":"r7_1", "left":"1280", "top":"1664", "right":"1408", "bottom":"1792"},
 	{"name":"r7_1", "left":"1408", "top":"1664", "right":"1536", "bottom":"1792"},
+
+]}
+
+{"robot8":[
 	{"name":"r8_1", "left":"512", "top":"1792", "right":"640", "bottom":"1920"},
 	{"name":"r8_1", "left":"640", "top":"1792", "right":"768", "bottom":"1920"},
 	{"name":"r8_1", "left":"768", "top":"1792", "right":"896", "bottom":"1920"},
@@ -126,6 +154,10 @@
 	{"name":"r8_1", "left":"1152", "top":"1920", "right":"1280", "bottom":"2048"},
 	{"name":"r8_1", "left":"1280", "top":"1920", "right":"1408", "bottom":"2048"},
 	{"name":"r8_1", "left":"1408", "top":"1920", "right":"1536", "bottom":"2048"},
+
+]}
+	
+{"card":[
 	{"name":"10", "left":"0", "top":"0", "right":"128", "bottom":"195"},
 	{"name":"20", "left":"128", "top":"0", "right":"256", "bottom":"195"},
 	{"name":"30", "left":"256", "top":"0", "right":"384", "bottom":"195"},
@@ -210,6 +242,9 @@
 	{"name":"820", "left":"128", "top":"3900", "right":"256", "bottom":"4095"},
 	{"name":"830", "left":"256", "top":"3900", "right":"384", "bottom":"4095"},
 	{"name":"840", "left":"384", "top":"3900", "right":"512", "bottom":"4095"},
+]}
+
+{"tile":[
 	{"name":"elbow0", "left":"1536", "top":"0", "right":"1600", "bottom":"64"},
 	{"name":"elbow3", "left":"1600", "top":"0", "right":"1664", "bottom":"64"},
 	{"name":"elbow2", "left":"1664", "top":"0", "right":"1728", "bottom":"64"},
@@ -235,3 +270,4 @@
 	{"name":"straight2", "left":"1664", "top":"320", "right":"1728", "bottom":"384"},
 	{"name":"straight3", "left":"1728", "top":"320", "right":"1792", "bottom":"384"},
 
+]}
