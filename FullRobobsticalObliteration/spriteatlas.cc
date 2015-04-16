@@ -9,17 +9,7 @@
 *******************************************************************************/
 
 #include "spriteatlas.h"
-#include <string>
-#include <iostream>
-#include <fstream>
-
-
-
-#define cimg_plugin "plugins/jpeg_buffer.h"
-
-
 using std::ios;
-using namespace cimg_library; 
 
 /*******************************
 * Constructors and Destructor */
@@ -49,13 +39,19 @@ void SpriteAtlas::del(){
 }
 
 void SpriteAtlas::loadImage(std::string filename){
+  std::vector<unsigned char> image; 
+  unsigned int width, height;
+  lodepng::decode(image,width,height,"../Graphics/fro_fullsheet.png");
 
-	CImg<unsigned char> src("../Graphics/fro_fullsheet.png");
 	std::cout << "IMAGE LOADED!";
 
+	/*CImg<unsigned char> src("../Graphics/fro_fullsheet.png");
+	std::cout << "IMAGE LOADED!";
+  CImg<unsigned char> interleaved = src.get_permute_axes("xyzc");
+  src.data();
+  */
 	GLuint froTexture = 0;
-
-	/*glGenTextures(1, &froTexture);*/
+	glGenTextures(1, &froTexture);
 	glBindTexture(GL_TEXTURE_2D, froTexture);
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 
@@ -64,9 +60,11 @@ void SpriteAtlas::loadImage(std::string filename){
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 
-	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, src.width(), src.height(), 0, GL_RGBA, GL_UNSIGNED_BYTE, src);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA,
+               width, height, 0, GL_RGBA,
+               GL_UNSIGNED_BYTE, image.data());
 }
 
 void displayTexture(std::string targetTexture, char*** memoryImage){

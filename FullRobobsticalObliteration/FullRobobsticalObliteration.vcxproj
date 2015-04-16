@@ -126,6 +126,7 @@
     <ClCompile Include="gametime.cc" />
     <ClCompile Include="inputmanager.cc" />
     <ClCompile Include="Jzon.cpp" />
+    <ClCompile Include="lodepng.cpp" />
     <ClCompile Include="main.cc" />
     <ClCompile Include="mywindowwrapper.cc" />
     <ClCompile Include="rectangle.cpp" />
@@ -146,6 +147,7 @@
     <ClInclude Include="gametime.h" />
     <ClInclude Include="inputmanager.h" />
     <ClInclude Include="Jzon.h" />
+    <ClInclude Include="lodepng.h" />
     <ClInclude Include="mywindowwrapper.h" />
     <ClInclude Include="point.h" />
     <ClInclude Include="rectangle.h" />

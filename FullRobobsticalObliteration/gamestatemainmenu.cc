@@ -117,15 +117,31 @@ void GameStateMainMenu::Focus(Widget* new_focus) {
 void GameStateMainMenu::Draw(void) {
   button_1_.Draw();
   button_2_.Draw();
-  glColor3d(1.0,1.0,1.0);
+  
+  glBegin(GL_QUADS);
+  for(int x=30;x<70;x+=5) {
+    for(int y=2;y<52;y+=5) {
+      ((x+y-2)%10)==0?
+      glColor4d(0.8,0.6,0.7,1.0):
+      glColor4d(0.6,0.7,0.8,1.0);
+        glVertex2d(x,y);
+        glVertex2d(x+5,y);
+        glVertex2d(x+5,y+5);
+        glVertex2d(x,y+5);
+    }
+  }
+  glEnd();
+  glColor4d(1.0,1.0,1.0,1.0);
+  glEnable(GL_TEXTURE_2D);
   glBegin(GL_QUADS);
     glTexCoord2d(0.0,0.0); 
-    glVertex2d(25.0,0.0);
-    glTexCoord2d(0.0,1.0); 
-    glVertex2d(75.0,0.0);
-    glTexCoord2d(1.0,1.0); 
-    glVertex2d(75.0,50.0);
+    glVertex2d(37.5,2.0);
     glTexCoord2d(1.0,0.0); 
-    glVertex2d(25.0,50.0);
+    glVertex2d(67.5,2.0);
+    glTexCoord2d(1.0,1.0); 
+    glVertex2d(67.5,52.0);
+    glTexCoord2d(0.0,1.0); 
+    glVertex2d(37.5,52.0);
   glEnd();
+  glDisable(GL_TEXTURE_2D);
 }

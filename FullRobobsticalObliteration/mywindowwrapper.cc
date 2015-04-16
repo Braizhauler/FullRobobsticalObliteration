@@ -41,13 +41,6 @@ const bool MyWindowWrapper::Init(int width, int height, const char * title)  {
   glfwWindowHint(GLFW_REFRESH_RATE, mode->refreshRate);
   //glfwWindowHint(GLFW_DECORATED, GL_FALSE);//Remove title bar, acting wierd
 
-  glEnable(GL_DEPTH_TEST);
-  glEnable(GL_TEXTURE_2D);
-  glDrawBuffer( GL_BACK );
-  glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
-  glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-
-
   window_width_ = width;
   window_height_ = height;
   size_t title_length = strlen(title);
@@ -67,6 +60,19 @@ const bool MyWindowWrapper::Init(int width, int height, const char * title)  {
   //make that OpenGL context the active context
   glfwMakeContextCurrent(window_);
   RegisterResize(MyWindowControl::ResizeWindow);
+  
+ 
+  glEnable( GL_BLEND );
+  glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
+
+  //glEnable (GL_BLEND);
+  //glTexEnvf(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,GL_BLEND);
+  
+  //glEnable(GL_DEPTH_TEST);
+  //glDrawBuffer( GL_BACK );
+  //glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+  //glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+
   Resize(window_width_,window_height_);
   return initialized_;
 }

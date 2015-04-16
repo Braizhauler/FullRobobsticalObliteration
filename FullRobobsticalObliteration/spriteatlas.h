@@ -16,18 +16,19 @@
 #define SPRITE_ATLAS_H
 
 #include <string>
-
-//Include CImg
-#include "CImg.h"
-
-//Include JZon
-#include "Jzon.h"
+#include <iostream>
+#include <fstream>
 
 // Include GLEW
 #include <GL/glew.h>
 
 // Include GLFW
 #include <glfw3.h>
+
+#include "lodepng.h"
+
+//Include JZon
+#include "Jzon.h"
 
 class SpriteAtlas
 {
