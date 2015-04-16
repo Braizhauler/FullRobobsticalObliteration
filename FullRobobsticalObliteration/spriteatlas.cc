@@ -13,17 +13,7 @@
 #include <iostream>
 #include <fstream>
 
-//Include CImg
-#include "CImg.h"
 
-//Include JZon
-#include "Jzon.h"
-
-// Include GLEW
-#include <GL/glew.h>
-
-// Include GLFW
-#include <glfw3.h>
 
 #define cimg_plugin "plugins/jpeg_buffer.h"
 
