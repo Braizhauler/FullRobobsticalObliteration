@@ -78,6 +78,7 @@ private:
   GameBoardWidget board_;
   CardHandWidget player_hand_;
   GameStateManager* manager_;
+  Point last_mouse_position_;
 };
 
 #endif//GAME_STATE_PROGRAM_H_

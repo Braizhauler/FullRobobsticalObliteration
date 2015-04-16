@@ -16,6 +16,9 @@
 
 struct Point {
 public:
+  Point() {this->x=0.0;y=0.0;}
+  Point(Point * model) {x=model->x;y=model->y;}
+  Point(double x_pos,double y_pos) {x=x_pos;y=y_pos;}
   double x;
   double y;
 };

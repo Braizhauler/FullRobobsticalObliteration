@@ -37,6 +37,7 @@ GameStateProgram::GameStateProgram(GameStateManager* manager)
                                                 40.0+card_count*4.0,42.0,-1.0));
     player_hand_.addChild(&card_[card_count]);
   }
+  last_mouse_position_ = Point(0.0,0.0);
 }
 
 GameStateProgram::~GameStateProgram(void) {
@@ -86,15 +87,23 @@ void GameStateProgram::CursorMove(bool left_mouse_button_down,
       player_hand_.ExpandCard(card_at_cursor);
     }
     
-    if(left_mouse_button_down)
-      if(board_.ContainPoint(x_position,y_position))
-        board_.setAngle(board_.angle()-5.0);
+    if(left_mouse_button_down) {
+      if(board_.ContainPoint(x_position,y_position)) {
+          double vert_off_center = (y_position-18.0);
+          board_.setAngle(board_.angle()
+                          +(0.2*vert_off_center
+                          +0.01*vert_off_center*abs(vert_off_center))*
+                          (last_mouse_position_.x-x_position));
+      }
+    }
   }
+  last_mouse_position_ = Point(x_position,y_position);
 }
 
 void GameStateProgram::MouseButtonPressed(int button,
                                           double x_position,
                                           double y_position){
+  last_mouse_position_ = Point(x_position,y_position);
   CardWidget* temp=player_hand_.ExpandCardAtCursor(x_position, y_position);
   if(temp !=nullptr) {
     dragged_ = temp;

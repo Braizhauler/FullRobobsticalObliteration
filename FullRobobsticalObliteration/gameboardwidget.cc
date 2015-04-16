@@ -68,7 +68,51 @@ void GameBoardWidget::Draw(){
   glColor3f(0.6f,0.6f,0.9f);
     glVertex3d(1.0,1.0,-2.0);
   glEnd();*/
-  /*Checkerboard*/
+  RenderTiles();
+  Setup2dRendering();
+  /* Needle
+  glColor3f(0.1f,0.0f,0.2f);
+  glBegin(GL_TRIANGLE_FAN);
+    glVertex3d(current_location_.left()+29,
+               current_location_.top(),
+               current_location_.depth());
+    glVertex3d(current_location_.right()-29,
+               current_location_.top(),
+               current_location_.depth());
+    glVertex3d(current_location_.left()+current_location_.width()/2.0,
+               current_location_.top()+current_location_.height()/2.0-6.75,
+               current_location_.depth());
+  glEnd();*/
+}
+
+void GameBoardWidget::Setup3dRendering() {
+  glClear(GL_DEPTH_BUFFER_BIT);
+  glPushMatrix();
+  glTranslated((current_location_.left()+current_location_.width())/2.0,
+                current_location_.top()+current_location_.height()/2.0,0.0);
+  glFrustum(-1.0,1.0,-1.0,1.0,10.0,11.0);
+  glMatrixMode(GL_MODELVIEW);
+  glPushMatrix();
+  glTranslated (0.0,-(NUMBER_OF_TILES_ACROSS/2.0),-16.5);
+  //glTranslated (0.0,0.0,-10.0);
+  //glTranslated (-(current_location_.left()+current_location_.width())/2.0,
+  //             -current_location_.top()-current_location_.height()/2.0,0.0);
+  //double scale = current_location_.width()/(1.732*NUMBER_OF_TILES_ACROSS);
+  //double scale = current_location_.width()/(1.732*NUMBER_OF_TILES_ACROSS);
+  double scale = current_location_.width()/(NUMBER_OF_TILES_ACROSS);
+  glScaled(scale,scale,1.0);
+  glRotatef(60.0, 1.0, 0.0, 0.0);
+  glRotatef(angle_, 0.0, 0.0, 1.0);
+  glTranslated(-(NUMBER_OF_TILES_ACROSS/2.0),-(NUMBER_OF_TILES_ACROSS/2.0),0);
+}
+
+void GameBoardWidget::Setup2dRendering() {
+  glPopMatrix();
+  glMatrixMode(GL_PROJECTION);
+  glPopMatrix();
+}
+
+void GameBoardWidget::RenderTiles() {
   for(int x=0;x<NUMBER_OF_TILES_ACROSS;++x)
     for(int y=0;y<NUMBER_OF_TILES_ACROSS;++y) {
       if((x+y)%2==0)
@@ -82,47 +126,21 @@ void GameBoardWidget::Draw(){
         glVertex3i(x,y+1,0);
       glEnd();
     }
-  Setup2dRendering();
-  glColor3f(0.1f,0.0f,0.2f);
+  glColor3f(1.0f,1.0f,1.0f);
   glBegin(GL_TRIANGLE_FAN);
-    glVertex3d(current_location_.left()+29,
-               current_location_.top(),
-               current_location_.depth());
-    glVertex3d(current_location_.right()-29,
-               current_location_.top(),
-               current_location_.depth());
-    glVertex3d(current_location_.left()+current_location_.width()/2.0,
-               current_location_.top()+current_location_.height()/2.0-6.0,
-               current_location_.depth());
+    glVertex3i(3,3,0);
+    glVertex3i(3,3,1);
+    glVertex3i(3,4,1);
+    glVertex3i(3,4,0);
   glEnd();
-}
-
-void GameBoardWidget::Setup3dRendering() {
-  glClear(GL_DEPTH_BUFFER_BIT);
-  glPushMatrix();
-  glTranslated((current_location_.left()+current_location_.width())/2.0,
-                current_location_.top()+current_location_.height()/2.0,0.0);
-  glFrustum(-0.01,0.01,-0.01,0.01,0.1,1.0);
-  glMatrixMode(GL_MODELVIEW);
-  glPushMatrix();
-  glTranslated (0.0,-6.0,-10.0);
-  //glTranslated (-(current_location_.left()+current_location_.width())/2.0,
-  //             -current_location_.top()-current_location_.height()/2.0,0.0);
-  double scale = current_location_.width()/(1.65*NUMBER_OF_TILES_ACROSS);
-  glScaled(scale,scale,1.0);
-  glRotatef(60.0, 1.0, 0.0, 0.0);
-  glRotatef(angle_, 0.0, 0.0, 1.0);
-  glTranslated(-4.0,-4.0,0);
-}
-
-void GameBoardWidget::Setup2dRendering() {
-  glPopMatrix();
-  glMatrixMode(GL_PROJECTION);
-  glPopMatrix();
-}
-
-void GameBoardWidget::RenderTiles() {
-
+  glBegin(GL_TRIANGLE_FAN);
+    glVertex3i(0,0,0);
+    glVertex3i(0,1,0);
+    glVertex3i(0,1,1);
+    glVertex3i(0,0,1);
+    glVertex3i(1,0,1);
+    glVertex3i(1,0,0);
+  glEnd();
 }
 void GameBoardWidget::RenderATile(Point corner, Point tile) {
 }
