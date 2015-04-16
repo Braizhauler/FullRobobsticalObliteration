@@ -139,5 +139,8 @@
     <Image Include="..\FullRobobsticalObliteration.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="..\Graphics\fro_fullsheet.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>
