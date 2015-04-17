@@ -99,26 +99,12 @@ void GameStateManager::Draw() {
   // Set the background to the clear color
   glClear(GL_COLOR_BUFFER_BIT);
   glBegin(GL_TRIANGLE_FAN);
-    glColor3f(0.1f, 0.1f, 0.1f);
+    glColor3f(0.05f, 0.05f, 0.05f);
     glVertex3f( 0.0f,  0.0f, 0.0f);
     glVertex3f(84.0f,  0.0f, 0.0f);
     glVertex3f(84.0f, 54.0f, 0.0f);
     glVertex3f( 0.0f, 54.0f, 0.0f);
   glEnd();
-  glEnable(GL_TEXTURE_2D);
-  glBindTexture(GL_TEXTURE_2D,1);
-  glBegin(GL_TRIANGLE_FAN);
-    glColor3f(0.5f, 0.5f, 0.5f);
-    glTexCoord2d(0.0,0.0);
-    glVertex3f( 0.0f,  0.0f, 0.0f);
-    glTexCoord2d(1.0,0.0);
-    glVertex3f(84.0f,  0.0f, 0.0f);
-    glTexCoord2d(1.0,1.0);
-    glVertex3f(84.0f, 27.0f, 0.0f);
-    glTexCoord2d(0.0,1.0);
-    glVertex3f( 0.0f, 27.0f, 0.0f);
-  glEnd();
-  glDisable(GL_TEXTURE_2D);
   for (int i=0; i < active_renderable_.size(); ++i) { //we draw from the bottom up
     active_renderable_[i]->Draw();
   }
