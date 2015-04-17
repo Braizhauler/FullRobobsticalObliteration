@@ -10,7 +10,6 @@
 
 #include "spriteatlas.h"
 
-
 using std::ios;
 
 /*******************************

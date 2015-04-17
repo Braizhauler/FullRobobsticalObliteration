@@ -22,8 +22,7 @@
 // Include GLEW
 #include <GL/glew.h>
 
-// Include GLFW
-#include <glfw3.h>
+#include <GL/glew.h>
 
 #include "lodepng.h"
 

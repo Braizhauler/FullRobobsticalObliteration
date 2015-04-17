@@ -16,6 +16,7 @@
 #ifndef MY_WINDOW_WRAPPER_H_
 #define MY_WINDOW_WRAPPER_H_
 
+#include <GL/glew.h>
 #include <glfw3.h>
 #include <cstring>
 #include <math.h>

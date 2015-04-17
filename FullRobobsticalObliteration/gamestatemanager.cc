@@ -21,6 +21,11 @@ GameStateManager::GameStateManager(MyWindowWrapper * window) {
 GameStateManager::~GameStateManager(void) {
 }
 
+
+SpriteAtlas * GameStateManager::TextureAtlas() {
+  return &atlas_;
+}
+
 /*******************************
 * Methods                    */
 //Pop returns the top state of the state stack, and removes it from the stack

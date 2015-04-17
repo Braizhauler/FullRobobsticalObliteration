@@ -18,7 +18,12 @@
 
 #include <stack>
 #include <vector>
+// Include GLEW
+#include <GL/glew.h>
+
 #include <glfw3.h>
+
+#include "spriteatlas.h"
 
 #include "mywindowwrapper.h"
 #include "gamestate.h"
@@ -51,10 +56,12 @@ public:
   void Draw();
   void Update(GameTime frameNumber);
 
+  SpriteAtlas * TextureAtlas();
+
   void Exit();
 private:
   void RestackRenderables();
-
+  SpriteAtlas atlas_;
   //Member Variables
   std::vector<GameState*> active_state_;
   std::vector<Renderable*> active_renderable_;

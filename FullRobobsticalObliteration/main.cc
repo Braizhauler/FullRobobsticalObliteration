@@ -25,12 +25,12 @@
 
 //#include "font.h"
 
+#include "spriteatlas.h"
 #include "mywindowwrapper.h"
 #include "gamestatemanager.h"
 #include "inputmanager.h"
 #include "gamestatemainmenu.h"
 #include "gamestateprogram.h"
-#include "spriteatlas.h"
 
 namespace MyWindowControl{
 std::map<GLFWwindow*, MyWindowWrapper*> glfw_to_mywindowwrapper;
