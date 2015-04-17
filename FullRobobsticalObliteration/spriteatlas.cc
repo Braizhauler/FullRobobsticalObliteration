@@ -9,6 +9,8 @@
 *******************************************************************************/
 
 #include "spriteatlas.h"
+
+
 using std::ios;
 
 /*******************************
@@ -22,6 +24,7 @@ SpriteAtlas::SpriteAtlas(){
 	/*if(filename!=""){*/
 		loadImage(filename);
 	/*}*/
+
 }
 
 
@@ -71,13 +74,14 @@ void displayTexture(std::string targetTexture, char*** memoryImage){
 
 }
 
-int * getCoordinates(std::string targetTexture){
-	
+int * SpriteAtlas::getCoordinates(std::string targetTexture){
+
 	Jzon::Object rootNode;
-	Jzon::FileReader::ReadFile("Graphics/sprite_map.json", rootNode);
+	Jzon::FileReader::ReadFile("../Graphics/sprite_map.json", rootNode);
 	
 	const Jzon::Array &stuff = rootNode.Get(targetTexture).AsArray();
-	   for (Jzon::Array::const_iterator it = stuff.begin(); it != stuff.end(); ++it)
+
+	for (Jzon::Array::const_iterator it = stuff.begin(); it != stuff.end(); ++it)
 	   {
 			 std::cout << (*it).ToString() << std::endl;
 	   }

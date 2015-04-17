@@ -30,6 +30,7 @@
 #include "inputmanager.h"
 #include "gamestatemainmenu.h"
 #include "gamestateprogram.h"
+#include "spriteatlas.h"
 
 namespace MyWindowControl{
 std::map<GLFWwindow*, MyWindowWrapper*> glfw_to_mywindowwrapper;
@@ -88,7 +89,7 @@ int main (int num_of_arugments, char * argument_list[])  {
     window.ProccessOSEvents();
 
     state_manager.Draw();
-    
+
     // Swap buffers
     window.SwapBuffers();
   } while(!window.done() && window.initialized());
