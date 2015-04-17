@@ -18,6 +18,22 @@
 #include "gamestatemanager.h"
 #include "widget.h"
 
+namespace GameBoard {
+enum QUADRENT {
+  FAR_QUADRENT = 0,
+  RIGHT_QUADRENT,
+  NEAR_QUADRENT,
+  LEFT_QUADRENT
+};
+
+enum DIRECTION {
+  NORTH=0,
+  EAST,
+  SOUTH,
+  WEST
+};
+}
+using namespace GameBoard;
 class GameBoardWidget : public Widget {
 public:
   GameBoardWidget (void);
@@ -65,9 +81,15 @@ private:
   void Setup3dRendering();
   void Setup2dRendering();
   void ResetRendering();
+  void GetTileColor(Point tile);
   void RenderTiles();
-  void RenderATile(Point tile);
-  void RenderAWall(Point tile);
+  void RenderATile(Point tile, GameBoard::QUADRENT);
+  void RenderAWall(Point tile, GameBoard::DIRECTION direction);
+  void RenderNorthWall(Point tile);
+  void RenderEastWall(Point tile);
+  void RenderSouthWall(Point tile);
+  void RenderWestWall(Point tile);
+  GameBoard::QUADRENT OriginQuadrant() const;
 
   static const int NUMBER_OF_TILES_ACROSS = 8; 
   static const double WALL_HEIGHT; 

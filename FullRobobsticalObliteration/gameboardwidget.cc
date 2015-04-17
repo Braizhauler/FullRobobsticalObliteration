@@ -77,7 +77,7 @@ void GameBoardWidget::Setup3dRendering() {
   //glEnable(GL_DEPTH);
   glPushMatrix();
   glTranslated((current_location_.left()+current_location_.width())/2.0,
-                current_location_.top()+current_location_.height()/2.0,0.0);
+                current_location_.top()+current_location_.height()/2.2,0.0);
   glFrustum(-1.0,1.0,-1.0,1.0,10.0,11.0);
   glMatrixMode(GL_MODELVIEW);
   glPushMatrix();
@@ -98,62 +98,237 @@ void GameBoardWidget::Setup2dRendering() {
 }
 
 void GameBoardWidget::RenderTiles() {
+  using namespace GameBoard;
   glBegin(GL_QUADS);
-  for(Point tile=Point(0.0,0.0);tile.x<NUMBER_OF_TILES_ACROSS;++tile.x)
-    for(tile.y=0.0;tile.y<NUMBER_OF_TILES_ACROSS;++tile.y) {
-      if(tile.x+tile.y==0)
-        glColor3f(1.0f,0.3f,0.3f);
-      else if(((int)(tile.x+tile.y))%2==0)
-        glColor3f(0.3f,0.3f,0.7f);
-      else
-        glColor3f(0.6f,0.6f,0.4f);
-      RenderATile(tile);
-    }
-  glEnd();
-  glColor3f(1.0f,1.0f,1.0f);
-  glBegin(GL_QUADS);
-    glVertex3i(3,3,0);
-    glVertex3i(3,3,1);
-    glVertex3i(3,4,1);
-    glVertex3i(3,4,0);
-  glEnd();
-  glBegin(GL_QUAD_STRIP);
-    glVertex3i(1,0,0);
-    glVertex3i(1,0,1);
-    glVertex3i(0,0,0);
-    glVertex3i(0,0,1);
-    glVertex3i(0,1,0);
-    glVertex3i(0,1,1);
+  QUADRENT origin=OriginQuadrant();
+  if( origin == FAR_QUADRENT) {
+    for(Point tile=Point(0.0,0.0);tile.x<NUMBER_OF_TILES_ACROSS;++tile.x)
+      for(tile.y=0.0;tile.y<NUMBER_OF_TILES_ACROSS;++tile.y) {
+        GetTileColor(tile);
+        RenderATile(tile,origin);
+      }
+  } else if( origin == RIGHT_QUADRENT) {
+    for(Point tile=Point(0.0,NUMBER_OF_TILES_ACROSS-1);
+        tile.x<NUMBER_OF_TILES_ACROSS;++tile.x)
+      for(tile.y=NUMBER_OF_TILES_ACROSS-1;tile.y>=0;--tile.y) {
+        GetTileColor(tile);
+        RenderATile(tile,origin);
+      }
+  } else if( origin == NEAR_QUADRENT) {
+    for(Point tile=Point(NUMBER_OF_TILES_ACROSS-1,NUMBER_OF_TILES_ACROSS-1);
+        tile.x>=0;--tile.x)
+      for(tile.y=NUMBER_OF_TILES_ACROSS-1;tile.y>=0;--tile.y) {
+        GetTileColor(tile);
+        RenderATile(tile,origin);
+      }
+  } else if(origin == LEFT_QUADRENT) {
+    for(Point tile=Point(NUMBER_OF_TILES_ACROSS-1,0.0);tile.x>=0;--tile.x)
+      for(tile.y=0.0;tile.y<NUMBER_OF_TILES_ACROSS;++tile.y) {
+        GetTileColor(tile);
+        RenderATile(tile,origin);
+      }
+  }
   glEnd();
 }
-void GameBoardWidget::RenderATile(Point tile) {
+void GameBoardWidget::GetTileColor(Point tile) {
+  if(tile.x+tile.y==0)
+    glColor3f(1.0f,0.3f,0.3f);
+  else if(tile.x==0&&tile.y==7)
+    glColor3f(0.5f,1.0f,0.5f);
+  else if(((int)(tile.x+tile.y))%2==0)
+    glColor3f(0.3f,0.3f,0.7f);
+  else
+    glColor3f(0.6f,0.6f,0.4f);
+}
+
+void GameBoardWidget::RenderATile(Point tile,GameBoard::QUADRENT quadrent) {
+  using namespace GameBoard;
     glVertex3d(tile.x    ,tile.y    ,0.0);
     glVertex3d(tile.x+1.0,tile.y    ,0.0);
     glVertex3d(tile.x+1.0,tile.y+1.0,0.0);
     glVertex3d(tile.x    ,tile.y+1.0,0.0);
-    RenderAWall(tile);
+
+    if(quadrent == FAR_QUADRENT) {
+      if(tile.y==5.0)
+        RenderAWall(tile,GameBoard::NORTH);
+      if(tile.x==2.0)
+        RenderAWall(tile,GameBoard::WEST);
+    } else if (quadrent == RIGHT_QUADRENT) {
+      if(tile.x==2.0)
+        RenderAWall(tile,GameBoard::WEST);
+      if(tile.y==4.0)
+        RenderAWall(tile,GameBoard::SOUTH);
+    } else if (quadrent == NEAR_QUADRENT) {
+      if(tile.y==4.0)
+        RenderAWall(tile,GameBoard::SOUTH);
+      if(tile.x==1.0)
+        RenderAWall(tile,GameBoard::EAST);
+    } else if (quadrent == LEFT_QUADRENT) {
+      if(tile.x==1.0)
+        RenderAWall(tile,GameBoard::EAST);
+      if(tile.y==5.0)
+        RenderAWall(tile,GameBoard::NORTH);
+    }
 }
 
-void GameBoardWidget::RenderAWall(Point tile) {
-    glColor3f(0.5f,0.5f,0.5f);
-     if(angle_>180) {
+void GameBoardWidget::RenderAWall(Point tile, GameBoard::DIRECTION direction) {
+  using namespace GameBoard;
+  if(direction==NORTH)
+    RenderNorthWall(tile);
+  if(direction==WEST)
+    RenderWestWall(tile);
+  if(direction==SOUTH)
+    RenderSouthWall(tile);
+  if(direction==EAST)
+    RenderEastWall(tile);
+}
+
+void GameBoardWidget::RenderNorthWall(Point tile) {
+  glColor3f(0.5f,0.5f,0.5f); //face color
+  if(angle_<100 || angle_>260) { //North face
+    glVertex3d(tile.x    ,tile.y+WALL_THICKNESS,0.0);
+    glVertex3d(tile.x    ,tile.y+WALL_THICKNESS,WALL_HEIGHT);
+    glVertex3d(tile.x+1.0,tile.y+WALL_THICKNESS,WALL_HEIGHT);
+    glVertex3d(tile.x+1.0,tile.y+WALL_THICKNESS,0.0);
+  }
+  if(angle_>80 && angle_ < 280) { //South face
+    glVertex3d(tile.x    ,tile.y-WALL_THICKNESS,0.0);
+    glVertex3d(tile.x    ,tile.y-WALL_THICKNESS,WALL_HEIGHT);
+    glVertex3d(tile.x+1.0,tile.y-WALL_THICKNESS,WALL_HEIGHT);
+    glVertex3d(tile.x+1.0,tile.y-WALL_THICKNESS,0.0);
+  }
+  glColor3f(0.4f,0.4f,0.4f); //Cap color
+  if(angle_<2 || angle_>178) { //West cap
+    glVertex3d(tile.x    ,tile.y-WALL_THICKNESS,0.0);
+    glVertex3d(tile.x    ,tile.y-WALL_THICKNESS,WALL_HEIGHT);
+    glVertex3d(tile.x    ,tile.y+WALL_THICKNESS,WALL_HEIGHT);
+    glVertex3d(tile.x    ,tile.y+WALL_THICKNESS,0.0);
+  }
+  if(angle_<182 || angle_>358) { //East cap
+    glVertex3d(tile.x+1.0,tile.y-WALL_THICKNESS,0.0);
+    glVertex3d(tile.x+1.0,tile.y-WALL_THICKNESS,WALL_HEIGHT);
+    glVertex3d(tile.x+1.0,tile.y+WALL_THICKNESS,WALL_HEIGHT);
+    glVertex3d(tile.x+1.0,tile.y+WALL_THICKNESS,0.0);
+  }
+  glColor3f(0.7f,0.7f,0.7f); //wall top
+  glVertex3d(tile.x    ,tile.y-WALL_THICKNESS,WALL_HEIGHT);
+  glVertex3d(tile.x+1.0,tile.y-WALL_THICKNESS,WALL_HEIGHT);
+  glVertex3d(tile.x+1.0,tile.y+WALL_THICKNESS,WALL_HEIGHT);
+  glVertex3d(tile.x    ,tile.y+WALL_THICKNESS,WALL_HEIGHT);
+}
+void GameBoardWidget::RenderEastWall(Point tile) {
+  tile.x+=1.0;
+  glColor3f(0.6f,0.6f,0.6f); //face color
+  if(angle_<10 || angle_>170) { //West Face
+    glVertex3d(tile.x-WALL_THICKNESS,tile.y    ,0.0);
+    glVertex3d(tile.x-WALL_THICKNESS,tile.y    ,WALL_HEIGHT);
+    glVertex3d(tile.x-WALL_THICKNESS,tile.y+1.0,WALL_HEIGHT);
+    glVertex3d(tile.x-WALL_THICKNESS,tile.y+1.0,0.0);
+  }
+  if(angle_<190 || angle_>350) { //East Face
+    glVertex3d(tile.x+WALL_THICKNESS,tile.y    ,0.0);
+    glVertex3d(tile.x+WALL_THICKNESS,tile.y    ,WALL_HEIGHT);
+    glVertex3d(tile.x+WALL_THICKNESS,tile.y+1.0,WALL_HEIGHT);
+    glVertex3d(tile.x+WALL_THICKNESS,tile.y+1.0,0.0);
+  }
+  glColor3f(0.4f,0.4f,0.4f); //Cap color
+  if(angle_<92 || angle_>268) { //North cap
+    glVertex3d(tile.x+WALL_THICKNESS,tile.y+1.0,0.0);
+    glVertex3d(tile.x+WALL_THICKNESS,tile.y+1.0,WALL_HEIGHT);
+    glVertex3d(tile.x-WALL_THICKNESS,tile.y+1.0,WALL_HEIGHT);
+    glVertex3d(tile.x-WALL_THICKNESS,tile.y+1.0,0.0);
+  }
+  if(angle_>88 && angle_ < 272) { //South cap
+    glVertex3d(tile.x+WALL_THICKNESS,tile.y    ,0.0);
+    glVertex3d(tile.x+WALL_THICKNESS,tile.y    ,WALL_HEIGHT);
+    glVertex3d(tile.x-WALL_THICKNESS,tile.y    ,WALL_HEIGHT);
+    glVertex3d(tile.x-WALL_THICKNESS,tile.y    ,0.0);
+  }
+  glColor3f(0.7f,0.7f,0.7f); //wall top
+  glVertex3d(tile.x-WALL_THICKNESS,tile.y    ,WALL_HEIGHT);
+  glVertex3d(tile.x-WALL_THICKNESS,tile.y+1.0,WALL_HEIGHT);
+  glVertex3d(tile.x+WALL_THICKNESS,tile.y+1.0,WALL_HEIGHT);
+  glVertex3d(tile.x+WALL_THICKNESS,tile.y    ,WALL_HEIGHT);
+}
+void GameBoardWidget::RenderSouthWall(Point tile) {
+  tile.y+=1.0;
+  glColor3f(0.5f,0.5f,0.5f); //face color
+  if(angle_<100 || angle_>260) { //North face
+    glVertex3d(tile.x    ,tile.y+WALL_THICKNESS,0.0);
+    glVertex3d(tile.x    ,tile.y+WALL_THICKNESS,WALL_HEIGHT);
+    glVertex3d(tile.x+1.0,tile.y+WALL_THICKNESS,WALL_HEIGHT);
+    glVertex3d(tile.x+1.0,tile.y+WALL_THICKNESS,0.0);
+  }
+  if(angle_>80 && angle_ < 280) { //South face
+    glVertex3d(tile.x    ,tile.y-WALL_THICKNESS,0.0);
+    glVertex3d(tile.x    ,tile.y-WALL_THICKNESS,WALL_HEIGHT);
+    glVertex3d(tile.x+1.0,tile.y-WALL_THICKNESS,WALL_HEIGHT);
+    glVertex3d(tile.x+1.0,tile.y-WALL_THICKNESS,0.0);
+  }
+  glColor3f(0.4f,0.4f,0.4f); //Cap color
+  if(angle_<2 || angle_>178) { //West cap
+    glVertex3d(tile.x    ,tile.y-WALL_THICKNESS,0.0);
+    glVertex3d(tile.x    ,tile.y-WALL_THICKNESS,WALL_HEIGHT);
+    glVertex3d(tile.x    ,tile.y+WALL_THICKNESS,WALL_HEIGHT);
+    glVertex3d(tile.x    ,tile.y+WALL_THICKNESS,0.0);
+  }
+  if(angle_<182 || angle_>358) { //East cap
+    glVertex3d(tile.x+1.0,tile.y-WALL_THICKNESS,0.0);
+    glVertex3d(tile.x+1.0,tile.y-WALL_THICKNESS,WALL_HEIGHT);
+    glVertex3d(tile.x+1.0,tile.y+WALL_THICKNESS,WALL_HEIGHT);
+    glVertex3d(tile.x+1.0,tile.y+WALL_THICKNESS,0.0);
+  }
+  glColor3f(0.7f,0.7f,0.7f); //wall top
+  glVertex3d(tile.x    ,tile.y-WALL_THICKNESS,WALL_HEIGHT);
+  glVertex3d(tile.x+1.0,tile.y-WALL_THICKNESS,WALL_HEIGHT);
+  glVertex3d(tile.x+1.0,tile.y+WALL_THICKNESS,WALL_HEIGHT);
+  glVertex3d(tile.x    ,tile.y+WALL_THICKNESS,WALL_HEIGHT);
+}
+void GameBoardWidget::RenderWestWall(Point tile) {
+    glColor3f(0.6f,0.6f,0.6f); //face color
+     if(angle_<10 || angle_>170) { //West Face
       glVertex3d(tile.x-WALL_THICKNESS,tile.y    ,0.0);
       glVertex3d(tile.x-WALL_THICKNESS,tile.y    ,WALL_HEIGHT);
       glVertex3d(tile.x-WALL_THICKNESS,tile.y+1.0,WALL_HEIGHT);
       glVertex3d(tile.x-WALL_THICKNESS,tile.y+1.0,0.0);
     }
-    if(angle_<180) {
+    if(angle_<190 || angle_>350) { //East Face
       glVertex3d(tile.x+WALL_THICKNESS,tile.y    ,0.0);
       glVertex3d(tile.x+WALL_THICKNESS,tile.y    ,WALL_HEIGHT);
       glVertex3d(tile.x+WALL_THICKNESS,tile.y+1.0,WALL_HEIGHT);
       glVertex3d(tile.x+WALL_THICKNESS,tile.y+1.0,0.0);
     }
-    glColor3f(0.7f,0.7f,0.7f);
+    glColor3f(0.4f,0.4f,0.4f); //Cap color
+    if(angle_<92 || angle_>268) { //North cap
+      glVertex3d(tile.x+WALL_THICKNESS,tile.y+1.0,0.0);
+      glVertex3d(tile.x+WALL_THICKNESS,tile.y+1.0,WALL_HEIGHT);
+      glVertex3d(tile.x-WALL_THICKNESS,tile.y+1.0,WALL_HEIGHT);
+      glVertex3d(tile.x-WALL_THICKNESS,tile.y+1.0,0.0);
+    }
+    if(angle_>88 && angle_ < 272) { //South cap
+      glVertex3d(tile.x+WALL_THICKNESS,tile.y    ,0.0);
+      glVertex3d(tile.x+WALL_THICKNESS,tile.y    ,WALL_HEIGHT);
+      glVertex3d(tile.x-WALL_THICKNESS,tile.y    ,WALL_HEIGHT);
+      glVertex3d(tile.x-WALL_THICKNESS,tile.y    ,0.0);
+    }
+    glColor3f(0.7f,0.7f,0.7f); //wall top
     glVertex3d(tile.x-WALL_THICKNESS,tile.y    ,WALL_HEIGHT);
     glVertex3d(tile.x-WALL_THICKNESS,tile.y+1.0,WALL_HEIGHT);
     glVertex3d(tile.x+WALL_THICKNESS,tile.y+1.0,WALL_HEIGHT);
     glVertex3d(tile.x+WALL_THICKNESS,tile.y    ,WALL_HEIGHT);
 }
+
+GameBoard::QUADRENT GameBoardWidget::OriginQuadrant() const {
+  if(angle_<90)
+    return GameBoard::FAR_QUADRENT;
+  else if(angle_<180)
+    return GameBoard::RIGHT_QUADRENT;
+  else if(angle_<270)
+    return GameBoard::NEAR_QUADRENT;
+  else
+    return GameBoard::LEFT_QUADRENT;
+}
+
 double GameBoardWidget::angle() const {
   return angle_;
 }
@@ -211,3 +386,5 @@ double GameBoardWidget::depth() const {
 void GameBoardWidget::setDepth(double new_depth) {
  current_location_.setDepth(new_depth);
 }
+
+

@@ -11,7 +11,6 @@
 
 #include "mywindowwrapper.h"
 
-
 /*******************************
 * Constructors and Destructor */
 
