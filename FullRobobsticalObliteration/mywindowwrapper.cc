@@ -62,6 +62,7 @@ const bool MyWindowWrapper::Init(int width, int height, const char * title)  {
 
   RegisterResize(MyWindowControl::ResizeWindow);
   Resize(window_width_,window_height_);
+
   return initialized_;
 }
 

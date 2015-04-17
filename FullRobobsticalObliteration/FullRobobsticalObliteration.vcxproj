@@ -85,7 +85,7 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>glew32.lib;glfw3.lib;Opengl32.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glew32.lib;glfw3.lib;Opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -123,7 +123,7 @@
     <ClCompile Include="cardpile.cc" />
     <ClCompile Include="cardwidget.cc" />
     <ClCompile Include="focusable.cc" />
-    <ClCompile Include="fontdata.cc" />
+    <ClCompile Include="font.cc" />
     <ClCompile Include="framewidget.cc" />
     <ClCompile Include="gameboardwidget.cc" />
     <ClCompile Include="gamestate.cc" />
@@ -150,7 +150,7 @@
     <ClInclude Include="cardpile.h" />
     <ClInclude Include="cardwidget.h" />
     <ClInclude Include="focusable.h" />
-    <ClInclude Include="fontdata.h" />
+    <ClInclude Include="font.h" />
     <ClInclude Include="framewidget.h" />
     <ClInclude Include="gameboardwidget.h" />
     <ClInclude Include="gamestate.h" />
@@ -177,6 +177,9 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\FullRobobsticalObliteration.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="..\Graphics\Reality Hyper Regular.ttf" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
