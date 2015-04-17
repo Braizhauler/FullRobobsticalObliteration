@@ -96,11 +96,10 @@ void GameStateManager::Activate_Selection() {
 
 //Calls the render of all active renderables, from the bottom up
 void GameStateManager::Draw() {
-  
   // Set the background to the clear color
   glClear(GL_COLOR_BUFFER_BIT);
   glBegin(GL_TRIANGLE_FAN);
-    glColor3f(0.1f, 0.1f, 0.1f);
+    glColor3f(0.05f, 0.05f, 0.05f);
     glVertex3f( 0.0f,  0.0f, 0.0f);
     glVertex3f(84.0f,  0.0f, 0.0f);
     glVertex3f(84.0f, 54.0f, 0.0f);

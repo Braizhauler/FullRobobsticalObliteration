@@ -17,15 +17,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <map>
-
 // Include GLEW
 #include <GL/glew.h>
 
 // Include GLFW
 #include <glfw3.h>
 
-//#include <ft2build.h>
-//#include FT_FREETYPE_H
+//#include "font.h"
 
 #include "mywindowwrapper.h"
 #include "gamestatemanager.h"
@@ -71,8 +69,8 @@ int main (int num_of_arugments, char * argument_list[])  {
     fprintf(stderr, "GLEW not sticky enough, arena fell apart\n");
     return -1;
   }
-
-  // Set Background to Dark Gray
+  
+  // Set Background to BLACK
   glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
   
   GameStateManager state_manager(&window);
