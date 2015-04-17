@@ -16,24 +16,40 @@
 #define SPRITE_ATLAS_H
 
 #include <string>
+#include <iostream>
 #include <fstream>
-/*
+
+// Include GLEW
+#include <GL/glew.h>
+
+// Include GLFW
+#include <glfw3.h>
+
+#include "lodepng.h"
+
+//Include JZon
+#include "Jzon.h"
+
 class SpriteAtlas
 {
 public:
   //Constructors, Init, and Destructor
-  SpriteAtlas(std::string ststType, int iWidthOfSpriteInPixels, int iHeightOfSpriteInPixels, int iMaxNumberOfSprites, std::string filename);
+  SpriteAtlas();
   bool Init(void);
   ~SpriteAtlas(void);
 
   //Methods
-  void loadImage(std::string filename);
   void del();
+  std::string SheetType(SpriteAtlas SA);
+  void bindTexture(SpriteAtlas SA);
+  float getTextureCoordinates(SpriteAtlas SA, int index);
+  void SpriteAtlas::loadImage(std::string filename);
+  bool fileExists(std::string filename);
+  void SpriteAtlas::bindTexture();
+  int * getCoordinates(std::string filename);
+
   //Accessors and Mutators
   std::string SheetType();
-  void bindTexture();
-
-  bool fileExists(std::string filename);
 
   float * getTextureCoordinates(int index);
 private:
@@ -50,7 +66,10 @@ private:
 	int sheetWidth;
 	int sheetHeight;
 	int spritesPerRow;
-};
-*/
 
-#endif//SPRITE_ATLAS_H
+	bool fileSeemsValid;
+
+};
+
+
+#endif SPRITE_ATLAS_H

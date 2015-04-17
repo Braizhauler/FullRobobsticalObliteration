@@ -9,29 +9,19 @@
 *******************************************************************************/
 
 #include "spriteatlas.h"
+using std::ios;
 
 /*******************************
-* Constructors and Destructor *
+* Constructors and Destructor */
 std::string type;
 
-SpriteAtlas::SpriteAtlas(std::string tstType, int iWidthOfSpriteInPixels, int iHeightOfSpriteInPixels, int iMaxNumberOfSprites=0, std::string filename="spritesheet.jpg"){
-	type = tstType;
-	 
-	spriteHeight = iHeightOfSpriteInPixels;
-	spriteWidth = iWidthOfSpriteInPixels;
-	numberOfSprites = iMaxNumberOfSprites;
 
-	iTextureName;
-	   
-	//GH: By default, we haven't loaded a texture
-	bTexturesCurrentlyLoaded = false;
-	sheetWidth = 0;
-	sheetHeight = 0;
-	spritesPerRow = 0;
+SpriteAtlas::SpriteAtlas(){
 	
-	if(filename!=""){
-		this->loadImage(filename);
-	}
+	/*std::string filename = targetfile;*/
+	/*if(filename!=""){*/
+		loadImage(filename);
+	/*}*/
 }
 
 
@@ -43,115 +33,56 @@ bool SpriteAtlas::Init(void) {
 }
 
 /*******************************
-* Methods                     *
-
+* Methods                     */
 void SpriteAtlas::del(){
 	glDeleteBuffers(1, &iTextureName);
 }
 
-
-std::string SpriteAtlas::SheetType(){
-	return type;
-}
-
-void SpriteAtlas::bindTexture(){
-	glBindTexture(GL_TEXTURE_2D, iTextureName);
-}
-
-float * SpriteAtlas::getTextureCoordinates(int index){
-	if((index < 0) && (index >=numberOfSprites)){
-		std::cout << "Loading out of bound texture on sprite sheet";
-	}
-	float edges [4];
-
-	edges[0] = float(spriteHeight*(index/spritesPerRow))/sheetHeight; //TOP
-	edges[1] = float(spriteHeight*(index/spritesPerRow)+spriteHeight)/sheetHeight; //BOTTOM
-	edges[2] = float(spriteWidth*(index % spritesPerRow))/sheetWidth; //LEFT
-	edges[3] = float(spriteWidth*(index % spritesPerRow)+sheetWidth)/sheetWidth; //RIGHT
-	return edges;
-}
-
 void SpriteAtlas::loadImage(std::string filename){
-	if(bTexturesCurrentlyLoaded == true){
-		glDeleteBuffers(1, &iTextureName);
-		std::cout << "Loading texture into spritesheet with texture already loaded";
-	}
-	bool fileSeemsValid = false;
-	int colorMode = GL_RGB;
-	char * databuffer = nullptr;
-  //TODO: check for file exisitance
-	if(fileExists(filename)){
-			
-		std::ifstream image;
-		image.open("C:\\bbb.bmp", std::ios_base::binary);
+  std::vector<unsigned char> image; 
+  unsigned int width, height;
+  lodepng::decode(image,width,height,"../Graphics/fro_fullsheet.png");
 
-		image.seekg (0, ios::end);
-		int n = image.tellg();
-		image.seekg (0, ios::beg);
+	std::cout << "IMAGE LOADED!";
 
-		char* res = new char[n];
-		for(int i = 0; i < n; i++)
-			res[i] = '5';
+	/*CImg<unsigned char> src("../Graphics/fro_fullsheet.png");
+	std::cout << "IMAGE LOADED!";
+  CImg<unsigned char> interleaved = src.get_permute_axes("xyzc");
+  src.data();
+  */
+	GLuint froTexture = 0;
+	glGenTextures(1, &froTexture);
+	glBindTexture(GL_TEXTURE_2D, froTexture);
+	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 
-		bool bit = image.eof();
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 
-		image.read(res, n);
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 
-			std::fstream f;
-			f.open(filename, std::fstream::in);
-			
-      //TODO: Open the image
-      //img = IMGLIB.open(f);
-
-      //TODO: Validate Header
-			//img.verify();
-			fileSeemsValid = true;
-
-      //TODO: READ HEADER DATA
-			//std::fseek(f,0);
-			//img = IMGLIB.open(f);  //Move file pointer to begining of file
-			//(sheetWidth, sheetHeight) = img.size;
-			//if(img.mode == "RGBA"){
-			//	colorMode = GL_RGBA;
-			//}
-			//else if(img.mode == "RGB")
-			//{
-			//	colorMode = GL_RGB;
-			//}
-			//img.getdata();
-      //TODO: Fix this to the size of the file data
-			databuffer = new char[20];
-		  f.read(databuffer,20);
-		f.close();
-	}
-	if(fileSeemsValid){
-		glGenTextures(1,&iTextureName);
-
-		glPixelStorei(GL_UNPACK_ALIGNMENT,1);
-
-		glBindTexture(GL_TEXTURE_2D, iTextureName);
-
-		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-
-		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-
-		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-
-    if(databuffer != nullptr)
-		  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, sheetWidth, sheetHeight, 0, colorMode, GL_UNSIGNED_BYTE, databuffer);
-
-		bTexturesCurrentlyLoaded = true;
-		spritesPerRow = sheetWidth / spriteWidth;
-	}
-  delete [] databuffer;
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA,
+			width, height, 0, GL_RGBA,
+			GL_UNSIGNED_BYTE, image.data());
 }
 
-bool SpriteAtlas::fileExists(std::string filename){
-	std::ifstream iff(filename.c_str());  
-	return iff.is_open(); 
+void displayTexture(std::string targetTexture, char*** memoryImage){
+
 }
-;*/
-/*******************************
-* Accessors and Mutators      */
+
+int * getCoordinates(std::string targetTexture){
+	
+	Jzon::Object rootNode;
+	Jzon::FileReader::ReadFile("Graphics/sprite_map.json", rootNode);
+	
+	const Jzon::Array &stuff = rootNode.Get(targetTexture).AsArray();
+	   for (Jzon::Array::const_iterator it = stuff.begin(); it != stuff.end(); ++it)
+	   {
+			 std::cout << (*it).ToString() << std::endl;
+	   }
+	return 0;
+}
+
+
+
