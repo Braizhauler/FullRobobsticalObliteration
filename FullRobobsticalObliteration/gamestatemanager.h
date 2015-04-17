@@ -20,18 +20,10 @@
 #include <vector>
 #include <glfw3.h>
 
-
-#include <ft2build.h>
-#include FT_FREETYPE_H
-
 #include "mywindowwrapper.h"
 #include "gamestate.h"
 #include "renderable.h"
 #include "updateable.h"
-
-extern FT_Face face;
-
-void render_text(const std::string &str, FT_Face face, float x, float y, float sx, float sy);
 
 struct GameTime;
 
