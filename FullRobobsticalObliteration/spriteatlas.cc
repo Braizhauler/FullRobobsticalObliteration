@@ -16,34 +16,25 @@ using std::ios;
 * Constructors and Destructor */
 std::string type;
 
-
-SpriteAtlas::SpriteAtlas(){
-	
-	/*std::string filename = targetfile;*/
-	/*if(filename!=""){*/
+SpriteAtlas::SpriteAtlas(std::string filename){
+	is_file_loaded_ = false;
+	if(filename!=""){
 		loadImage(filename);
-	/*}*/
+	}
 
 }
 
 
 SpriteAtlas::~SpriteAtlas(void) {
-}
-
-bool SpriteAtlas::Init(void) {
-  return false;
+	glDeleteBuffers(1, &gl_texture_name_);
 }
 
 /*******************************
 * Methods                     */
-void SpriteAtlas::del(){
-	glDeleteBuffers(1, &iTextureName);
-}
-
 void SpriteAtlas::loadImage(std::string filename){
   std::vector<unsigned char> image; 
   unsigned int width, height;
-  lodepng::decode(image,width,height,"../Graphics/fro_fullsheet.png");
+  lodepng::decode(image,width,height,filename);
 
 	std::cout << "IMAGE LOADED!";
 
@@ -52,9 +43,8 @@ void SpriteAtlas::loadImage(std::string filename){
   CImg<unsigned char> interleaved = src.get_permute_axes("xyzc");
   src.data();
   */
-	GLuint froTexture = 0;
-	glGenTextures(1, &froTexture);
-	glBindTexture(GL_TEXTURE_2D, froTexture);
+	glGenTextures(1, &gl_texture_name_);
+	glBindTexture(GL_TEXTURE_2D, gl_texture_name_);
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
@@ -73,6 +63,10 @@ void displayTexture(std::string targetTexture, char*** memoryImage){
 
 }
 
+void loadCoordinates(std::string filename) {
+
+}
+
 int * SpriteAtlas::getCoordinates(std::string targetTexture){
 
 	Jzon::Object rootNode;
@@ -81,11 +75,16 @@ int * SpriteAtlas::getCoordinates(std::string targetTexture){
 	const Jzon::Array &stuff = rootNode.Get(targetTexture).AsArray();
 
 	for (Jzon::Array::const_iterator it = stuff.begin(); it != stuff.end(); ++it)
-	   {
-			 std::cout << (*it).ToString() << std::endl;
-	   }
+	{
+		std::cout << (*it).ToString() << std::endl;
+	}
 	return 0;
 }
 
 
-
+void SetTextureCorner(int texture, Texture::TEXTURE_CORNER corner) {
+  using namespace Texture;
+  if(corner == UPPER_LEFT) {
+    //glTexCoord2d();
+  }
+}

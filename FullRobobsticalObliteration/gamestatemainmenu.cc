@@ -154,17 +154,17 @@ void GameStateMainMenu::Focus(Focusable* new_focus) {
 }
 
 void GameStateMainMenu::Draw() {
-  game_state_manager_->TextureAtlas()->getCoordinates("10");
+  //game_state_manager_->TextureAtlas()->getCoordinates("10");
   glEnable(GL_TEXTURE_2D);
   glBegin(GL_TRIANGLE_FAN);
-    glColor3f(1.00f, 0.05f, 0.05f);
-    glTexCoord2d( 0.0,  0.0);
+    glColor3f(1.00f, 1.00f, 1.00f);
+    glTexCoord2d( 0.5,  0.0);
     glVertex3f( 0.0f,  0.0f, 0.0f);
-    glTexCoord2d( 1.0,  0.0);
+    glTexCoord2d( 0.6,  0.0);
     glVertex3f(84.0f,  0.0f, 0.0f);
-    glTexCoord2d( 1.0,  1.0);
+    glTexCoord2d( 0.6,  0.05);
     glVertex3f(84.0f, 54.0f, 0.0f);
-    glTexCoord2d( 0.0,  1.0);
+    glTexCoord2d( 0.5,  0.05);
     glVertex3f( 0.0f, 54.0f, 0.0f);
   glEnd();
   

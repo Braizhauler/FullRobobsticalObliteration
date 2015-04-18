@@ -15,10 +15,10 @@
 #include "gamestateprogram.h"
 
 
-GameStateProgram::GameStateProgram(GameStateManager* manager)
+GameStateProgram::GameStateProgram(GameStateManager* manager):
+                              board_(manager_,
+                                      WidgetLocation(80.0, 40.0, 2.0, 0.0, 0.0))
 {
-  board_=GameBoardWidget(manager_,
-                         WidgetLocation(80.0, 40.0, 2.0, 0.0, 0.0));
   manager_=manager;
   dragged_=nullptr;
   register_dragging_from_=-1;

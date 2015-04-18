@@ -29,44 +29,48 @@
 //Include JZon
 #include "Jzon.h"
 
+namespace Texture {
+enum TEXTURE_CORNER {
+  UPPER_LEFT,
+  UPPER_RIGHT,
+  LOWER_LEFT,
+  LOWER_RIGHT
+};
+
+struct Texture_Data {
+  std::string name;
+  double top, left, right, bottom;
+};
+}
+
 class SpriteAtlas
 {
 public:
   //Constructors, Init, and Destructor
-  SpriteAtlas();
-  bool Init(void);
+  SpriteAtlas(std::string filename = "../Graphics/fro_fullsheet.png");
   ~SpriteAtlas(void);
 
   //Methods
-  void del();
-  std::string SheetType(SpriteAtlas SA);
-  void bindTexture(SpriteAtlas SA);
-  float getTextureCoordinates(SpriteAtlas SA, int index);
-  void SpriteAtlas::loadImage(std::string filename);
+  void bindTexture();
+  void loadImage(std::string filename);
+  void loadCoordinates(std::string filename);
   bool fileExists(std::string filename);
-  void SpriteAtlas::bindTexture();
+
+  void SetTextureCorner(int texture, Texture::TEXTURE_CORNER);
+
+
   int * getCoordinates(std::string filename);
-
-  //Accessors and Mutators
-  std::string SheetType();
-
   float * getTextureCoordinates(int index);
 private:
-	std::string filename;
+	
+  Jzon::Object root_node_;
 
-	std::string type;
-	 
-	int spriteHeight;
-	int spriteWidth;
-	int numberOfSprites;
-	   
-	bool bTexturesCurrentlyLoaded;
-	unsigned int iTextureName;
-	int sheetWidth;
-	int sheetHeight;
-	int spritesPerRow;
+	int sheet_width_pixels_;
+	int sheet_height_pixels_;
+    
+  GLuint gl_texture_name_;
 
-	bool fileSeemsValid;
+	bool is_file_loaded_;
 
 };
 
