@@ -85,6 +85,6 @@ int * SpriteAtlas::getCoordinates(std::string targetTexture){
 void SetTextureCorner(int texture, Texture::TEXTURE_CORNER corner) {
   using namespace Texture;
   if(corner == UPPER_LEFT) {
-    //glTexCoord2d();
+  //  glTexCoord2d(texture_list_[texture].top,texture_list_[texture].left );
   }
 }

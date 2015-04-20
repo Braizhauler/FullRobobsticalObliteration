@@ -59,6 +59,9 @@ const bool MyWindowWrapper::Init(int width, int height, const char * title)  {
   //make that OpenGL context the active context
   glfwMakeContextCurrent(window_);
 
+  glEnable( GL_BLEND );
+  glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
+
   RegisterResize(MyWindowControl::ResizeWindow);
   Resize(window_width_,window_height_);
 

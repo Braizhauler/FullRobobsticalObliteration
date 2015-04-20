@@ -15,6 +15,7 @@
     </Filter>
     <Filter Include="Header Files\Widgets">
       <UniqueIdentifier>{527b0f85-e71f-4948-bc04-5a21c29acce4}</UniqueIdentifier>
+      <Extensions>*widget.h</Extensions>
     </Filter>
     <Filter Include="Header Files\States">
       <UniqueIdentifier>{9fd65ced-b5a9-4c82-b88e-38d6216c8c00}</UniqueIdentifier>
@@ -120,6 +121,9 @@
     <ClCompile Include="robot.cpp">
       <Filter>Source Files\Logic</Filter>
     </ClCompile>
+    <ClCompile Include="robotwidget.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mywindowwrapper.h">
@@ -209,6 +213,12 @@
     <ClInclude Include="robot.h">
       <Filter>Header Files\Logic</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="robotwidget.h">
+      <Filter>Header Files\Widgets</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
@@ -218,6 +228,9 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\FullRobobsticalObliteration.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\Graphics\fro_fullsheet.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

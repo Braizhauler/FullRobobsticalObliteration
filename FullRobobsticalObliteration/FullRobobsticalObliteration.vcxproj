@@ -143,6 +143,7 @@
     <ClCompile Include="registerwidget.cc" />
     <ClCompile Include="renderable.cc" />
     <ClCompile Include="robot.cpp" />
+    <ClCompile Include="robotwidget.cc" />
     <ClCompile Include="spriteatlas.cc" />
     <ClCompile Include="updateable.cc" />
     <ClCompile Include="widget.cc" />
@@ -173,7 +174,9 @@
     <ClInclude Include="rectangleonplane.h" />
     <ClInclude Include="registerwidget.h" />
     <ClInclude Include="renderable.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="robot.h" />
+    <ClInclude Include="robotwidget.h" />
     <ClInclude Include="spriteatlas.h" />
     <ClInclude Include="updateable.h" />
     <ClInclude Include="widget.h" />
@@ -185,6 +188,7 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\FullRobobsticalObliteration.png" />
+    <Image Include="..\Graphics\fro_fullsheet.png" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="..\Graphics\Reality Hyper Regular.ttf" />

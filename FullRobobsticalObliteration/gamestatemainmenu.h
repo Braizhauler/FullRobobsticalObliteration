@@ -76,6 +76,11 @@ private:
   ButtonWidget button_1_;
   ButtonWidget button_2_;
   CardWidget card_1_;
+  
+  int stage_;
+  int wait_;
+  int step_;
+  int robot_;
 };
 
 

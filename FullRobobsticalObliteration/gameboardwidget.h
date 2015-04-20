@@ -84,6 +84,7 @@ private:
   void RenderEastWall(Point tile);
   void RenderSouthWall(Point tile);
   void RenderWestWall(Point tile);
+  void RenderRobot(Point tile);
   QUADRENT OriginQuadrant() const;
 
   GameBoardController* board_;
@@ -93,6 +94,11 @@ private:
   double angle_;
   WidgetLocation current_location_;
   GameStateManager* game_state_manager_;
+  
+  int robot_;
+  int direction_;
+  int step_;
+  int wait_;
 };
 
 #endif//GAME_BOARD_WIDGET_H

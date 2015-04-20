@@ -8,6 +8,11 @@ GameBoardWidget::GameBoardWidget (void) {
   game_state_manager_ = nullptr;
   angle_ = 00.0;
   board_=nullptr;
+
+  robot_=2;
+  direction_=0;
+  step_=0;
+  wait_=0;
 }
 
 GameBoardWidget::GameBoardWidget (GameStateManager* manager,
@@ -16,6 +21,10 @@ GameBoardWidget::GameBoardWidget (GameStateManager* manager,
   game_state_manager_ = manager;
   angle_ = 0.0;
   board_=new GameBoardController( NUMBER_OF_TILES_ACROSS );
+  robot_=2;
+  direction_=0;
+  step_=0;
+  wait_=0;
 }
 
 GameBoardWidget::~GameBoardWidget (void){
@@ -93,9 +102,11 @@ void GameBoardWidget::Setup3dRendering() {
   glRotatef(angle_, 0.0, 0.0, 1.0);
   glTranslated(-(NUMBER_OF_TILES_ACROSS/2.0),-(NUMBER_OF_TILES_ACROSS/2.0),0);
   //glClear(GL_DEPTH_BUFFER_BIT);
+  //glEnable(GL_TEXTURE_2D);
 }
 
 void GameBoardWidget::Setup2dRendering() {
+  //glDisable(GL_TEXTURE_2D);
   glPopMatrix();
   glMatrixMode(GL_PROJECTION);
   glPopMatrix();
@@ -110,6 +121,7 @@ void GameBoardWidget::RenderTiles() {
       for(tile.y=0.0;tile.y<NUMBER_OF_TILES_ACROSS;++tile.y) {
         GetTileColor(tile);
         RenderATile(tile,origin);
+        if(tile.x==1.0 && tile.y==1.0) RenderRobot (tile);
       }
     for(int x=0;x<NUMBER_OF_TILES_ACROSS;++x) {
       RenderAWall(Point(x,NUMBER_OF_TILES_ACROSS-1),SOUTH);
@@ -150,6 +162,26 @@ void GameBoardWidget::RenderTiles() {
   }
   glEnd();
 }
+void GameBoardWidget::RenderRobot (Point tile) {
+  if(++wait_>7) {
+    wait_=0;
+    if(++step_>3) {
+      step_=0;
+      if(++direction_>7) direction_=0;
+    }
+  }
+  glColor3f(1.00f, 1.00f, 1.00f);
+  glTexCoord2d( 0.2505+0.0625*direction_,0.00005+0.03125*(step_%2)+0.0625*robot_);
+  glVertex3d(tile.x+1,  tile.y, 0.0);
+  glTexCoord2d( 0.3120+0.0625*direction_,0.00005+0.03125*(step_%2)+0.0625*robot_);
+  glVertex3d(tile.x+1,  tile.y, 1.0);
+  glTexCoord2d( 0.3120+0.0625*direction_,0.03115+0.03125*(step_%2)+0.0625*robot_);
+  glVertex3d(tile.x,  tile.y+1, 1.0);
+  glTexCoord2d( 0.2505+0.0625*direction_,0.03115+0.03125*(step_%2)+0.0625*robot_);
+  glVertex3d(tile.x,  tile.y+1, 0.0);
+}
+
+
 void GameBoardWidget::GetTileColor(Point tile) {
 
   if(tile.x+tile.y==0)

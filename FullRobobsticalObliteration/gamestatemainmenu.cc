@@ -28,6 +28,10 @@ GameStateMainMenu::GameStateMainMenu(GameStateManager* manager) {
 
   card_1_ = CardWidget(game_state_manager_,
                        WidgetLocation (8.0, 12.0, 10.0, 10.0, 1.0));
+  stage_=0;
+  wait_=0;
+  step_=0;
+  robot_=0;
 }
 
 GameStateMainMenu::~GameStateMainMenu(void) {
@@ -155,25 +159,32 @@ void GameStateMainMenu::Focus(Focusable* new_focus) {
 
 void GameStateMainMenu::Draw() {
   //game_state_manager_->TextureAtlas()->getCoordinates("10");
-
-
+  
+  if(++wait_>7) {
+    wait_=0;
+    if(++step_>3) {
+      step_=0;
+      if(++stage_>7) {
+        stage_=0;
+        if(++robot_>7) robot_=0;
+      }
+    }
+  }
   card_1_.Draw();
   if(focus_ != nullptr)
     focus_->Draw(true);
-
   glEnable(GL_TEXTURE_2D);
   glBegin(GL_TRIANGLE_FAN);
     glColor3f(1.00f, 1.00f, 1.00f);
-    glTexCoord2d( 0.5,  0.007);
-    glVertex3f( 0.0f,  0.0f, 0.0f);
-    glTexCoord2d( 0.56,  0.007);
-    glVertex3f(54.0f,  0.0f, 0.0f);
-    glTexCoord2d( 0.56,  0.03);
-    glVertex3f(54.0f, 54.0f, 0.0f);
-    glTexCoord2d( 0.5,  0.03);
-    glVertex3f( 0.0f, 54.0f, 0.0f);
+    glTexCoord2d( 0.2505+0.0625*stage_,0.00005+0.03125*(step_%2)+0.0625*robot_);
+    glVertex3f(36.0f,  8.0f, 0.0f);
+    glTexCoord2d( 0.3120+0.0625*stage_,0.00005+0.03125*(step_%2)+0.0625*robot_);
+    glVertex3f(48.0f,  8.0f, 0.0f);
+    glTexCoord2d( 0.3120+0.0625*stage_,0.03115+0.03125*(step_%2)+0.0625*robot_);
+    glVertex3f(48.0f, 20.0f, 0.0f);
+    glTexCoord2d( 0.2505+0.0625*stage_,0.03115+0.03125*(step_%2)+0.0625*robot_);
+    glVertex3f(36.0f, 20.0f, 0.0f);
   glEnd();
-  
   glDisable(GL_TEXTURE_2D);
   
   button_1_.Draw();
