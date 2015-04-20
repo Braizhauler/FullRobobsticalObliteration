@@ -14,6 +14,7 @@ using std::ios;
 
 /*******************************
 * Constructors and Destructor */
+Jzon::Object rootNode;
 std::string type;
 
 
@@ -21,6 +22,7 @@ SpriteAtlas::SpriteAtlas(){
 	
 	/*std::string filename = targetfile;*/
 	/*if(filename!=""){*/
+	Jzon::FileReader::ReadFile("../Graphics/sprite_map.json", rootNode);
 		loadImage(filename);
 	/*}*/
 
@@ -47,11 +49,6 @@ void SpriteAtlas::loadImage(std::string filename){
 
 	std::cout << "IMAGE LOADED!";
 
-	/*CImg<unsigned char> src("../Graphics/fro_fullsheet.png");
-	std::cout << "IMAGE LOADED!";
-  CImg<unsigned char> interleaved = src.get_permute_axes("xyzc");
-  src.data();
-  */
 	GLuint froTexture = 0;
 	glGenTextures(1, &froTexture);
 	glBindTexture(GL_TEXTURE_2D, froTexture);
@@ -75,10 +72,9 @@ void displayTexture(std::string targetTexture, char*** memoryImage){
 
 int * SpriteAtlas::getCoordinates(std::string targetTexture){
 
-	Jzon::Object rootNode;
-	Jzon::FileReader::ReadFile("../Graphics/sprite_map.json", rootNode);
 	
-	const Jzon::Array &stuff = rootNode.Get(targetTexture).AsArray();
+	
+	const Jzon::Array &stuff = SpriteAtlas::rootNode.Get(targetTexture).AsArray();
 
 	for (Jzon::Array::const_iterator it = stuff.begin(); it != stuff.end(); ++it)
 	   {

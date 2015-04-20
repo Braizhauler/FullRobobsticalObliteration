@@ -32,6 +32,8 @@
 class SpriteAtlas
 {
 public:
+
+	Jzon::Object rootNode;
   //Constructors, Init, and Destructor
   SpriteAtlas();
   bool Init(void);
