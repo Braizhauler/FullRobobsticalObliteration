@@ -92,6 +92,9 @@ void GameStateProgram::CursorMove(bool left_mouse_button_down,
           board_.setAngle(board_.angle()
                           +(0.2*(y_position-18.0)* 
                           (last_mouse_position_.x-x_position)));
+          board_.setAngle(board_.angle()
+                          +(0.2*(y_position-18.0)* 
+                          (last_mouse_position_.x-x_position)));
       }
     }
   }

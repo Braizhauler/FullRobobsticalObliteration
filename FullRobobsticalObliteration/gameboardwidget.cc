@@ -86,7 +86,7 @@ void GameBoardWidget::Setup3dRendering() {
   glFrustum(-1.0,1.0,-1.0,1.0,10.0,11.0);
   glMatrixMode(GL_MODELVIEW);
   glPushMatrix();
-  glTranslated (0.0,-(NUMBER_OF_TILES_ACROSS/2.0),-16.5);
+  glTranslated (0.0,-(NUMBER_OF_TILES_ACROSS/2.0),-18.5);
   double scale = current_location_.width()/(NUMBER_OF_TILES_ACROSS);
   glScaled(scale,scale,1.0);
   glRotatef(60.0, 1.0, 0.0, 0.0);
@@ -111,6 +111,10 @@ void GameBoardWidget::RenderTiles() {
         GetTileColor(tile);
         RenderATile(tile,origin);
       }
+    for(int x=0;x<NUMBER_OF_TILES_ACROSS;++x) {
+      RenderAWall(Point(x,NUMBER_OF_TILES_ACROSS-1),SOUTH);
+      RenderAWall(Point(NUMBER_OF_TILES_ACROSS-1,x),EAST);
+    }
   } else if( origin == RIGHT_QUADRENT) {
     for(Point tile=Point(0.0,NUMBER_OF_TILES_ACROSS-1);
         tile.x<NUMBER_OF_TILES_ACROSS;++tile.x)
@@ -118,6 +122,10 @@ void GameBoardWidget::RenderTiles() {
         GetTileColor(tile);
         RenderATile(tile,origin);
       }
+    for(int x=0;x<NUMBER_OF_TILES_ACROSS;++x) {
+      RenderAWall(Point(x,0),NORTH);
+      RenderAWall(Point(NUMBER_OF_TILES_ACROSS-1,NUMBER_OF_TILES_ACROSS-x-1),EAST);
+    }
   } else if( origin == NEAR_QUADRENT) {
     for(Point tile=Point(NUMBER_OF_TILES_ACROSS-1,NUMBER_OF_TILES_ACROSS-1);
         tile.x>=0;--tile.x)
@@ -125,12 +133,20 @@ void GameBoardWidget::RenderTiles() {
         GetTileColor(tile);
         RenderATile(tile,origin);
       }
+    for(int x=0;x<NUMBER_OF_TILES_ACROSS;++x) {
+      RenderAWall(Point(NUMBER_OF_TILES_ACROSS-x-1,0),NORTH);
+      RenderAWall(Point(0,NUMBER_OF_TILES_ACROSS-x-1),WEST);
+    }
   } else if(origin == LEFT_QUADRENT) {
     for(Point tile=Point(NUMBER_OF_TILES_ACROSS-1,0.0);tile.x>=0;--tile.x)
       for(tile.y=0.0;tile.y<NUMBER_OF_TILES_ACROSS;++tile.y) {
         GetTileColor(tile);
         RenderATile(tile,origin);
       }
+    for(int x=0;x<NUMBER_OF_TILES_ACROSS;++x) {
+      RenderAWall(Point(NUMBER_OF_TILES_ACROSS-x-1,NUMBER_OF_TILES_ACROSS-1),SOUTH);
+      RenderAWall(Point(0,x),WEST);
+    }
   }
   glEnd();
 }

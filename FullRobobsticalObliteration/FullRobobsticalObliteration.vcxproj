@@ -119,8 +119,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="buttonwidget.cc" />
+    <ClCompile Include="carddeck.cpp" />
     <ClCompile Include="cardhandwidget.cc" />
-    <ClCompile Include="cardpile.cc" />
     <ClCompile Include="cardwidget.cc" />
     <ClCompile Include="focusable.cc" />
     <ClCompile Include="font.cc" />
@@ -142,6 +142,7 @@
     <ClCompile Include="rectangleonplane.cc" />
     <ClCompile Include="registerwidget.cc" />
     <ClCompile Include="renderable.cc" />
+    <ClCompile Include="robot.cpp" />
     <ClCompile Include="spriteatlas.cc" />
     <ClCompile Include="updateable.cc" />
     <ClCompile Include="widget.cc" />
@@ -149,8 +150,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="buttonwidget.h" />
+    <ClInclude Include="carddeck.h" />
     <ClInclude Include="cardhandwidget.h" />
-    <ClInclude Include="cardpile.h" />
     <ClInclude Include="cardwidget.h" />
     <ClInclude Include="focusable.h" />
     <ClInclude Include="font.h" />
@@ -172,6 +173,7 @@
     <ClInclude Include="rectangleonplane.h" />
     <ClInclude Include="registerwidget.h" />
     <ClInclude Include="renderable.h" />
+    <ClInclude Include="robot.h" />
     <ClInclude Include="spriteatlas.h" />
     <ClInclude Include="updateable.h" />
     <ClInclude Include="widget.h" />

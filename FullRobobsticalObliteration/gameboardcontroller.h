@@ -12,7 +12,8 @@
 * © [2015] Dwarfholm.com
 * All Rights Reserved.
 *******************************************************************************/
-
+#include <stdlib.h>     /* srand, rand */
+#include <time.h>       /* time *///To initialize srand 
 #include <vector>
 #include "point.h"
 namespace gameboard {
@@ -69,7 +70,9 @@ public:
   GameBoardController(int board_size = 8);
   ~GameBoardController(void);
 
-  void loadTestBoard(void);
+  void LoadTestBoard(void);
+
+  void RandomizeBoard(void);
 
   Tile*GetTile(int x, int y);
   Tile*GetTile(Point location);
@@ -78,10 +81,19 @@ public:
   WALL GetWall(int x, int y,DIRECTION wall_direction) const;
   WALL GetWall(double x, double y,DIRECTION wall_direction) const;
   WALL GetWall(Point location,DIRECTION wall_direction) const;
+
 private:
+  void ClearInteriorWalls();
+  void RecursiveDivision(const int wall_north,
+                         const int wall_east,
+                         const int wall_south,
+                         const int wall_west,
+                         const bool vertical);
+  int RandomInt(int min, int max);
+
   int width_;
   int height_;
-
+  int seeded_;
   vector<WALL> north_south_walls_;
   vector<WALL> east_west_walls_;
   vector<Tile> board_;

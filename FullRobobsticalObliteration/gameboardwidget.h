@@ -87,7 +87,7 @@ private:
   QUADRENT OriginQuadrant() const;
 
   GameBoardController* board_;
-  static const int NUMBER_OF_TILES_ACROSS = 8; 
+  static const int NUMBER_OF_TILES_ACROSS = 12; 
   static const double WALL_HEIGHT; 
   static const double WALL_THICKNESS; 
   double angle_;
