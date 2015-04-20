@@ -22,12 +22,26 @@
 // Include GLEW
 #include <GL/glew.h>
 
-#include <GL/glew.h>
-
 #include "lodepng.h"
 
 //Include JZon
 #include "Jzon.h"
+
+namespace Texture {
+enum TEXTURE_CORNER {
+  UPPER_LEFT,
+  UPPER_RIGHT,
+  LOWER_LEFT,
+  LOWER_RIGHT
+};
+
+struct Texture_Data {
+  std::string name;
+  double top, left, right, bottom;
+};
+}
+
+
 
 class SpriteAtlas
 {
