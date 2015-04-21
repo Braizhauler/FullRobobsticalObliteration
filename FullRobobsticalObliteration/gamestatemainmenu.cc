@@ -154,10 +154,12 @@ void GameStateMainMenu::Focus(Focusable* new_focus) {
 }
 
 void GameStateMainMenu::Draw() {
+  
+  card_1_.Draw();
   game_state_manager_->TextureAtlas()->getCoordinates("10");
   glEnable(GL_TEXTURE_2D);
   glBegin(GL_TRIANGLE_FAN);
-    glColor3f(1.00f, 0.05f, 0.05f);
+    glColor3f(1.00f, 1.00f, 1.00f);
     glTexCoord2d( 0.0,  0.0);
     glVertex3f( 0.0f,  0.0f, 0.0f);
     glTexCoord2d( 1.0,  0.0);
@@ -172,7 +174,6 @@ void GameStateMainMenu::Draw() {
 
   button_1_.Draw();
   button_2_.Draw();
-  card_1_.Draw();
   if(focus_ != nullptr)
     focus_->Draw(true);
 }

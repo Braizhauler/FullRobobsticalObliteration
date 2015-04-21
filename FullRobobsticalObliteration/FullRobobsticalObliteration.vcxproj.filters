@@ -19,11 +19,11 @@
     <Filter Include="Header Files\States">
       <UniqueIdentifier>{9fd65ced-b5a9-4c82-b88e-38d6216c8c00}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Widgets">
-      <UniqueIdentifier>{7390a0f8-a621-498f-a4fd-c12564acba57}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\States">
       <UniqueIdentifier>{74e7ae32-27da-4e47-b77e-febbbe507d65}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Widgets">
+      <UniqueIdentifier>{7390a0f8-a621-498f-a4fd-c12564acba57}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
