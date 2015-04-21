@@ -84,20 +84,20 @@ int * SpriteAtlas::getCoordinates(std::string targetTexture, Texture::TEXTURE_CO
 	   
 			// std::cout << (*it).ToString() << std::endl;
 			 std::string left = (*it).ToString();
-			 double leftpercent = atof(left.c_str());
-			 leftpercent = leftpercent/width;
+			 double toppercent = atof(left.c_str());
+			 toppercent = toppercent/width;
 			 ++it;
 			 std::string top = (*it).ToString();
-			 double toppercent = atof(top.c_str());
-			 toppercent = toppercent/height;
+			 double rightpercent = atof(top.c_str());
+			 rightpercent = rightpercent/height;
 			 ++it;
 			 std::string right = (*it).ToString();
-			 double rightpercent = atof(right.c_str());
-			 rightpercent = rightpercent/width;
+			 double bottompercent = atof(right.c_str());
+			 bottompercent = bottompercent/width;
 			 ++it;
 			 std::string bottom = (*it).ToString();
-			 double bottompercent = atof(bottom.c_str());
-			 bottompercent = bottompercent/height;
+			 double leftpercent = atof(bottom.c_str());
+			 leftpercent = leftpercent/height;
 			 ++it;
 			 if (corner == UPPER_LEFT) {
 				 glTexCoord2d(toppercent, leftpercent);

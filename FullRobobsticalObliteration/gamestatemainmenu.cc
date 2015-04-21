@@ -161,13 +161,13 @@ void GameStateMainMenu::Draw() {
   glEnable(GL_TEXTURE_2D);
   glBegin(GL_TRIANGLE_FAN);
     glColor3f(1.00f, 1.00f, 1.00f);
-    SA.getCoordinates("470", UPPER_LEFT);
+    SA.getCoordinates("20", UPPER_LEFT);
     glVertex3f( 0.0f,  0.0f, 0.0f);
-    SA.getCoordinates("470", UPPER_RIGHT);
+    SA.getCoordinates("20", UPPER_RIGHT);
     glVertex3f(84.0f,  0.0f, 0.0f);
-    SA.getCoordinates("470", LOWER_LEFT);
+    SA.getCoordinates("20", LOWER_RIGHT);
     glVertex3f(84.0f, 54.0f, 0.0f);
-    SA.getCoordinates("470", LOWER_RIGHT);
+    SA.getCoordinates("20", LOWER_LEFT);
     glVertex3f( 0.0f, 54.0f, 0.0f);
   glEnd();
   
