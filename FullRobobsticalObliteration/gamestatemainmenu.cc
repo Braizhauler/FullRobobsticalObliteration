@@ -13,8 +13,6 @@
 * All Rights Reserved.
 *******************************************************************************/
 #include "gamestatemainmenu.h"
-using namespace Texture;
-SpriteAtlas SA;
 
 GameStateMainMenu::GameStateMainMenu(GameStateManager* manager) {
   game_state_manager_ = manager;
@@ -29,6 +27,7 @@ GameStateMainMenu::GameStateMainMenu(GameStateManager* manager) {
 
   card_1_ = CardWidget(game_state_manager_,
                        WidgetLocation (8.0, 12.0, 10.0, 10.0, 1.0));
+  sprite_atlas_ = game_state_manager_->TextureAtlas();
 }
 
 GameStateMainMenu::~GameStateMainMenu(void) {
@@ -155,19 +154,18 @@ void GameStateMainMenu::Focus(Focusable* new_focus) {
 }
 
 void GameStateMainMenu::Draw() {
-  
   card_1_.Draw();
  // game_state_manager_->TextureAtlas()->getCoordinates("10");
   glEnable(GL_TEXTURE_2D);
   glBegin(GL_TRIANGLE_FAN);
     glColor3f(1.00f, 1.00f, 1.00f);
-    SA.getCoordinates("470", UPPER_LEFT);
+    sprite_atlas_->getCoordinates("470", Texture::UPPER_LEFT);
     glVertex3f( 0.0f,  0.0f, 0.0f);
-    SA.getCoordinates("470", UPPER_RIGHT);
+    sprite_atlas_->getCoordinates("470", Texture::UPPER_RIGHT);
     glVertex3f(84.0f,  0.0f, 0.0f);
-    SA.getCoordinates("470", LOWER_LEFT);
+    sprite_atlas_->getCoordinates("470", Texture::LOWER_RIGHT);
     glVertex3f(84.0f, 54.0f, 0.0f);
-    SA.getCoordinates("470", LOWER_RIGHT);
+    sprite_atlas_->getCoordinates("470", Texture::LOWER_LEFT);
     glVertex3f( 0.0f, 54.0f, 0.0f);
   glEnd();
   

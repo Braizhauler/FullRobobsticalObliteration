@@ -62,7 +62,7 @@ public:
   void SpriteAtlas::loadImage(std::string filename);
   bool fileExists(std::string filename);
   void SpriteAtlas::bindTexture();
-  int * getCoordinates(std::string tartgetTexture, Texture::TEXTURE_CORNER corner);
+  void getCoordinates(std::string tartgetTexture, Texture::TEXTURE_CORNER corner);
 
   //Accessors and Mutators
   std::string SheetType();

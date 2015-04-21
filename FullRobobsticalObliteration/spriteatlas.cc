@@ -73,46 +73,42 @@ void displayTexture(std::string targetTexture, char*** memoryImage){
 
 }
 
-int * SpriteAtlas::getCoordinates(std::string targetTexture, Texture::TEXTURE_CORNER corner){
+void SpriteAtlas::getCoordinates(std::string targetTexture, Texture::TEXTURE_CORNER corner){
 
-	
-	
 	const Jzon::Array &stuff = SpriteAtlas::rootNode.Get(targetTexture).AsArray();
 
-	Jzon::Array::const_iterator it = stuff.begin(); 
+	Jzon::Array::const_iterator it = stuff.begin();
 	//it != stuff.end(); ++it
 	   
-			// std::cout << (*it).ToString() << std::endl;
-			 std::string left = (*it).ToString();
-			 double leftpercent = atof(left.c_str());
-			 leftpercent = leftpercent/width;
-			 ++it;
-			 std::string top = (*it).ToString();
-			 double toppercent = atof(top.c_str());
-			 toppercent = toppercent/height;
-			 ++it;
-			 std::string right = (*it).ToString();
-			 double rightpercent = atof(right.c_str());
-			 rightpercent = rightpercent/width;
-			 ++it;
-			 std::string bottom = (*it).ToString();
-			 double bottompercent = atof(bottom.c_str());
-			 bottompercent = bottompercent/height;
-			 ++it;
-			 if (corner == UPPER_LEFT) {
-				 glTexCoord2d(toppercent, leftpercent);
-			 }
-			 if (corner == UPPER_RIGHT) {
-				 glTexCoord2d(toppercent,rightpercent);
-			 }
-			 if (corner == LOWER_LEFT) {
-				 glTexCoord2d(bottompercent, leftpercent);
-			 }
-			 if (corner == LOWER_RIGHT) {
-				 glTexCoord2d(bottompercent, rightpercent);
-			 }
-	   
-	return 0;
+	// std::cout << (*it).ToString() << std::endl;
+	std::string left = (*it).ToString();
+	double leftpercent = atof(left.c_str());
+	leftpercent = leftpercent/width;
+	++it;
+	std::string top = (*it).ToString();
+	double toppercent = atof(top.c_str());
+	toppercent = toppercent/height;
+	++it;
+	std::string right = (*it).ToString();
+	double rightpercent = atof(right.c_str());
+	rightpercent = rightpercent/width;
+	++it;
+	std::string bottom = (*it).ToString();
+	double bottompercent = atof(bottom.c_str());
+	bottompercent = bottompercent/height;
+	++it;
+	if (corner == UPPER_LEFT) {
+		glTexCoord2d(toppercent, leftpercent);
+	}
+	if (corner == UPPER_RIGHT) {
+		glTexCoord2d(toppercent,rightpercent);
+	}
+	if (corner == LOWER_LEFT) {
+		glTexCoord2d(bottompercent, leftpercent);
+	}
+	if (corner == LOWER_RIGHT) {
+		glTexCoord2d(bottompercent, rightpercent);
+	}
 }
 
 

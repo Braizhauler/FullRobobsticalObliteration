@@ -70,6 +70,7 @@ public:
   void LinkProgramState(GameState* state);
 private:
   //Member Variables
+  SpriteAtlas*sprite_atlas_;
   GameStateManager* game_state_manager_;
   GameState* game_state_program_;
   Focusable* focus_;
