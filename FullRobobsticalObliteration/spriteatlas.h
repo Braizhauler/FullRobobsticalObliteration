@@ -18,6 +18,7 @@
 #include <string>
 #include <iostream>
 #include <fstream>
+#include <stdlib.h>
 
 // Include GLEW
 #include <GL/glew.h>
@@ -61,7 +62,7 @@ public:
   void SpriteAtlas::loadImage(std::string filename);
   bool fileExists(std::string filename);
   void SpriteAtlas::bindTexture();
-  int * getCoordinates(std::string filename);
+  int * getCoordinates(std::string tartgetTexture, Texture::TEXTURE_CORNER corner);
 
   //Accessors and Mutators
   std::string SheetType();

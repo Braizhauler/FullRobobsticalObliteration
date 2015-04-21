@@ -10,12 +10,15 @@
 
 #include "spriteatlas.h"
 
+
 using std::ios;
+using namespace Texture;
 
 /*******************************
 * Constructors and Destructor */
 Jzon::Object rootNode;
 std::string type;
+unsigned int width, height;
 
 
 SpriteAtlas::SpriteAtlas(){
@@ -44,7 +47,7 @@ void SpriteAtlas::del(){
 
 void SpriteAtlas::loadImage(std::string filename){
   std::vector<unsigned char> image; 
-  unsigned int width, height;
+  
   lodepng::decode(image,width,height,"../Graphics/fro_fullsheet.png");
 
 	std::cout << "IMAGE LOADED!";
@@ -70,16 +73,45 @@ void displayTexture(std::string targetTexture, char*** memoryImage){
 
 }
 
-int * SpriteAtlas::getCoordinates(std::string targetTexture){
+int * SpriteAtlas::getCoordinates(std::string targetTexture, Texture::TEXTURE_CORNER corner){
 
 	
 	
 	const Jzon::Array &stuff = SpriteAtlas::rootNode.Get(targetTexture).AsArray();
 
-	for (Jzon::Array::const_iterator it = stuff.begin(); it != stuff.end(); ++it)
-	   {
-			 std::cout << (*it).ToString() << std::endl;
-	   }
+	Jzon::Array::const_iterator it = stuff.begin(); 
+	//it != stuff.end(); ++it
+	   
+			// std::cout << (*it).ToString() << std::endl;
+			 std::string left = (*it).ToString();
+			 double leftpercent = atof(left.c_str());
+			 leftpercent = leftpercent/width;
+			 ++it;
+			 std::string top = (*it).ToString();
+			 double toppercent = atof(top.c_str());
+			 toppercent = toppercent/height;
+			 ++it;
+			 std::string right = (*it).ToString();
+			 double rightpercent = atof(right.c_str());
+			 rightpercent = rightpercent/width;
+			 ++it;
+			 std::string bottom = (*it).ToString();
+			 double bottompercent = atof(bottom.c_str());
+			 bottompercent = bottompercent/height;
+			 ++it;
+			 if (corner == UPPER_LEFT) {
+				 glTexCoord2d(toppercent, leftpercent);
+			 }
+			 if (corner == UPPER_RIGHT) {
+				 glTexCoord2d(toppercent,rightpercent);
+			 }
+			 if (corner == LOWER_LEFT) {
+				 glTexCoord2d(bottompercent, leftpercent);
+			 }
+			 if (corner == LOWER_RIGHT) {
+				 glTexCoord2d(bottompercent, rightpercent);
+			 }
+	   
 	return 0;
 }
 
