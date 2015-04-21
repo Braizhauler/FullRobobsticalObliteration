@@ -29,6 +29,7 @@
 #include "gamestate.h"
 #include "renderable.h"
 #include "updateable.h"
+#include "spriteatlas.h"
 
 struct GameTime;
 

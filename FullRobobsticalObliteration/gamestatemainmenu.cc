@@ -13,7 +13,8 @@
 * All Rights Reserved.
 *******************************************************************************/
 #include "gamestatemainmenu.h"
-
+using namespace Texture;
+SpriteAtlas SA;
 
 GameStateMainMenu::GameStateMainMenu(GameStateManager* manager) {
   game_state_manager_ = manager;
@@ -156,17 +157,17 @@ void GameStateMainMenu::Focus(Focusable* new_focus) {
 void GameStateMainMenu::Draw() {
   
   card_1_.Draw();
-  game_state_manager_->TextureAtlas()->getCoordinates("10");
+ // game_state_manager_->TextureAtlas()->getCoordinates("10");
   glEnable(GL_TEXTURE_2D);
   glBegin(GL_TRIANGLE_FAN);
     glColor3f(1.00f, 1.00f, 1.00f);
-    glTexCoord2d( 0.0,  0.0);
+    SA.getCoordinates("470", UPPER_LEFT);
     glVertex3f( 0.0f,  0.0f, 0.0f);
-    glTexCoord2d( 1.0,  0.0);
+    SA.getCoordinates("470", UPPER_RIGHT);
     glVertex3f(84.0f,  0.0f, 0.0f);
-    glTexCoord2d( 1.0,  1.0);
+    SA.getCoordinates("470", LOWER_LEFT);
     glVertex3f(84.0f, 54.0f, 0.0f);
-    glTexCoord2d( 0.0,  1.0);
+    SA.getCoordinates("470", LOWER_RIGHT);
     glVertex3f( 0.0f, 54.0f, 0.0f);
   glEnd();
   
