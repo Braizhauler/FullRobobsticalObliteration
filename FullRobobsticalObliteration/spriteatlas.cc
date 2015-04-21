@@ -74,6 +74,8 @@ void displayTexture(std::string targetTexture, char*** memoryImage){
 }
 
 void SpriteAtlas::getCoordinates(std::string targetTexture, Texture::TEXTURE_CORNER corner){
+
+	
 	
 	const Jzon::Array &stuff = SpriteAtlas::rootNode.Get(targetTexture).AsArray();
 
@@ -97,18 +99,19 @@ void SpriteAtlas::getCoordinates(std::string targetTexture, Texture::TEXTURE_COR
 			 double leftpercent = atof(bottom.c_str());
 			 leftpercent = leftpercent/height;
 			 ++it;
-			 if (corner == UPPER_LEFT) {
+			 if (corner == LOWER_LEFT) {
 				 glTexCoord2d(toppercent, leftpercent);
 			 }
-			 if (corner == UPPER_RIGHT) {
+			 if (corner == UPPER_LEFT) {
 				 glTexCoord2d(toppercent,rightpercent);
 			 }
-			 if (corner == LOWER_LEFT) {
+			 if (corner == LOWER_RIGHT) {
 				 glTexCoord2d(bottompercent, leftpercent);
 			 }
-			 if (corner == LOWER_RIGHT) {
+			 if (corner == UPPER_RIGHT) {
 				 glTexCoord2d(bottompercent, rightpercent);
 			 }
+	   
 }
 
 
