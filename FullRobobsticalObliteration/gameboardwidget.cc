@@ -273,13 +273,14 @@ void GameBoardWidget::GetTileColor(Point tile) {
 void GameBoardWidget::RenderATile(Point tile,GameBoard::QUADRANT quadrent) {
   using namespace gameboard;
   using namespace Texture;
-  atlas_->getCoordinates("blank",UPPER_LEFT);
+  atlas_->ActivateTexture("blank");
+  atlas_->LoadCoordinates(UPPER_LEFT);
   glVertex3d(tile.x    ,tile.y    ,0.0);
-  atlas_->getCoordinates("blank",LOWER_LEFT);
+  atlas_->LoadCoordinates(LOWER_LEFT);
   glVertex3d(tile.x    ,tile.y+1.0,0.0);
-  atlas_->getCoordinates("blank",LOWER_RIGHT);
+  atlas_->LoadCoordinates(LOWER_RIGHT);
   glVertex3d(tile.x+1.0,tile.y+1.0,0.0);
-  atlas_->getCoordinates("blank",UPPER_RIGHT);
+  atlas_->LoadCoordinates(UPPER_RIGHT);
   glVertex3d(tile.x+1.0,tile.y    ,0.0);
 
     

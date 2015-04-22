@@ -64,6 +64,10 @@ public:
   void SpriteAtlas::bindTexture();
   void getCoordinates(std::string tartgetTexture, Texture::TEXTURE_CORNER corner);
 
+  
+  void ActivateTexture(std::string texture_name);
+  void LoadCoordinates(Texture::TEXTURE_CORNER corner);
+
   //Accessors and Mutators
   std::string SheetType();
 
@@ -75,6 +79,8 @@ private:
 
 	GLuint froTexture;
 
+  unsigned int width;
+  unsigned int height;
 	int spriteHeight;
 	int spriteWidth;
 	int numberOfSprites;
@@ -87,6 +93,12 @@ private:
 
 	bool fileSeemsValid;
 
+
+  std::string active_texture_name_;
+  double active_texture_top_;
+  double active_texture_left_;
+  double active_texture_bottom_;
+  double active_texture_right_;
 };
 
 

@@ -16,18 +16,14 @@ using namespace Texture;
 
 /*******************************
 * Constructors and Destructor */
-Jzon::Object rootNode;
-std::string type;
-unsigned int width, height;
-
-
 SpriteAtlas::SpriteAtlas(){
 	
 	/*std::string filename = targetfile;*/
 	/*if(filename!=""){*/
 	Jzon::FileReader::ReadFile("../Graphics/sprite_map.json", rootNode);
-		loadImage(filename);
+  loadImage(filename);
 	/*}*/
+  active_texture_name_="";
 
 }
 
@@ -108,3 +104,29 @@ void SpriteAtlas::getCoordinates(std::string targetTexture, Texture::TEXTURE_COR
 
 
 
+void SpriteAtlas::ActivateTexture(std::string texture_name) {
+  //if it's already active, don't bother reloading it
+  if(active_texture_name_==texture_name) return;
+  //if we don't have the texture in the file, quit befor we error
+  if(!rootNode.Has(texture_name)) return;
+	const Jzon::Array &active_texture = rootNode.Get(texture_name).AsArray();
+  active_texture_name_ = texture_name;
+	Jzon::Array::const_iterator it = active_texture.begin(); 
+  //somehow we ended up sideways, but this is where we're fixing it.
+  //Using int to string to double because the Json has "" in it.
+	active_texture_top_= std::stod((*it).ToString()) /width;
+	active_texture_right_= std::stod((*(++it)).ToString())/height;
+	active_texture_bottom_= std::stod((*(++it)).ToString())/width;
+	active_texture_left_= std::stod((*(++it)).ToString())/height;
+
+}
+void SpriteAtlas::LoadCoordinates(Texture::TEXTURE_CORNER corner) {
+  if (corner == LOWER_LEFT)
+    glTexCoord2d(active_texture_top_,active_texture_left_);
+  if (corner == UPPER_LEFT)
+    glTexCoord2d(active_texture_top_,active_texture_right_);
+  if (corner == LOWER_RIGHT)
+    glTexCoord2d(active_texture_bottom_,active_texture_left_);
+  if (corner == UPPER_RIGHT)
+    glTexCoord2d(active_texture_bottom_,active_texture_right_);
+}
