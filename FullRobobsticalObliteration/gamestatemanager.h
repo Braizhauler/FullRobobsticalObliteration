@@ -31,8 +31,6 @@
 #include "updateable.h"
 #include "spriteatlas.h"
 
-struct GameTime;
-
 class GameStateManager: public Renderable {
 public:
   //Constructors and Destructor
@@ -55,7 +53,7 @@ public:
   void Activate_Selection();
 
   void Draw();
-  void Update(GameTime frameNumber);
+  void Update();
 
   SpriteAtlas * TextureAtlas();
 

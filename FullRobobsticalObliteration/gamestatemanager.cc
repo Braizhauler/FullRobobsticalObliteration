@@ -116,9 +116,9 @@ void GameStateManager::Draw() {
 }
 
 //Calls the update of all active renderables, from the top down
-void GameStateManager::Update(GameTime currentTime) {
+void GameStateManager::Update() {
   for(int i = (int)active_updatable_.size() - 1; i >= 0; --i) {
-    active_updatable_.at(i)->Update(currentTime);
+    active_updatable_.at(i)->Update();
   }
 }
 

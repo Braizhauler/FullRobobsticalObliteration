@@ -123,7 +123,6 @@
     <ClCompile Include="cardhandwidget.cc" />
     <ClCompile Include="cardwidget.cc" />
     <ClCompile Include="focusable.cc" />
-    <ClCompile Include="font.cc" />
     <ClCompile Include="framewidget.cc" />
     <ClCompile Include="gameboardcontroller.cc" />
     <ClCompile Include="gameboardwidget.cc" />
@@ -131,7 +130,6 @@
     <ClCompile Include="gamestatemainmenu.cc" />
     <ClCompile Include="gamestatemanager.cc" />
     <ClCompile Include="gamestateprogram.cc" />
-    <ClCompile Include="gametime.cc" />
     <ClCompile Include="inputmanager.cc" />
     <ClCompile Include="Jzon.cpp" />
     <ClCompile Include="lodepng.cpp" />
@@ -142,7 +140,7 @@
     <ClCompile Include="rectangleonplane.cc" />
     <ClCompile Include="registerwidget.cc" />
     <ClCompile Include="renderable.cc" />
-    <ClCompile Include="robot.cpp" />
+    <ClCompile Include="robot.cc" />
     <ClCompile Include="robotwidget.cc" />
     <ClCompile Include="spriteatlas.cc" />
     <ClCompile Include="updateable.cc" />
@@ -155,7 +153,6 @@
     <ClInclude Include="cardhandwidget.h" />
     <ClInclude Include="cardwidget.h" />
     <ClInclude Include="focusable.h" />
-    <ClInclude Include="font.h" />
     <ClInclude Include="framewidget.h" />
     <ClInclude Include="gameboardcontroller.h" />
     <ClInclude Include="gameboardwidget.h" />
@@ -163,7 +160,6 @@
     <ClInclude Include="gamestatemainmenu.h" />
     <ClInclude Include="gamestatemanager.h" />
     <ClInclude Include="gamestateprogram.h" />
-    <ClInclude Include="gametime.h" />
     <ClInclude Include="inputmanager.h" />
     <ClInclude Include="Jzon.h" />
     <ClInclude Include="lodepng.h" />
@@ -174,7 +170,6 @@
     <ClInclude Include="rectangleonplane.h" />
     <ClInclude Include="registerwidget.h" />
     <ClInclude Include="renderable.h" />
-    <ClInclude Include="resource.h" />
     <ClInclude Include="robot.h" />
     <ClInclude Include="robotwidget.h" />
     <ClInclude Include="spriteatlas.h" />

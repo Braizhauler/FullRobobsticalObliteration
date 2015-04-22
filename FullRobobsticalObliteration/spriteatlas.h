@@ -36,63 +36,30 @@ enum TEXTURE_CORNER {
   LOWER_RIGHT
 };
 
-struct Texture_Data {
+/*struct Texture_Data {
   std::string name;
   double top, left, right, bottom;
-};
+};*/
 }
 
-
-
-class SpriteAtlas
-{
+class SpriteAtlas {
 public:
-
-	Jzon::Object rootNode;
   //Constructors, Init, and Destructor
   SpriteAtlas();
-  bool Init(void);
   ~SpriteAtlas(void);
-
   //Methods
-  void del();
-  std::string SheetType(SpriteAtlas SA);
-  void bindTexture(SpriteAtlas SA);
-  float getTextureCoordinates(SpriteAtlas SA, int index);
-  void SpriteAtlas::loadImage(std::string filename);
-  bool fileExists(std::string filename);
-  void SpriteAtlas::bindTexture();
-  void getCoordinates(std::string tartgetTexture, Texture::TEXTURE_CORNER corner);
-
-  
+  void SpriteAtlas::loadImage(std::string filename=
+                                               "../Graphics/fro_fullsheet.png");
+  void getCoordinates(std::string tartgetTexture,
+                      Texture::TEXTURE_CORNER corner); 
   void ActivateTexture(std::string texture_name);
   void LoadCoordinates(Texture::TEXTURE_CORNER corner);
-
-  //Accessors and Mutators
-  std::string SheetType();
-
-  float * getTextureCoordinates(int index);
 private:
-	std::string filename;
+  Jzon::Object root_node_;
+  GLuint texture_gl_name_;
 
-	std::string type;
-
-	GLuint froTexture;
-
-  unsigned int width;
-  unsigned int height;
-	int spriteHeight;
-	int spriteWidth;
-	int numberOfSprites;
-	   
-	bool bTexturesCurrentlyLoaded;
-	unsigned int iTextureName;
-	int sheetWidth;
-	int sheetHeight;
-	int spritesPerRow;
-
-	bool fileSeemsValid;
-
+  unsigned int sheet_width_;
+  unsigned int sheet_height_;
 
   std::string active_texture_name_;
   double active_texture_top_;

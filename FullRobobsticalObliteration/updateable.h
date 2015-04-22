@@ -16,14 +16,13 @@
 #ifndef UPDATEABLE_H
 #define UPDATEABLE_H
 
-#include "gametime.h"
 
 class Updateable {
 public:
   //Constructors and Destructor
   virtual ~Updateable(void);
 
-  virtual void Update(GameTime) = 0;
+  virtual void Update() = 0;
 };
 
 #endif //UPDATEABLE_H

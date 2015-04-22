@@ -11,10 +11,10 @@ GameBoardWidget::GameBoardWidget (GameStateManager* manager,
   angle_ = 0.0;
   board_=new GameBoardController( NUMBER_OF_TILES_ACROSS );
   robot_=1;
-  direction_=0;
+  direction_=3;
   step_=0;
   wait_=0;
-  times_=0;
+  times_=1000;
 }
 
 GameBoardWidget::~GameBoardWidget (void){
@@ -160,12 +160,12 @@ void GameBoardWidget::RenderTiles() {
   glDisable(GL_TEXTURE_2D);
 }
 void GameBoardWidget::RenderRobot (Point tile) {
-  if(++wait_>3) {
+  if(++wait_>8) {
     wait_=0;
       if(++step_>1) {
         step_=0;
-        if(++times_>8) {
-          times_=0;
+        if(--times_<0) {
+          times_=1000;
           if(++direction_>7) direction_=0;
       }
     }
