@@ -31,6 +31,6 @@ void CardDeck::InitializeDeck() {
 void CardDeck::Shuffle() {
   unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
   shuffle(card_shuffle_.begin(),
-        card_shuffle_.end(),
-        std::default_random_engine(seed));
+          card_shuffle_.end(),
+          std::default_random_engine(seed));
 }

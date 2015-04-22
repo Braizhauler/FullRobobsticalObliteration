@@ -19,20 +19,33 @@
 #include "widget.h"
 #include "gameboardcontroller.h"
 
-namespace gameboard {
-enum QUADRENT {
-  FAR_QUADRENT = 0,
-  RIGHT_QUADRENT,
-  NEAR_QUADRENT,
-  LEFT_QUADRENT
+namespace GameBoard {
+enum QUADRANT {
+  FAR_QUADRANT = 0,
+  RIGHT_QUADRANT,
+  NEAR_QUADRANT,
+  LEFT_QUADRANT
+};
+
+enum RELATIVE_POSITION_8_WAY {
+  INVALID,
+  FAR,
+  FAR_RIGHT,
+  RIGHT,
+  NEAR_RIGHT,
+  NEAR,
+  NEAR_LEFT,
+  LEFT,
+  FAR_LEFT
 };
 
 }
-using namespace gameboard;
+using namespace GameBoard;
 class GameBoardWidget : public Widget {
 public:
-  GameBoardWidget (void);
-  GameBoardWidget (GameStateManager* manager,WidgetLocation location);
+  GameBoardWidget (GameStateManager* manager=nullptr,
+                   WidgetLocation location=
+                                  WidgetLocation(60.0,30.0,0.0,0.0,0.0));
   ~GameBoardWidget (void);
 
   //returns true if:
@@ -78,14 +91,16 @@ private:
   void ResetRendering();
   void GetTileColor(Point tile);
   void RenderTiles();
-  void RenderATile(Point tile, QUADRENT);
+  void RenderATile(Point tile, QUADRANT);
   void RenderAWall(Point tile, DIRECTION direction);
   void RenderNorthWall(Point tile);
   void RenderEastWall(Point tile);
   void RenderSouthWall(Point tile);
   void RenderWestWall(Point tile);
   void RenderRobot(Point tile);
-  QUADRENT OriginQuadrant() const;
+  QUADRANT OriginQuadrant() const;
+  RELATIVE_POSITION_8_WAY OriginPosition() const;
+  
 
   GameBoardController* board_;
   static const int NUMBER_OF_TILES_ACROSS = 12; 
@@ -98,6 +113,7 @@ private:
   SpriteAtlas* atlas_;
   
   int robot_;
+  int times_;
   int direction_;
   int step_;
   int wait_;

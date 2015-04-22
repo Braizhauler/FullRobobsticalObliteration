@@ -3,19 +3,6 @@
 const double GameBoardWidget::WALL_THICKNESS = 0.05; 
 const double GameBoardWidget::WALL_HEIGHT = 0.25; 
 
-GameBoardWidget::GameBoardWidget (void) {
-  current_location_=WidgetLocation(60.0,30.0,0.0,0.0,0.0);
-  game_state_manager_ = nullptr;
-  atlas_=nullptr;
-  angle_ = 00.0;
-  board_=nullptr;
-
-  robot_=2;
-  direction_=0;
-  step_=0;
-  wait_=0;
-}
-
 GameBoardWidget::GameBoardWidget (GameStateManager* manager,
                                   WidgetLocation location) {
   current_location_=location;
@@ -23,10 +10,11 @@ GameBoardWidget::GameBoardWidget (GameStateManager* manager,
   atlas_=manager->TextureAtlas();
   angle_ = 0.0;
   board_=new GameBoardController( NUMBER_OF_TILES_ACROSS );
-  robot_=2;
+  robot_=1;
   direction_=0;
   step_=0;
   wait_=0;
+  times_=0;
 }
 
 GameBoardWidget::~GameBoardWidget (void){
@@ -116,10 +104,11 @@ void GameBoardWidget::Setup2dRendering() {
 }
 
 void GameBoardWidget::RenderTiles() {
+  OriginPosition();
   glEnable(GL_TEXTURE_2D);
   glBegin(GL_QUADS);
-  QUADRENT origin=OriginQuadrant();
-  if( origin == FAR_QUADRENT) {
+  QUADRANT origin=OriginQuadrant();
+  if( origin == FAR_QUADRANT) {
     for(Point tile=Point(0.0,0.0);tile.x<NUMBER_OF_TILES_ACROSS;++tile.x)
       for(tile.y=0.0;tile.y<NUMBER_OF_TILES_ACROSS;++tile.y) {
         GetTileColor(tile);
@@ -130,33 +119,36 @@ void GameBoardWidget::RenderTiles() {
       RenderAWall(Point(x,NUMBER_OF_TILES_ACROSS-1),SOUTH);
       RenderAWall(Point(NUMBER_OF_TILES_ACROSS-1,x),EAST);
     }
-  } else if( origin == RIGHT_QUADRENT) {
+  } else if( origin == RIGHT_QUADRANT) {
     for(Point tile=Point(0.0,NUMBER_OF_TILES_ACROSS-1);
         tile.x<NUMBER_OF_TILES_ACROSS;++tile.x)
       for(tile.y=NUMBER_OF_TILES_ACROSS-1;tile.y>=0;--tile.y) {
         GetTileColor(tile);
         RenderATile(tile,origin);
+        if(tile.x==10.0 && tile.y==10.0) RenderRobot (tile);
       }
     for(int x=0;x<NUMBER_OF_TILES_ACROSS;++x) {
       RenderAWall(Point(x,0),NORTH);
       RenderAWall(Point(NUMBER_OF_TILES_ACROSS-1,NUMBER_OF_TILES_ACROSS-x-1),EAST);
     }
-  } else if( origin == NEAR_QUADRENT) {
+  } else if( origin == NEAR_QUADRANT) {
     for(Point tile=Point(NUMBER_OF_TILES_ACROSS-1,NUMBER_OF_TILES_ACROSS-1);
         tile.x>=0;--tile.x)
       for(tile.y=NUMBER_OF_TILES_ACROSS-1;tile.y>=0;--tile.y) {
         GetTileColor(tile);
         RenderATile(tile,origin);
+        if(tile.x==10.0 && tile.y==10.0) RenderRobot (tile);
       }
     for(int x=0;x<NUMBER_OF_TILES_ACROSS;++x) {
       RenderAWall(Point(NUMBER_OF_TILES_ACROSS-x-1,0),NORTH);
       RenderAWall(Point(0,NUMBER_OF_TILES_ACROSS-x-1),WEST);
     }
-  } else if(origin == LEFT_QUADRENT) {
+  } else if(origin == LEFT_QUADRANT) {
     for(Point tile=Point(NUMBER_OF_TILES_ACROSS-1,0.0);tile.x>=0;--tile.x)
       for(tile.y=0.0;tile.y<NUMBER_OF_TILES_ACROSS;++tile.y) {
         GetTileColor(tile);
         RenderATile(tile,origin);
+        if(tile.x==10.0 && tile.y==10.0) RenderRobot (tile);
       }
     for(int x=0;x<NUMBER_OF_TILES_ACROSS;++x) {
       RenderAWall(Point(NUMBER_OF_TILES_ACROSS-x-1,NUMBER_OF_TILES_ACROSS-1),SOUTH);
@@ -168,11 +160,14 @@ void GameBoardWidget::RenderTiles() {
   glDisable(GL_TEXTURE_2D);
 }
 void GameBoardWidget::RenderRobot (Point tile) {
-  if(++wait_>7) {
+  if(++wait_>3) {
     wait_=0;
-    if(++step_>1) {
-      step_=0;
-      if(++direction_>7) direction_=0;
+      if(++step_>1) {
+        step_=0;
+        if(++times_>8) {
+          times_=0;
+          if(++direction_>7) direction_=0;
+      }
     }
   }
   glColor3f(1.00f, 1.00f, 1.00f);
@@ -180,27 +175,102 @@ void GameBoardWidget::RenderRobot (Point tile) {
   texture_name_.append("r");
   texture_name_.append(std::to_string(robot_));
   texture_name_.append("_");
-  texture_name_.append(std::to_string(direction_+8*step_+1) );
-  std::cout<<texture_name_;
-
-  atlas_->getCoordinates(texture_name_,Texture::UPPER_LEFT);
-  glVertex3d(tile.x,  tile.y+1, 1.0);
-  atlas_->getCoordinates(texture_name_,Texture::LOWER_LEFT);
-  glVertex3d(tile.x,  tile.y+1, -0.5);
-  atlas_->getCoordinates(texture_name_,Texture::LOWER_RIGHT);
-  glVertex3d(tile.x+1,  tile.y, -0.5);
-  atlas_->getCoordinates(texture_name_,Texture::UPPER_RIGHT);
-  glVertex3d(tile.x+1,  tile.y, 1.0);
+  GameBoard::RELATIVE_POSITION_8_WAY origin_position = OriginPosition();
+  std::cout<<origin_position;
+  int frame = (direction_+origin_position)%8;
+  frame+=8*step_+1;
+  texture_name_.append(std::to_string(frame) );
+  if(origin_position==FAR){
+    atlas_->getCoordinates(texture_name_,Texture::UPPER_LEFT);
+    glVertex3d(tile.x,  tile.y+1, 1.0);
+    atlas_->getCoordinates(texture_name_,Texture::LOWER_LEFT);
+    glVertex3d(tile.x,  tile.y+1, -0.5);
+    atlas_->getCoordinates(texture_name_,Texture::LOWER_RIGHT);
+    glVertex3d(tile.x+1,  tile.y, -0.5);
+    atlas_->getCoordinates(texture_name_,Texture::UPPER_RIGHT);
+    glVertex3d(tile.x+1,  tile.y, 1.0);
+  }
+  if(origin_position==FAR_LEFT){
+    atlas_->getCoordinates(texture_name_,Texture::UPPER_LEFT);
+    glVertex3d(tile.x-0.2,  tile.y+0.5, 1.0);
+    atlas_->getCoordinates(texture_name_,Texture::LOWER_LEFT);
+    glVertex3d(tile.x-0.2,  tile.y+0.5, -0.5);
+    atlas_->getCoordinates(texture_name_,Texture::LOWER_RIGHT);
+    glVertex3d(tile.x+1.2,  tile.y+0.5, -0.5);
+    atlas_->getCoordinates(texture_name_,Texture::UPPER_RIGHT);
+    glVertex3d(tile.x+1.2,  tile.y+0.5, 1.0);
+  }
+  if(origin_position==LEFT){
+    atlas_->getCoordinates(texture_name_,Texture::UPPER_LEFT);
+    glVertex3d(tile.x,  tile.y, 1.0);
+    atlas_->getCoordinates(texture_name_,Texture::LOWER_LEFT);
+    glVertex3d(tile.x,  tile.y, -0.5);
+    atlas_->getCoordinates(texture_name_,Texture::LOWER_RIGHT);
+    glVertex3d(tile.x+1,  tile.y+1, -0.5);
+    atlas_->getCoordinates(texture_name_,Texture::UPPER_RIGHT);
+    glVertex3d(tile.x+1,  tile.y+1, 1.0);
+  }
+  if(origin_position==NEAR_LEFT){
+    atlas_->getCoordinates(texture_name_,Texture::UPPER_LEFT);
+    glVertex3d(tile.x+0.5,  tile.y-0.2, 1.0);
+    atlas_->getCoordinates(texture_name_,Texture::LOWER_LEFT);
+    glVertex3d(tile.x+0.5,  tile.y-0.2, -0.5);
+    atlas_->getCoordinates(texture_name_,Texture::LOWER_RIGHT);
+    glVertex3d(tile.x+0.5,  tile.y+1.2, -0.5);
+    atlas_->getCoordinates(texture_name_,Texture::UPPER_RIGHT);
+    glVertex3d(tile.x+0.5,  tile.y+1.2, 1.0);
+  }
+  if(origin_position==NEAR){
+    atlas_->getCoordinates(texture_name_,Texture::UPPER_LEFT);
+    glVertex3d(tile.x+1,  tile.y, 1.0);
+    atlas_->getCoordinates(texture_name_,Texture::LOWER_LEFT);
+    glVertex3d(tile.x+1,  tile.y, -0.5);
+    atlas_->getCoordinates(texture_name_,Texture::LOWER_RIGHT);
+    glVertex3d(tile.x,  tile.y+1, -0.5);
+    atlas_->getCoordinates(texture_name_,Texture::UPPER_RIGHT);
+    glVertex3d(tile.x,  tile.y+1, 1.0);
+  }
+  if(origin_position==NEAR_RIGHT){
+    atlas_->getCoordinates(texture_name_,Texture::UPPER_LEFT);
+    glVertex3d(tile.x+1.2,  tile.y+0.5, 1.0);
+    atlas_->getCoordinates(texture_name_,Texture::LOWER_LEFT);
+    glVertex3d(tile.x+1.2,  tile.y+0.5, -0.5);
+    atlas_->getCoordinates(texture_name_,Texture::LOWER_RIGHT);
+    glVertex3d(tile.x-0.2,  tile.y+0.5, -0.5);
+    atlas_->getCoordinates(texture_name_,Texture::UPPER_RIGHT);
+    glVertex3d(tile.x-0.2,  tile.y+0.5, 1.0);
+  }
+  if(origin_position==RIGHT){
+    atlas_->getCoordinates(texture_name_,Texture::UPPER_LEFT);
+    glVertex3d(tile.x+1,  tile.y+1, 1.0);
+    atlas_->getCoordinates(texture_name_,Texture::LOWER_LEFT);
+    glVertex3d(tile.x+1,  tile.y+1, -0.5);
+    atlas_->getCoordinates(texture_name_,Texture::LOWER_RIGHT);
+    glVertex3d(tile.x,  tile.y, -0.5);
+    atlas_->getCoordinates(texture_name_,Texture::UPPER_RIGHT);
+    glVertex3d(tile.x,  tile.y, 1.0);
+  }
+  if(origin_position==FAR_RIGHT){
+    atlas_->getCoordinates(texture_name_,Texture::UPPER_LEFT);
+    glVertex3d(tile.x+.5,  tile.y+1.2, 1.0);
+    atlas_->getCoordinates(texture_name_,Texture::LOWER_LEFT);
+    glVertex3d(tile.x+.5,  tile.y+1.2, -0.5);
+    atlas_->getCoordinates(texture_name_,Texture::LOWER_RIGHT);
+    glVertex3d(tile.x+.5,  tile.y-0.2, -0.5);
+    atlas_->getCoordinates(texture_name_,Texture::UPPER_RIGHT);
+    glVertex3d(tile.x+.5,  tile.y-0.2, 1.0);
+  }
 }
 
 
 void GameBoardWidget::GetTileColor(Point tile) {
   FLOOR_MATERIAL floor_type = board_->GetTile(tile)->floor_type ;
   if(floor_type==FLOOR_EMPTY)
-    glColor3d(0.7+0.01*tile.x,0.8,0.7+0.01*tile.y);
+    glColor3d(0.6+0.03*tile.x,0.8-0.04*abs(tile.x-tile.y),0.6+0.03*tile.y);
+  glColor3d(0.6,0.6,0.6);
 }
 
-void GameBoardWidget::RenderATile(Point tile,gameboard::QUADRENT quadrent) {
+void GameBoardWidget::RenderATile(Point tile,GameBoard::QUADRANT quadrent) {
   using namespace gameboard;
   using namespace Texture;
   atlas_->getCoordinates("blank",UPPER_LEFT);
@@ -214,22 +284,22 @@ void GameBoardWidget::RenderATile(Point tile,gameboard::QUADRENT quadrent) {
 
     
   Tile*floor_tile = board_->GetTile(tile);
-  if(quadrent == FAR_QUADRENT) {
+  if(quadrent == FAR_QUADRANT) {
     if(*(floor_tile->wall_north)==WALL_STANDARD)
       RenderAWall(tile,NORTH);
     if(*(floor_tile->wall_west)==WALL_STANDARD)
       RenderAWall(tile,WEST);
-  } else if (quadrent == RIGHT_QUADRENT) {
+  } else if (quadrent == RIGHT_QUADRANT) {
     if(*(floor_tile->wall_west)==WALL_STANDARD)
       RenderAWall(tile,WEST);
     if(*(floor_tile->wall_south)==WALL_STANDARD)
       RenderAWall(tile,SOUTH);
-  } else if (quadrent == NEAR_QUADRENT) {
+  } else if (quadrent == NEAR_QUADRANT) {
     if(*(floor_tile->wall_south)==WALL_STANDARD)
       RenderAWall(tile,SOUTH);
     if(*(floor_tile->wall_east)==WALL_STANDARD)
       RenderAWall(tile,EAST);
-  } else if (quadrent == LEFT_QUADRENT) {
+  } else if (quadrent == LEFT_QUADRANT) {
     if(*(floor_tile->wall_east)==WALL_STANDARD)
       RenderAWall(tile,EAST);
     if(*(floor_tile->wall_north)==WALL_STANDARD)
@@ -384,15 +454,23 @@ void GameBoardWidget::RenderWestWall(Point tile) {
     glVertex3d(tile.x+WALL_THICKNESS,tile.y    ,WALL_HEIGHT);
 }
 
-gameboard::QUADRENT GameBoardWidget::OriginQuadrant() const {
+GameBoard::QUADRANT GameBoardWidget::OriginQuadrant() const {
   if(angle_<90)
-    return gameboard::FAR_QUADRENT;
+    return GameBoard::FAR_QUADRANT;
   else if(angle_<180)
-    return gameboard::RIGHT_QUADRENT;
+    return GameBoard::RIGHT_QUADRANT;
   else if(angle_<270)
-    return gameboard::NEAR_QUADRENT;
+    return GameBoard::NEAR_QUADRANT;
   else
-    return gameboard::LEFT_QUADRENT;
+    return GameBoard::LEFT_QUADRANT;
+}
+GameBoard::RELATIVE_POSITION_8_WAY GameBoardWidget::OriginPosition() const {
+  int offset_angle = (angle_+22.5);
+  if(offset_angle>=360) offset_angle-=360;
+   GameBoard::RELATIVE_POSITION_8_WAY position=
+     GameBoard::RELATIVE_POSITION_8_WAY((offset_angle/45));
+  if(position==INVALID)position=FAR_LEFT;
+  return position;
 }
 
 double GameBoardWidget::angle() const {
