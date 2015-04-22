@@ -33,7 +33,7 @@ SpriteAtlas::SpriteAtlas(){
 
 
 SpriteAtlas::~SpriteAtlas(void) {
-	glDeleteBuffers(1, &gl_texture_name_);
+	glDeleteBuffers(1, &froTexture);
 }
 
 /*******************************
@@ -45,7 +45,6 @@ void SpriteAtlas::loadImage(std::string filename){
 
 	std::cout << "IMAGE LOADED!";
 
-	GLuint froTexture = 0;
 	glGenTextures(1, &froTexture);
 	glBindTexture(GL_TEXTURE_2D, froTexture);
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);

@@ -72,7 +72,9 @@ private:
 	std::string filename;
 
 	std::string type;
-	 
+
+	GLuint froTexture;
+
 	int spriteHeight;
 	int spriteWidth;
 	int numberOfSprites;
