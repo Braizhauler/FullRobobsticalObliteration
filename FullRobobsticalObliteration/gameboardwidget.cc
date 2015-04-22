@@ -176,7 +176,6 @@ void GameBoardWidget::RenderRobot (Point tile) {
   texture_name_.append(std::to_string(robot_));
   texture_name_.append("_");
   GameBoard::RELATIVE_POSITION_8_WAY origin_position = OriginPosition();
-  std::cout<<origin_position;
   int frame = (direction_+origin_position)%8;
   frame+=8*step_+1;
   texture_name_.append(std::to_string(frame) );
