@@ -44,12 +44,12 @@ int main (int num_of_arugments, char * argument_list[])  {
     return -1;
   }
   
-  //Use OpenGL version 3.3
-  glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-  glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+  //Use OpenGL version 1.0
+  glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 1);
+  glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
 
-  //error if we use depricated OpenGL
-  glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_COMPAT_PROFILE);
+  //error if we use depricated OpenGL //failed to run on greg's laptop
+  //glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_COMPAT_PROFILE);
 
   //Anti Aliasing x4
   glfwWindowHint(GLFW_SAMPLES, 4); 
