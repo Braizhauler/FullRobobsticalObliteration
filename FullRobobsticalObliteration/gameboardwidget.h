@@ -94,6 +94,8 @@ private:
   double angle_;
   WidgetLocation current_location_;
   GameStateManager* game_state_manager_;
+
+  SpriteAtlas* atlas_;
   
   int robot_;
   int direction_;

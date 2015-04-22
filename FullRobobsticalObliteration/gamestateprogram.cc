@@ -16,7 +16,7 @@
 
 
 GameStateProgram::GameStateProgram(GameStateManager* manager):
-                              board_(manager_,
+                              board_(manager,
                                       WidgetLocation(80.0, 40.0, 2.0, 0.0, 0.0))
 {
   manager_=manager;
