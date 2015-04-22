@@ -17,8 +17,9 @@
 
 #include "gamestatemanager.h"
 #include "widget.h"
+#include "gameboardcontroller.h"
 
-namespace GameBoard {
+namespace gameboard {
 enum QUADRENT {
   FAR_QUADRENT = 0,
   RIGHT_QUADRENT,
@@ -26,14 +27,8 @@ enum QUADRENT {
   LEFT_QUADRENT
 };
 
-enum DIRECTION {
-  NORTH=0,
-  EAST,
-  SOUTH,
-  WEST
-};
 }
-using namespace GameBoard;
+using namespace gameboard;
 class GameBoardWidget : public Widget {
 public:
   GameBoardWidget (void);
@@ -83,20 +78,27 @@ private:
   void ResetRendering();
   void GetTileColor(Point tile);
   void RenderTiles();
-  void RenderATile(Point tile, GameBoard::QUADRENT);
-  void RenderAWall(Point tile, GameBoard::DIRECTION direction);
+  void RenderATile(Point tile, QUADRENT);
+  void RenderAWall(Point tile, DIRECTION direction);
   void RenderNorthWall(Point tile);
   void RenderEastWall(Point tile);
   void RenderSouthWall(Point tile);
   void RenderWestWall(Point tile);
-  GameBoard::QUADRENT OriginQuadrant() const;
+  void RenderRobot(Point tile);
+  QUADRENT OriginQuadrant() const;
 
-  static const int NUMBER_OF_TILES_ACROSS = 8; 
+  GameBoardController* board_;
+  static const int NUMBER_OF_TILES_ACROSS = 12; 
   static const double WALL_HEIGHT; 
   static const double WALL_THICKNESS; 
   double angle_;
   WidgetLocation current_location_;
   GameStateManager* game_state_manager_;
+  
+  int robot_;
+  int direction_;
+  int step_;
+  int wait_;
 };
 
 #endif//GAME_BOARD_WIDGET_H

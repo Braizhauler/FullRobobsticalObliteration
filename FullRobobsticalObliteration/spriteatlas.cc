@@ -33,18 +33,11 @@ SpriteAtlas::SpriteAtlas(){
 
 
 SpriteAtlas::~SpriteAtlas(void) {
-}
-
-bool SpriteAtlas::Init(void) {
-  return false;
+	glDeleteBuffers(1, &gl_texture_name_);
 }
 
 /*******************************
 * Methods                     */
-void SpriteAtlas::del(){
-	glDeleteBuffers(1, &iTextureName);
-}
-
 void SpriteAtlas::loadImage(std::string filename){
   std::vector<unsigned char> image; 
   
@@ -76,7 +69,7 @@ void displayTexture(std::string targetTexture, char*** memoryImage){
 void SpriteAtlas::getCoordinates(std::string targetTexture, Texture::TEXTURE_CORNER corner){
 
 	
-	
+
 	const Jzon::Array &stuff = SpriteAtlas::rootNode.Get(targetTexture).AsArray();
 
 	Jzon::Array::const_iterator it = stuff.begin(); 
@@ -110,7 +103,7 @@ void SpriteAtlas::getCoordinates(std::string targetTexture, Texture::TEXTURE_COR
 			 }
 			 if (corner == UPPER_RIGHT) {
 				 glTexCoord2d(bottompercent, rightpercent);
-			 }
+	   }
 	   
 }
 

@@ -7,14 +7,28 @@ GameBoardWidget::GameBoardWidget (void) {
   current_location_=WidgetLocation(60.0,30.0,0.0,0.0,0.0);
   game_state_manager_ = nullptr;
   angle_ = 00.0;
+  board_=nullptr;
+
+  robot_=2;
+  direction_=0;
+  step_=0;
+  wait_=0;
 }
+
 GameBoardWidget::GameBoardWidget (GameStateManager* manager,
                                   WidgetLocation location) {
   current_location_=location;
   game_state_manager_ = manager;
   angle_ = 0.0;
+  board_=new GameBoardController( NUMBER_OF_TILES_ACROSS );
+  robot_=2;
+  direction_=0;
+  step_=0;
+  wait_=0;
 }
+
 GameBoardWidget::~GameBoardWidget (void){
+  delete board_;
 }
 
   //returns true if:
@@ -81,16 +95,18 @@ void GameBoardWidget::Setup3dRendering() {
   glFrustum(-1.0,1.0,-1.0,1.0,10.0,11.0);
   glMatrixMode(GL_MODELVIEW);
   glPushMatrix();
-  glTranslated (0.0,-(NUMBER_OF_TILES_ACROSS/2.0),-16.5);
+  glTranslated (0.0,-(NUMBER_OF_TILES_ACROSS/2.0),-18.5);
   double scale = current_location_.width()/(NUMBER_OF_TILES_ACROSS);
   glScaled(scale,scale,1.0);
   glRotatef(60.0, 1.0, 0.0, 0.0);
   glRotatef(angle_, 0.0, 0.0, 1.0);
   glTranslated(-(NUMBER_OF_TILES_ACROSS/2.0),-(NUMBER_OF_TILES_ACROSS/2.0),0);
   //glClear(GL_DEPTH_BUFFER_BIT);
+  //glEnable(GL_TEXTURE_2D);
 }
 
 void GameBoardWidget::Setup2dRendering() {
+  //glDisable(GL_TEXTURE_2D);
   glPopMatrix();
   glMatrixMode(GL_PROJECTION);
   glPopMatrix();
@@ -98,7 +114,6 @@ void GameBoardWidget::Setup2dRendering() {
 }
 
 void GameBoardWidget::RenderTiles() {
-  using namespace GameBoard;
   glBegin(GL_QUADS);
   QUADRENT origin=OriginQuadrant();
   if( origin == FAR_QUADRENT) {
@@ -106,7 +121,12 @@ void GameBoardWidget::RenderTiles() {
       for(tile.y=0.0;tile.y<NUMBER_OF_TILES_ACROSS;++tile.y) {
         GetTileColor(tile);
         RenderATile(tile,origin);
+        if(tile.x==1.0 && tile.y==1.0) RenderRobot (tile);
       }
+    for(int x=0;x<NUMBER_OF_TILES_ACROSS;++x) {
+      RenderAWall(Point(x,NUMBER_OF_TILES_ACROSS-1),SOUTH);
+      RenderAWall(Point(NUMBER_OF_TILES_ACROSS-1,x),EAST);
+    }
   } else if( origin == RIGHT_QUADRENT) {
     for(Point tile=Point(0.0,NUMBER_OF_TILES_ACROSS-1);
         tile.x<NUMBER_OF_TILES_ACROSS;++tile.x)
@@ -114,6 +134,10 @@ void GameBoardWidget::RenderTiles() {
         GetTileColor(tile);
         RenderATile(tile,origin);
       }
+    for(int x=0;x<NUMBER_OF_TILES_ACROSS;++x) {
+      RenderAWall(Point(x,0),NORTH);
+      RenderAWall(Point(NUMBER_OF_TILES_ACROSS-1,NUMBER_OF_TILES_ACROSS-x-1),EAST);
+    }
   } else if( origin == NEAR_QUADRENT) {
     for(Point tile=Point(NUMBER_OF_TILES_ACROSS-1,NUMBER_OF_TILES_ACROSS-1);
         tile.x>=0;--tile.x)
@@ -121,16 +145,45 @@ void GameBoardWidget::RenderTiles() {
         GetTileColor(tile);
         RenderATile(tile,origin);
       }
+    for(int x=0;x<NUMBER_OF_TILES_ACROSS;++x) {
+      RenderAWall(Point(NUMBER_OF_TILES_ACROSS-x-1,0),NORTH);
+      RenderAWall(Point(0,NUMBER_OF_TILES_ACROSS-x-1),WEST);
+    }
   } else if(origin == LEFT_QUADRENT) {
     for(Point tile=Point(NUMBER_OF_TILES_ACROSS-1,0.0);tile.x>=0;--tile.x)
       for(tile.y=0.0;tile.y<NUMBER_OF_TILES_ACROSS;++tile.y) {
         GetTileColor(tile);
         RenderATile(tile,origin);
       }
+    for(int x=0;x<NUMBER_OF_TILES_ACROSS;++x) {
+      RenderAWall(Point(NUMBER_OF_TILES_ACROSS-x-1,NUMBER_OF_TILES_ACROSS-1),SOUTH);
+      RenderAWall(Point(0,x),WEST);
+    }
   }
   glEnd();
 }
+void GameBoardWidget::RenderRobot (Point tile) {
+  if(++wait_>7) {
+    wait_=0;
+    if(++step_>3) {
+      step_=0;
+      if(++direction_>7) direction_=0;
+    }
+  }
+  glColor3f(1.00f, 1.00f, 1.00f);
+  glTexCoord2d( 0.2505+0.0625*direction_,0.00005+0.03125*(step_%2)+0.0625*robot_);
+  glVertex3d(tile.x+1,  tile.y, 0.0);
+  glTexCoord2d( 0.3120+0.0625*direction_,0.00005+0.03125*(step_%2)+0.0625*robot_);
+  glVertex3d(tile.x+1,  tile.y, 1.0);
+  glTexCoord2d( 0.3120+0.0625*direction_,0.03115+0.03125*(step_%2)+0.0625*robot_);
+  glVertex3d(tile.x,  tile.y+1, 1.0);
+  glTexCoord2d( 0.2505+0.0625*direction_,0.03115+0.03125*(step_%2)+0.0625*robot_);
+  glVertex3d(tile.x,  tile.y+1, 0.0);
+}
+
+
 void GameBoardWidget::GetTileColor(Point tile) {
+
   if(tile.x+tile.y==0)
     glColor3f(1.0f,0.3f,0.3f);
   else if(tile.x==0&&tile.y==7)
@@ -139,40 +192,45 @@ void GameBoardWidget::GetTileColor(Point tile) {
     glColor3f(0.3f,0.3f,0.7f);
   else
     glColor3f(0.6f,0.6f,0.4f);
+  
+  FLOOR_MATERIAL floor_type = board_->GetTile(tile)->floor_type ;
+  if(floor_type==FLOOR_EMPTY)
+    glColor3d(0.3+0.08*tile.x,0.0,0.1+0.1*tile.y);
 }
 
-void GameBoardWidget::RenderATile(Point tile,GameBoard::QUADRENT quadrent) {
-  using namespace GameBoard;
+void GameBoardWidget::RenderATile(Point tile,gameboard::QUADRENT quadrent) {
+  using namespace gameboard;
     glVertex3d(tile.x    ,tile.y    ,0.0);
     glVertex3d(tile.x+1.0,tile.y    ,0.0);
     glVertex3d(tile.x+1.0,tile.y+1.0,0.0);
     glVertex3d(tile.x    ,tile.y+1.0,0.0);
-
+    
+    Tile*floor_tile = board_->GetTile(tile);
     if(quadrent == FAR_QUADRENT) {
-      if(tile.y==5.0)
-        RenderAWall(tile,GameBoard::NORTH);
-      if(tile.x==2.0)
-        RenderAWall(tile,GameBoard::WEST);
+      if(*(floor_tile->wall_north)==WALL_STANDARD)
+        RenderAWall(tile,NORTH);
+      if(*(floor_tile->wall_west)==WALL_STANDARD)
+        RenderAWall(tile,WEST);
     } else if (quadrent == RIGHT_QUADRENT) {
-      if(tile.x==2.0)
-        RenderAWall(tile,GameBoard::WEST);
-      if(tile.y==4.0)
-        RenderAWall(tile,GameBoard::SOUTH);
+      if(*(floor_tile->wall_west)==WALL_STANDARD)
+        RenderAWall(tile,WEST);
+      if(*(floor_tile->wall_south)==WALL_STANDARD)
+        RenderAWall(tile,SOUTH);
     } else if (quadrent == NEAR_QUADRENT) {
-      if(tile.y==4.0)
-        RenderAWall(tile,GameBoard::SOUTH);
-      if(tile.x==1.0)
-        RenderAWall(tile,GameBoard::EAST);
+      if(*(floor_tile->wall_south)==WALL_STANDARD)
+        RenderAWall(tile,SOUTH);
+      if(*(floor_tile->wall_east)==WALL_STANDARD)
+        RenderAWall(tile,EAST);
     } else if (quadrent == LEFT_QUADRENT) {
-      if(tile.x==1.0)
-        RenderAWall(tile,GameBoard::EAST);
-      if(tile.y==5.0)
-        RenderAWall(tile,GameBoard::NORTH);
+      if(*(floor_tile->wall_east)==WALL_STANDARD)
+        RenderAWall(tile,EAST);
+      if(*(floor_tile->wall_north)==WALL_STANDARD)
+        RenderAWall(tile,NORTH);
     }
 }
 
-void GameBoardWidget::RenderAWall(Point tile, GameBoard::DIRECTION direction) {
-  using namespace GameBoard;
+void GameBoardWidget::RenderAWall(Point tile, DIRECTION direction) {
+  using namespace gameboard;
   if(direction==NORTH)
     RenderNorthWall(tile);
   if(direction==WEST)
@@ -318,15 +376,15 @@ void GameBoardWidget::RenderWestWall(Point tile) {
     glVertex3d(tile.x+WALL_THICKNESS,tile.y    ,WALL_HEIGHT);
 }
 
-GameBoard::QUADRENT GameBoardWidget::OriginQuadrant() const {
+gameboard::QUADRENT GameBoardWidget::OriginQuadrant() const {
   if(angle_<90)
-    return GameBoard::FAR_QUADRENT;
+    return gameboard::FAR_QUADRENT;
   else if(angle_<180)
-    return GameBoard::RIGHT_QUADRENT;
+    return gameboard::RIGHT_QUADRENT;
   else if(angle_<270)
-    return GameBoard::NEAR_QUADRENT;
+    return gameboard::NEAR_QUADRENT;
   else
-    return GameBoard::LEFT_QUADRENT;
+    return gameboard::LEFT_QUADRENT;
 }
 
 double GameBoardWidget::angle() const {

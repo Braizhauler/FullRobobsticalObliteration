@@ -119,12 +119,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="buttonwidget.cc" />
+    <ClCompile Include="carddeck.cpp" />
     <ClCompile Include="cardhandwidget.cc" />
-    <ClCompile Include="cardpile.cc" />
     <ClCompile Include="cardwidget.cc" />
     <ClCompile Include="focusable.cc" />
     <ClCompile Include="font.cc" />
     <ClCompile Include="framewidget.cc" />
+    <ClCompile Include="gameboardcontroller.cc" />
     <ClCompile Include="gameboardwidget.cc" />
     <ClCompile Include="gamestate.cc" />
     <ClCompile Include="gamestatemainmenu.cc" />
@@ -141,6 +142,8 @@
     <ClCompile Include="rectangleonplane.cc" />
     <ClCompile Include="registerwidget.cc" />
     <ClCompile Include="renderable.cc" />
+    <ClCompile Include="robot.cpp" />
+    <ClCompile Include="robotwidget.cc" />
     <ClCompile Include="spriteatlas.cc" />
     <ClCompile Include="updateable.cc" />
     <ClCompile Include="widget.cc" />
@@ -148,12 +151,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="buttonwidget.h" />
+    <ClInclude Include="carddeck.h" />
     <ClInclude Include="cardhandwidget.h" />
-    <ClInclude Include="cardpile.h" />
     <ClInclude Include="cardwidget.h" />
     <ClInclude Include="focusable.h" />
     <ClInclude Include="font.h" />
     <ClInclude Include="framewidget.h" />
+    <ClInclude Include="gameboardcontroller.h" />
     <ClInclude Include="gameboardwidget.h" />
     <ClInclude Include="gamestate.h" />
     <ClInclude Include="gamestatemainmenu.h" />
@@ -170,6 +174,9 @@
     <ClInclude Include="rectangleonplane.h" />
     <ClInclude Include="registerwidget.h" />
     <ClInclude Include="renderable.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="robot.h" />
+    <ClInclude Include="robotwidget.h" />
     <ClInclude Include="spriteatlas.h" />
     <ClInclude Include="updateable.h" />
     <ClInclude Include="widget.h" />
@@ -181,6 +188,7 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\FullRobobsticalObliteration.png" />
+    <Image Include="..\Graphics\fro_fullsheet.png" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="..\Graphics\Reality Hyper Regular.ttf" />

@@ -15,10 +15,10 @@
 #include "gamestateprogram.h"
 
 
-GameStateProgram::GameStateProgram(GameStateManager* manager)
+GameStateProgram::GameStateProgram(GameStateManager* manager):
+                              board_(manager_,
+                                      WidgetLocation(80.0, 40.0, 2.0, 0.0, 0.0))
 {
-  board_=GameBoardWidget(manager_,
-                         WidgetLocation(80.0, 40.0, 2.0, 0.0, 0.0));
   manager_=manager;
   dragged_=nullptr;
   register_dragging_from_=-1;
@@ -89,6 +89,9 @@ void GameStateProgram::CursorMove(bool left_mouse_button_down,
     
     if(left_mouse_button_down) {
       if(board_.ContainPoint(x_position,y_position)) {
+          board_.setAngle(board_.angle()
+                          +(0.2*(y_position-18.0)* 
+                          (last_mouse_position_.x-x_position)));
           board_.setAngle(board_.angle()
                           +(0.2*(y_position-18.0)* 
                           (last_mouse_position_.x-x_position)));

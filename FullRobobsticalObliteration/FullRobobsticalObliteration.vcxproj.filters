@@ -15,6 +15,7 @@
     </Filter>
     <Filter Include="Header Files\Widgets">
       <UniqueIdentifier>{527b0f85-e71f-4948-bc04-5a21c29acce4}</UniqueIdentifier>
+      <Extensions>*widget.h</Extensions>
     </Filter>
     <Filter Include="Header Files\States">
       <UniqueIdentifier>{9fd65ced-b5a9-4c82-b88e-38d6216c8c00}</UniqueIdentifier>
@@ -24,6 +25,9 @@
     </Filter>
     <Filter Include="Source Files\Widgets">
       <UniqueIdentifier>{7390a0f8-a621-498f-a4fd-c12564acba57}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\States">
+      <UniqueIdentifier>{74e7ae32-27da-4e47-b77e-febbbe507d65}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -87,9 +91,6 @@
     <ClCompile Include="cardwidget.cc">
       <Filter>Source Files\Widgets</Filter>
     </ClCompile>
-    <ClCompile Include="cardpile.cc">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="cardhandwidget.cc">
       <Filter>Source Files\Widgets</Filter>
     </ClCompile>
@@ -108,6 +109,18 @@
     <ClCompile Include="lodepng.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="gameboardcontroller.cc">
+      <Filter>Source Files\Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="carddeck.cpp">
+      <Filter>Source Files\Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="robot.cpp">
+      <Filter>Source Files\Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="robotwidget.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mywindowwrapper.h">
@@ -117,9 +130,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="inputmanager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="updateable.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="rectangle.h">
@@ -164,9 +174,6 @@
     <ClInclude Include="framewidget.h">
       <Filter>Header Files\Widgets</Filter>
     </ClInclude>
-    <ClInclude Include="cardpile.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="cardwidget.h">
       <Filter>Header Files\Widgets</Filter>
     </ClInclude>
@@ -191,6 +198,24 @@
     <ClInclude Include="lodepng.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="gameboardcontroller.h">
+      <Filter>Header Files\Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="carddeck.h">
+      <Filter>Header Files\Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="updateable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="robot.h">
+      <Filter>Header Files\Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="robotwidget.h">
+      <Filter>Header Files\Widgets</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
@@ -200,6 +225,9 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\FullRobobsticalObliteration.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\Graphics\fro_fullsheet.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
