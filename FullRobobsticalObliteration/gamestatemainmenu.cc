@@ -16,6 +16,9 @@
 
 GameStateMainMenu::GameStateMainMenu(GameStateManager* manager) {
   game_state_manager_ = manager;
+  deck_ = game_state_manager_->GetCardDeck();
+  deck_->Shuffle();
+
   focus_ = nullptr;
   button_1_ = ButtonWidget(game_state_manager_,
                            WidgetLocation (20.0, 6.0, 32.0, 32.0, -1.0));

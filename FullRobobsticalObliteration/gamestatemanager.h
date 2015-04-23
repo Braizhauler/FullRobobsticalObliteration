@@ -30,6 +30,7 @@
 #include "renderable.h"
 #include "updateable.h"
 #include "spriteatlas.h"
+#include "carddeck.h"
 
 class GameStateManager: public Renderable {
 public:
@@ -55,6 +56,8 @@ public:
   void Draw();
   void Update();
 
+  CardDeck* GameStateManager::GetCardDeck();
+
   SpriteAtlas * TextureAtlas();
 
   void Exit();
@@ -66,6 +69,7 @@ private:
   std::vector<Renderable*> active_renderable_;
   std::vector<Updateable*> active_updatable_;
   MyWindowWrapper* window_;
+  CardDeck deck_;
 };
 
 #endif //GAME_STATE_MANAGER_H

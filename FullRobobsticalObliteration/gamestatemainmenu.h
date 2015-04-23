@@ -68,6 +68,8 @@ public:
   void Draw();
 
   void LinkProgramState(GameState* state);
+
+  CardDeck* GameStateMainMenu::GetCardDeck();
 private:
   //Member Variables
   SpriteAtlas*sprite_atlas_;
@@ -77,6 +79,7 @@ private:
   ButtonWidget button_1_;
   ButtonWidget button_2_;
   CardWidget card_1_;
+  CardDeck* deck_;
   
   int stage_;
   int wait_;

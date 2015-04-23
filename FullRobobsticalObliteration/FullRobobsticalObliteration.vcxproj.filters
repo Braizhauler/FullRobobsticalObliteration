@@ -97,8 +97,11 @@
     <ClCompile Include="lodepng.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="carddeck.cpp">
-      <Filter>Source Files\Logic</Filter>
+    <ClCompile Include="robotwidget.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="gameboardcontroller.cc">
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="focusable.cc">
       <Filter>Source Files\Interfaces</Filter>
@@ -126,6 +129,8 @@
     </ClCompile>
     <ClCompile Include="robotcontroller.cc">
       <Filter>Source Files\Logic</Filter>
+    <ClCompile Include="carddeck.cc">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -212,6 +217,15 @@
     </ClInclude>
     <ClInclude Include="robotcontroller.h">
       <Filter>Header Files\Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="carddeck.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="gameboardcontroller.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="robot.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

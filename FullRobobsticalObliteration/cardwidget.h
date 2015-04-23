@@ -22,6 +22,7 @@
 #include "framewidget.h"
 #include "widgetlocation.h"
 #include "focusable.h"
+#include "carddeck.h"
 
 class CardWidget: public Widget, public Focusable
 {
@@ -56,6 +57,10 @@ public:
   
   void SizeTo(const Widget* model);
   void SizeTo(const double width, const double height);
+
+  card::Card* GetCard(void);
+  void SetCard(card::Card* );
+  std::string GetTextureName(void);
 
   FrameWidget* parent() const;
   void setParent(FrameWidget*);
@@ -95,6 +100,8 @@ private:
   WidgetLocation current_location_;
   WidgetLocation drag_location_;
   float color_[3];
+  SpriteAtlas* atlas_;
+  Card* card_;
 };
 
 

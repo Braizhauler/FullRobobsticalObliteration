@@ -35,6 +35,7 @@ GameStateProgram::GameStateProgram(GameStateManager* manager):
     card_[card_count] = CardWidget(manager_,
                                    WidgetLocation(6.0, 9.0,
                                                 40.0+card_count*4.0,44.0,-1.0));
+    card_[card_count].SetCard(manager->GetCardDeck()->DealACard());
     player_hand_.addChild(&card_[card_count]);
   }
   last_mouse_position_ = Point(0.0,0.0);
@@ -59,6 +60,7 @@ bool GameStateProgram::Opaque() const {
 
 //Loads the GameState onto the GameStateManager stack in active mode
 void GameStateProgram::Load() {
+
 }
 
 //Called when GameState when another GameState is preparing
