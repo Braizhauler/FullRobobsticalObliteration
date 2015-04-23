@@ -15,12 +15,29 @@
 
 #include "point.h"
 #include "gameboardcontroller.h"
-class Robot
-{
-public:
-  Robot(void);
-  ~Robot(void);
+namespace Robot {
+enum CARDNIAL_DIRECTION {
+  INVALID,
+  NORTH,
+  SOUTH,
+  EAST,
+  WEST
+};
 
+enum ACTION {
+  ACTION_INVALID,
+  ACTION_TURN_LEFT,
+  ACTION_TURN_RIGHT,
+  ACTION_MOVE_FORWARD,
+  ACTION_MOVE_BACKWARD
+ 
+};
+}
+
+class RobotController{
+public:
+  RobotController(void);
+  ~RobotController(void);
 private:
   DIRECTION facing_;
   int robot_number;

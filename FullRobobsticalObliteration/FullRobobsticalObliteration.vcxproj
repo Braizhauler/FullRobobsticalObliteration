@@ -140,7 +140,7 @@
     <ClCompile Include="rectangleonplane.cc" />
     <ClCompile Include="registerwidget.cc" />
     <ClCompile Include="renderable.cc" />
-    <ClCompile Include="robot.cc" />
+    <ClCompile Include="robotcontroller.cc" />
     <ClCompile Include="robotwidget.cc" />
     <ClCompile Include="spriteatlas.cc" />
     <ClCompile Include="updateable.cc" />
@@ -170,7 +170,7 @@
     <ClInclude Include="rectangleonplane.h" />
     <ClInclude Include="registerwidget.h" />
     <ClInclude Include="renderable.h" />
-    <ClInclude Include="robot.h" />
+    <ClInclude Include="robotcontroller.h" />
     <ClInclude Include="robotwidget.h" />
     <ClInclude Include="spriteatlas.h" />
     <ClInclude Include="updateable.h" />

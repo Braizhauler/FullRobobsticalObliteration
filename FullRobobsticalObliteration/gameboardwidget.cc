@@ -10,7 +10,7 @@ GameBoardWidget::GameBoardWidget (GameStateManager* manager,
   atlas_=manager->TextureAtlas();
   angle_ = 0.0;
   board_=new GameBoardController( NUMBER_OF_TILES_ACROSS );
-  robot_=1;
+  robot_=4;
   direction_=3;
   step_=0;
   wait_=0;
@@ -83,9 +83,12 @@ void GameBoardWidget::Setup3dRendering() {
   glTranslated((current_location_.left()+current_location_.width())/2.0,
                 current_location_.top()+current_location_.height()/2.2,0.0);
   glFrustum(-1.0,1.0,-1.0,1.0,10.0,11.0);
+  
+  //glOrtho(-2.0,2.0,-2.0,2.0,5.0,11.0);
   glMatrixMode(GL_MODELVIEW);
   glPushMatrix();
   glTranslated (0.0,-(NUMBER_OF_TILES_ACROSS/2.0),-18.5);
+  //glTranslated (0.0,0.0,-16.5);
   double scale = current_location_.width()/(NUMBER_OF_TILES_ACROSS);
   glScaled(scale,scale,1.0);
   glRotatef(60.0, 1.0, 0.0, 0.0);

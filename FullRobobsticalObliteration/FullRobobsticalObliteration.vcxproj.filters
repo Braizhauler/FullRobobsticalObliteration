@@ -118,14 +118,14 @@
     <ClCompile Include="updateable.cc">
       <Filter>Source Files\Interfaces</Filter>
     </ClCompile>
-    <ClCompile Include="robot.cc">
-      <Filter>Source Files\Logic</Filter>
-    </ClCompile>
     <ClCompile Include="gameboardcontroller.cc">
       <Filter>Source Files\Logic</Filter>
     </ClCompile>
     <ClCompile Include="robotwidget.cc">
       <Filter>Source Files\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="robotcontroller.cc">
+      <Filter>Source Files\Logic</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -183,9 +183,6 @@
     <ClInclude Include="carddeck.h">
       <Filter>Header Files\Logic</Filter>
     </ClInclude>
-    <ClInclude Include="robot.h">
-      <Filter>Header Files\Logic</Filter>
-    </ClInclude>
     <ClInclude Include="gameboardcontroller.h">
       <Filter>Header Files\Logic</Filter>
     </ClInclude>
@@ -212,6 +209,9 @@
     </ClInclude>
     <ClInclude Include="inputmanager.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="robotcontroller.h">
+      <Filter>Header Files\Logic</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
