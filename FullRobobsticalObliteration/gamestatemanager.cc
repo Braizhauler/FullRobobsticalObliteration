@@ -16,6 +16,10 @@
 
 GameStateManager::GameStateManager(MyWindowWrapper * window) {
   window_= window;
+  CardDeck deck__;
+  CardDeck* deck_;
+  deck_ = &deck__;
+  //deck_->Shuffle();
 }
 
 GameStateManager::~GameStateManager(void) {
@@ -37,6 +41,10 @@ GameState* GameStateManager::Pop() {
     active_state_.back()->Uncover();
   RestackRenderables();
   return temp;
+}
+
+CardDeck* GameStateManager::GetCardDeck() {
+	return deck_;
 }
 
 //Peek returns a pointer to top state of the state stack, and leaving it on the

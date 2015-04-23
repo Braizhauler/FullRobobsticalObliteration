@@ -14,8 +14,10 @@
 
 #include "cardwidget.h"
 
-CardWidget::CardWidget(GameStateManager* manager) {
+CardWidget::CardWidget(GameStateManager* manager, Card* card) {
   game_state_manager_ = manager;
+  atlas_ = manager->TextureAtlas();
+  card_ = card;
 
   setColor(0.8f,0.8f,0.8f);
 
@@ -24,8 +26,10 @@ CardWidget::CardWidget(GameStateManager* manager) {
   current_location_ = WidgetLocation(8.0, 12.0, 0.0, 0.0, 0.0);
 }
 
-CardWidget::CardWidget(GameStateManager* manager, WidgetLocation location) {
+CardWidget::CardWidget(GameStateManager* manager, WidgetLocation location, Card* card) {
   game_state_manager_ = manager;
+  atlas_ = manager->TextureAtlas();
+  card_ = card;
 
   setColor(0.8f,0.8f,0.8f);
 
@@ -39,6 +43,14 @@ CardWidget::~CardWidget(void) {
 
 const float* CardWidget::color() {
   return color_;
+}
+
+std::string CardWidget::GetCardPriority(){
+	return std::to_string(card_->priority);
+}
+
+void CardWidget::SetCardPriority(int priority){
+	card_->priority = priority;
 }
 
 void CardWidget::setColor(const float red,
@@ -74,18 +86,24 @@ Point CardWidget::DragEnd(double x, double y) {
 void CardWidget::Draw() {
   glColor3f(color_[0],color_[1],color_[2]);
   glBegin(GL_TRIANGLE_FAN);
+    atlas_->getCoordinates(GetCardPriority(), Texture::UPPER_LEFT);
     glVertex3d(current_location_.left(),
                current_location_.top(),
                current_location_.depth());
     
+    atlas_->getCoordinates(GetCardPriority(), Texture::UPPER_RIGHT);
     glColor3f(0.0,color_[1],color_[2]);
     glVertex3d(current_location_.right(),
                current_location_.top(),
                current_location_.depth());
+
+    atlas_->getCoordinates(GetCardPriority(), Texture::LOWER_RIGHT);
     glColor3f(color_[0],0.0,color_[2]);
     glVertex3d(current_location_.right(),
                current_location_.bottom(),
                current_location_.depth());
+
+    atlas_->getCoordinates(GetCardPriority(), Texture::LOWER_LEFT);
     glColor3f(color_[0],color_[1],0.0);
     glVertex3d(current_location_.left(),
                current_location_.bottom(),

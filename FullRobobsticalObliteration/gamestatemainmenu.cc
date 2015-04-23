@@ -16,6 +16,9 @@
 
 GameStateMainMenu::GameStateMainMenu(GameStateManager* manager) {
   game_state_manager_ = manager;
+  deck_ = game_state_manager_->GetCardDeck();
+  deck_->Shuffle();
+
   focus_ = nullptr;
   button_1_ = ButtonWidget(game_state_manager_,
                            WidgetLocation (20.0, 6.0, 32.0, 32.0, -1.0));
@@ -26,7 +29,7 @@ GameStateMainMenu::GameStateMainMenu(GameStateManager* manager) {
   button_2_.setColor(0.8f, 0.8f, 0.8f);
 
   card_1_ = CardWidget(game_state_manager_,
-                       WidgetLocation (8.0, 12.0, 10.0, 10.0, 1.0));
+                       WidgetLocation (8.0, 12.0, 10.0, 10.0, 1.0), deck_->DealACard());
   stage_=0;
   wait_=0;
   step_=0;

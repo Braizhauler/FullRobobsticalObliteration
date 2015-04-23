@@ -22,13 +22,14 @@
 #include "framewidget.h"
 #include "widgetlocation.h"
 #include "focusable.h"
+#include "carddeck.h"
 
 class CardWidget: public Widget, public Focusable
 {
 public:
   //Constructors, and Destructor
-  CardWidget(GameStateManager* manager = nullptr);
-  CardWidget(GameStateManager* manager, const WidgetLocation location);
+  CardWidget(GameStateManager* manager = nullptr, Card* card = nullptr);
+  CardWidget(GameStateManager* manager, const WidgetLocation location, Card* card = nullptr);
   ~CardWidget(void);
 
   const float* color();
@@ -56,6 +57,9 @@ public:
   
   void SizeTo(const Widget* model);
   void SizeTo(const double width, const double height);
+
+  std::string GetCardPriority(void);
+  void SetCardPriority(int priority);
 
   FrameWidget* parent() const;
   void setParent(FrameWidget*);
@@ -95,6 +99,8 @@ private:
   WidgetLocation current_location_;
   WidgetLocation drag_location_;
   float color_[3];
+  SpriteAtlas* atlas_;
+  Card* card_;
 };
 
 

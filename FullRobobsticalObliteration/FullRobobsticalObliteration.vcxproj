@@ -119,7 +119,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="buttonwidget.cc" />
-    <ClCompile Include="carddeck.cpp" />
+    <ClCompile Include="carddeck.cc" />
     <ClCompile Include="cardhandwidget.cc" />
     <ClCompile Include="cardwidget.cc" />
     <ClCompile Include="focusable.cc" />

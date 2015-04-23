@@ -30,6 +30,7 @@
 #include "renderable.h"
 #include "updateable.h"
 #include "spriteatlas.h"
+#include "carddeck.h"
 
 struct GameTime;
 
@@ -57,7 +58,10 @@ public:
   void Draw();
   void Update(GameTime frameNumber);
 
+  CardDeck* GameStateManager::GetCardDeck();
+
   SpriteAtlas * TextureAtlas();
+  CardDeck* deck_;
 
   void Exit();
 private:

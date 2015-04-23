@@ -44,11 +44,11 @@ public:
   CardDeck(void);
   ~CardDeck(void);
   void Shuffle();
-  void Deal(int);
-
+  void Deal();
+  Card* DealACard();
 private:
   void InitializeDeck();
-
+  vector<Card*>::iterator top_card_;
   vector<Card> card_list_;
   vector<Card*> card_shuffle_;
 };
