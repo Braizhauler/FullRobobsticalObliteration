@@ -28,8 +28,8 @@ class CardWidget: public Widget, public Focusable
 {
 public:
   //Constructors, and Destructor
-  CardWidget(GameStateManager* manager = nullptr, Card* card = nullptr);
-  CardWidget(GameStateManager* manager, const WidgetLocation location, Card* card = nullptr);
+  CardWidget(GameStateManager* manager = nullptr);
+  CardWidget(GameStateManager* manager, const WidgetLocation location);
   ~CardWidget(void);
 
   const float* color();
@@ -58,8 +58,9 @@ public:
   void SizeTo(const Widget* model);
   void SizeTo(const double width, const double height);
 
-  std::string GetCardPriority(void);
-  void SetCardPriority(int priority);
+  card::Card* GetCard(void);
+  void SetCard(card::Card* );
+  std::string GetTextureName(void);
 
   FrameWidget* parent() const;
   void setParent(FrameWidget*);

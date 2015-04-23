@@ -29,9 +29,9 @@ void CardDeck::InitializeDeck() {
     card_list_.push_back(Card(SUIT_FORWARD_1,count));
   }
   count=0;
-  while(count<65) {
-    count++;
+  while(count<66) {
     card_shuffle_.push_back(&card_list_[count]);
+    count++;
   }
 
 }

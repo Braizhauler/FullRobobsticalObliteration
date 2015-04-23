@@ -29,7 +29,7 @@ GameStateMainMenu::GameStateMainMenu(GameStateManager* manager) {
   button_2_.setColor(0.8f, 0.8f, 0.8f);
 
   card_1_ = CardWidget(game_state_manager_,
-                       WidgetLocation (8.0, 12.0, 10.0, 10.0, 1.0), deck_->DealACard());
+                       WidgetLocation (8.0, 12.0, 10.0, 10.0, 1.0));
   stage_=0;
   wait_=0;
   step_=0;

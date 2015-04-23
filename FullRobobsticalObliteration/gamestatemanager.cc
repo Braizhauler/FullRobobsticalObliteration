@@ -16,10 +16,7 @@
 
 GameStateManager::GameStateManager(MyWindowWrapper * window) {
   window_= window;
-  CardDeck deck__;
-  CardDeck* deck_;
-  deck_ = &deck__;
-  //deck_->Shuffle();
+  deck_.Shuffle();
 }
 
 GameStateManager::~GameStateManager(void) {
@@ -44,7 +41,7 @@ GameState* GameStateManager::Pop() {
 }
 
 CardDeck* GameStateManager::GetCardDeck() {
-	return deck_;
+	return &deck_;
 }
 
 //Peek returns a pointer to top state of the state stack, and leaving it on the

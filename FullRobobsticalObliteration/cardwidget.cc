@@ -14,10 +14,10 @@
 
 #include "cardwidget.h"
 
-CardWidget::CardWidget(GameStateManager* manager, Card* card) {
+CardWidget::CardWidget(GameStateManager* manager) {
   game_state_manager_ = manager;
   atlas_ = manager->TextureAtlas();
-  card_ = card;
+  card_ = nullptr;
 
   setColor(0.8f,0.8f,0.8f);
 
@@ -26,10 +26,10 @@ CardWidget::CardWidget(GameStateManager* manager, Card* card) {
   current_location_ = WidgetLocation(8.0, 12.0, 0.0, 0.0, 0.0);
 }
 
-CardWidget::CardWidget(GameStateManager* manager, WidgetLocation location, Card* card) {
+CardWidget::CardWidget(GameStateManager* manager, WidgetLocation location) {
   game_state_manager_ = manager;
   atlas_ = manager->TextureAtlas();
-  card_ = card;
+  card_ = nullptr;
 
   setColor(0.8f,0.8f,0.8f);
 
@@ -45,13 +45,19 @@ const float* CardWidget::color() {
   return color_;
 }
 
-std::string CardWidget::GetCardPriority(){
-	return std::to_string(card_->priority);
+card::Card* CardWidget::GetCard(){
+	return card_;
 }
 
-void CardWidget::SetCardPriority(int priority){
-	card_->priority = priority;
+void CardWidget::SetCard(card::Card*new_card){
+	card_ = new_card;
 }
+
+std::string CardWidget::GetTextureName(void) {
+  if (card_==nullptr) return "";
+  return std::to_string(10*card_->priority);
+}
+
 
 void CardWidget::setColor(const float red,
                           const float green,
@@ -84,31 +90,31 @@ Point CardWidget::DragEnd(double x, double y) {
 
 
 void CardWidget::Draw() {
+  glEnable(GL_TEXTURE_2D);
   glColor3f(color_[0],color_[1],color_[2]);
   glBegin(GL_TRIANGLE_FAN);
-    atlas_->getCoordinates(GetCardPriority(), Texture::UPPER_LEFT);
+    atlas_->ActivateTexture(GetTextureName());
+    atlas_->LoadCoordinates(Texture::UPPER_LEFT);
     glVertex3d(current_location_.left(),
                current_location_.top(),
                current_location_.depth());
     
-    atlas_->getCoordinates(GetCardPriority(), Texture::UPPER_RIGHT);
-    glColor3f(0.0,color_[1],color_[2]);
+    atlas_->LoadCoordinates(Texture::UPPER_RIGHT);
     glVertex3d(current_location_.right(),
                current_location_.top(),
                current_location_.depth());
 
-    atlas_->getCoordinates(GetCardPriority(), Texture::LOWER_RIGHT);
-    glColor3f(color_[0],0.0,color_[2]);
+    atlas_->LoadCoordinates(Texture::LOWER_RIGHT);
     glVertex3d(current_location_.right(),
                current_location_.bottom(),
                current_location_.depth());
 
-    atlas_->getCoordinates(GetCardPriority(), Texture::LOWER_LEFT);
-    glColor3f(color_[0],color_[1],0.0);
+    atlas_->LoadCoordinates(Texture::LOWER_LEFT);
     glVertex3d(current_location_.left(),
                current_location_.bottom(),
                current_location_.depth());
   glEnd();
+  glDisable(GL_TEXTURE_2D);
   if(dragging_) {
     glColor3f(0.8f, 0.4f, 0.4f);
     glLineWidth(3);
