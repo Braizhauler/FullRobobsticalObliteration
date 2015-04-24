@@ -14,11 +14,14 @@
 
 #include "cardwidget.h"
 
+const double CardWidget::FLIP_SPEED=0.1;
+
 CardWidget::CardWidget(GameStateManager* manager) {
   game_state_manager_ = manager;
   atlas_ = manager->TextureAtlas();
   card_ = nullptr;
-  face_up_ = true;
+  face_up_= true;
+  flipping_up_ = true;
   flip_width_=1.0;
   setColor(0.8f,0.8f,0.8f);
   dragging_ = false;
@@ -88,31 +91,52 @@ Point CardWidget::DragEnd(double x, double y) {
 }
 
 void CardWidget::FlipStart() {
+  flipping_up_ = !flipping_up_;
   flip_width_=0.9*flip_width_;
 }
 
 void CardWidget::Draw() {
+  if(flip_width_<1.0) {
+    if ((face_up_&&flipping_up_)||(!(face_up_||flipping_up_))) {
+      flip_width_+=FLIP_SPEED;
+      if(flip_width_>1.0){
+        flip_width_=1.0;
+      }
+    } else {
+      flip_width_-=FLIP_SPEED;
+      if(flip_width_<0.0){
+        face_up_=!face_up_;
+        flip_width_=0.0;
+      }
+    }
+  } else {
+    flip_width_=1.0;
+  }
+  if (face_up_) 
+    atlas_->ActivateTexture(GetTextureName());
+  else
+    atlas_->ActivateTexture("card_back");
+  double card_skew=(1.0-flip_width_)*current_location_.width()/2.0;
   glEnable(GL_TEXTURE_2D);
   glColor3f(color_[0],color_[1],color_[2]);
   glBegin(GL_TRIANGLE_FAN);
-    atlas_->ActivateTexture(GetTextureName());
     atlas_->LoadCoordinates(Texture::UPPER_LEFT);
-    glVertex3d(current_location_.left(),
+    glVertex3d(current_location_.left()+card_skew,
                current_location_.top(),
                current_location_.depth());
     
     atlas_->LoadCoordinates(Texture::UPPER_RIGHT);
-    glVertex3d(current_location_.right(),
+    glVertex3d(current_location_.right()-card_skew,
                current_location_.top(),
                current_location_.depth());
 
     atlas_->LoadCoordinates(Texture::LOWER_RIGHT);
-    glVertex3d(current_location_.right(),
+    glVertex3d(current_location_.right()-card_skew,
                current_location_.bottom(),
                current_location_.depth());
 
     atlas_->LoadCoordinates(Texture::LOWER_LEFT);
-    glVertex3d(current_location_.left(),
+    glVertex3d(current_location_.left()+card_skew,
                current_location_.bottom(),
                current_location_.depth());
   glEnd();

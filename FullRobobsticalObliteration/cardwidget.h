@@ -99,7 +99,8 @@ private:
   GameStateManager* game_state_manager_;
   FrameWidget* parent_;
   double flip_width_;
-  double face_up_;
+  bool face_up_;
+  bool flipping_up_;
   bool dragging_;
   Point drag_point_;
   WidgetLocation current_location_;
@@ -107,7 +108,8 @@ private:
   float color_[3];
   SpriteAtlas* atlas_;
   Card* card_;
-};
 
+  static const double FLIP_SPEED;
+};
 
 #endif //CARD_WIDGET_H

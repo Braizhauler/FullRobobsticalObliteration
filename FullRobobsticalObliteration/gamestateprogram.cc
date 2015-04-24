@@ -25,6 +25,7 @@ GameStateProgram::GameStateProgram(GameStateManager* manager):
                        WidgetLocation(33.0, 17.0, 51.0, 38.0, 0.0));
   confirm_button_= ButtonWidget(manager_,
                        WidgetLocation(6.0, 4.0, 40.0, 48.0, 0.0));
+  confirm_button_.setColor(0.3,0.3,0.3);
   for(int register_count=0;register_count<NUMBER_OF_REGISTERS;++register_count){
     register_[register_count]=
                 RegisterWidget(manager,
@@ -160,6 +161,7 @@ void GameStateProgram::MouseButtonClicked(int button,
                                           double y_position){                                         
   CardWidget* temp=player_hand_.ExpandCardAtCursor(x_position, y_position);
   if(temp !=nullptr) {
+    temp->FlipStart();
     focus_=(Focusable*)temp;
   }
 }
