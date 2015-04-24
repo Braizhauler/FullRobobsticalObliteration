@@ -1435,7 +1435,7 @@ address[]</panel_attributes>
     </coordinates>
     <panel_attributes>/RectangleInSpace/
 --
-/+depth()/
+/+()/
 /+setDepth(int)/</panel_attributes>
     <additional_attributes/>
   </element>

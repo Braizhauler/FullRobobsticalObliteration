@@ -71,8 +71,9 @@ private:
   WidgetLocation current_location_;
   WidgetLocation card_slot_location_;
   CardWidget* programmed_card_;
-  GameStateManager* game_state_manager_;
+  GameStateManager* manager_;
   FrameWidget* parent_;
+  SpriteAtlas*atlas_;
 };
 
 #endif//REGISTER_WIDGET_H

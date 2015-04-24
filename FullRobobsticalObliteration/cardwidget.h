@@ -41,6 +41,9 @@ public:
   void DragTo(double x, double y);
   Point DragEnd(double x, double y);
 
+  void FlipStart(void);
+  bool Flipping(void);
+
   /*******************
   * From Renderable */
   void Draw();
@@ -95,6 +98,8 @@ private:
   //Member Variables
   GameStateManager* game_state_manager_;
   FrameWidget* parent_;
+  double flip_width_;
+  double face_up_;
   bool dragging_;
   Point drag_point_;
   WidgetLocation current_location_;

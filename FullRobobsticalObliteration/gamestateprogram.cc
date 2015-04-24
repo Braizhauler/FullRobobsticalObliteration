@@ -17,23 +17,24 @@
 
 GameStateProgram::GameStateProgram(GameStateManager* manager):
                               board_(manager,
-                                      WidgetLocation(80.0, 40.0, 2.0, 0.0, 0.0))
-{
+                                    WidgetLocation(84.0, 42.0, 0.0, 0.0, 0.0)) {
   manager_=manager;
   dragged_=nullptr;
   register_dragging_from_=-1;
   player_hand_ = CardHandWidget(manager_,
-                       WidgetLocation(33.0, 12.0, 51.0, 40.0, 0.0));
+                       WidgetLocation(33.0, 17.0, 51.0, 38.0, 0.0));
+  confirm_button_= ButtonWidget(manager_,
+                       WidgetLocation(6.0, 4.0, 40.0, 48.0, 0.0));
   for(int register_count=0;register_count<NUMBER_OF_REGISTERS;++register_count){
     register_[register_count]=
                 RegisterWidget(manager,
-                               WidgetLocation(7.0,12.0,
-                                              10.0+register_count*7.0,40.0,
+                               WidgetLocation(8.0,14.0,
+                                              0.0+register_count*8.0,40.0,
                                               0.0));
   }
   for(int card_count=0; card_count<MAX_NUMBER_OF_CARDS_IN_HAND; ++card_count) {
     card_[card_count] = CardWidget(manager_,
-                                   WidgetLocation(6.0, 9.0,
+                                   WidgetLocation(7.2, 10.8,
                                                 40.0+card_count*4.0,44.0,-1.0));
     card_[card_count].SetCard(manager->GetCardDeck()->DealACard());
     player_hand_.addChild(&card_[card_count]);
@@ -46,6 +47,7 @@ GameStateProgram::~GameStateProgram(void) {
 
 void GameStateProgram::Draw(){
   board_.Draw();
+  confirm_button_.Draw();
   for(int register_count=0;register_count<NUMBER_OF_REGISTERS;++register_count)
     register_[register_count].Draw();
   player_hand_.Draw(focus_);

@@ -18,6 +18,7 @@
 #include <iostream>
 
 #include "gamestate.h"
+#include "buttonwidget.h"
 #include "cardwidget.h"
 #include "cardhandwidget.h"
 #include "registerwidget.h"
@@ -77,6 +78,7 @@ private:
   RegisterWidget register_[NUMBER_OF_REGISTERS];
   GameBoardWidget board_;
   CardHandWidget player_hand_;
+  ButtonWidget confirm_button_;
   GameStateManager* manager_;
   Point last_mouse_position_;
 };

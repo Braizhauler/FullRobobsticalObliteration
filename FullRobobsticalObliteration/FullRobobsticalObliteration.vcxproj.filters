@@ -1,250 +1,199 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="Header Files\Widgets">
-      <UniqueIdentifier>{527b0f85-e71f-4948-bc04-5a21c29acce4}</UniqueIdentifier>
-      <Extensions>*widget.h</Extensions>
-    </Filter>
-    <Filter Include="Header Files\States">
-      <UniqueIdentifier>{9fd65ced-b5a9-4c82-b88e-38d6216c8c00}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\States">
-      <UniqueIdentifier>{74e7ae32-27da-4e47-b77e-febbbe507d65}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Widgets">
-      <UniqueIdentifier>{7390a0f8-a621-498f-a4fd-c12564acba57}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\States">
-      <UniqueIdentifier>{74e7ae32-27da-4e47-b77e-febbbe507d65}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Interfaces">
-      <UniqueIdentifier>{5ba7f7e2-6d04-4c89-bc0d-0c5cb04d5bf2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Logic">
-      <UniqueIdentifier>{4cc87507-c8c2-48e8-95d8-b5b0d9b4738f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Interface">
-      <UniqueIdentifier>{40d5f8c5-08c3-4e31-a46c-2fea3f3062a4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Logic">
-      <UniqueIdentifier>{9c0ca5ac-bddf-4d6f-b4c5-355de7297732}</UniqueIdentifier>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="main.cc">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="mywindowwrapper.cc">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="inputmanager.cc">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="spriteatlas.cc">
-      <Filter>Source Files</Filter>
-    </ClCompile>
+    <ClCompile Include="Jzon.cpp" />
+    <ClCompile Include="lodepng.cpp" />
+    <ClCompile Include="main.cc" />
+    <ClCompile Include="mywindowwrapper.cc" />
+    <ClCompile Include="spriteatlas.cc" />
     <ClCompile Include="buttonwidget.cc">
-      <Filter>Source Files\Widgets</Filter>
+      <Filter>widget</Filter>
     </ClCompile>
-    <ClCompile Include="framewidget.cc">
-      <Filter>Source Files\Widgets</Filter>
-    </ClCompile>
-    <ClCompile Include="widget.cc">
-      <Filter>Source Files\Widgets</Filter>
-    </ClCompile>
-    <ClCompile Include="widgetlocation.cc">
-      <Filter>Source Files\Widgets</Filter>
-    </ClCompile>
-    <ClCompile Include="gamestatemainmenu.cc">
-      <Filter>Source Files\States</Filter>
-    </ClCompile>
-    <ClCompile Include="gamestatemanager.cc">
-      <Filter>Source Files\States</Filter>
-    </ClCompile>
-    <ClCompile Include="gamestate.cc">
-      <Filter>Source Files\States</Filter>
-    </ClCompile>
-    <ClCompile Include="gamestateprogram.cc">
-      <Filter>Source Files\States</Filter>
-    </ClCompile>
-    <ClCompile Include="cardwidget.cc">
-      <Filter>Source Files\Widgets</Filter>
+    <ClCompile Include="carddeck.cc">
+      <Filter>logic</Filter>
     </ClCompile>
     <ClCompile Include="cardhandwidget.cc">
-      <Filter>Source Files\Widgets</Filter>
+      <Filter>widget</Filter>
     </ClCompile>
-    <ClCompile Include="registerwidget.cc">
-      <Filter>Source Files\Widgets</Filter>
-    </ClCompile>
-    <ClCompile Include="gameboardwidget.cc">
-      <Filter>Source Files\Widgets</Filter>
-    </ClCompile>
-    <ClCompile Include="Jzon.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="lodepng.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="robotwidget.cc">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="gameboardcontroller.cc">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="cardwidget.cc">
+      <Filter>widget</Filter>
     </ClCompile>
     <ClCompile Include="focusable.cc">
-      <Filter>Source Files\Interfaces</Filter>
+      <Filter>interfaces</Filter>
     </ClCompile>
-    <ClCompile Include="rectangle.cpp">
-      <Filter>Source Files\Interfaces</Filter>
-    </ClCompile>
-    <ClCompile Include="rectangleinspace.cc">
-      <Filter>Source Files\Interfaces</Filter>
-    </ClCompile>
-    <ClCompile Include="rectangleonplane.cc">
-      <Filter>Source Files\Interfaces</Filter>
-    </ClCompile>
-    <ClCompile Include="renderable.cc">
-      <Filter>Source Files\Interfaces</Filter>
-    </ClCompile>
-    <ClCompile Include="updateable.cc">
-      <Filter>Source Files\Interfaces</Filter>
+    <ClCompile Include="framewidget.cc">
+      <Filter>widget</Filter>
     </ClCompile>
     <ClCompile Include="gameboardcontroller.cc">
-      <Filter>Source Files\Logic</Filter>
+      <Filter>logic</Filter>
+    </ClCompile>
+    <ClCompile Include="gameboardwidget.cc">
+      <Filter>widget</Filter>
+    </ClCompile>
+    <ClCompile Include="gamestate.cc">
+      <Filter>gamestates</Filter>
+    </ClCompile>
+    <ClCompile Include="gamestatemainmenu.cc">
+      <Filter>gamestates</Filter>
+    </ClCompile>
+    <ClCompile Include="gamestatemanager.cc">
+      <Filter>gamestates</Filter>
+    </ClCompile>
+    <ClCompile Include="gamestateprogram.cc">
+      <Filter>gamestates</Filter>
+    </ClCompile>
+    <ClCompile Include="inputmanager.cc" />
+    <ClCompile Include="rectangle.cpp">
+      <Filter>interfaces</Filter>
+    </ClCompile>
+    <ClCompile Include="rectangleinspace.cc">
+      <Filter>interfaces</Filter>
+    </ClCompile>
+    <ClCompile Include="rectangleonplane.cc">
+      <Filter>interfaces</Filter>
+    </ClCompile>
+    <ClCompile Include="updateable.cc">
+      <Filter>interfaces</Filter>
+    </ClCompile>
+    <ClCompile Include="widgetlocation.cc">
+      <Filter>interfaces</Filter>
     </ClCompile>
     <ClCompile Include="robotwidget.cc">
-      <Filter>Source Files\Widgets</Filter>
+      <Filter>widget</Filter>
+    </ClCompile>
+    <ClCompile Include="widget.cc">
+      <Filter>widget</Filter>
+    </ClCompile>
+    <ClCompile Include="renderable.cc">
+      <Filter>interfaces</Filter>
+    </ClCompile>
+    <ClCompile Include="registerwidget.cc">
+      <Filter>widget</Filter>
     </ClCompile>
     <ClCompile Include="robotcontroller.cc">
-      <Filter>Source Files\Logic</Filter>
-    <ClCompile Include="carddeck.cc">
-      <Filter>Source Files</Filter>
+      <Filter>logic</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="mywindowwrapper.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="widget.h">
-      <Filter>Header Files\Widgets</Filter>
-    </ClInclude>
-    <ClInclude Include="gamestate.h">
-      <Filter>Header Files\States</Filter>
-    </ClInclude>
-    <ClInclude Include="gamestatemainmenu.h">
-      <Filter>Header Files\States</Filter>
-    </ClInclude>
-    <ClInclude Include="gamestatemanager.h">
-      <Filter>Header Files\States</Filter>
-    </ClInclude>
+    <ClInclude Include="Jzon.h" />
+    <ClInclude Include="lodepng.h" />
+    <ClInclude Include="mywindowwrapper.h" />
+    <ClInclude Include="spriteatlas.h" />
     <ClInclude Include="buttonwidget.h">
-      <Filter>Header Files\Widgets</Filter>
+      <Filter>widget</Filter>
     </ClInclude>
-    <ClInclude Include="spriteatlas.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="gamestateprogram.h">
-      <Filter>Header Files\States</Filter>
-    </ClInclude>
-    <ClInclude Include="widgetlocation.h">
-      <Filter>Header Files\Widgets</Filter>
-    </ClInclude>
-    <ClInclude Include="framewidget.h">
-      <Filter>Header Files\Widgets</Filter>
-    </ClInclude>
-    <ClInclude Include="cardwidget.h">
-      <Filter>Header Files\Widgets</Filter>
+    <ClInclude Include="carddeck.h">
+      <Filter>logic</Filter>
     </ClInclude>
     <ClInclude Include="cardhandwidget.h">
-      <Filter>Header Files\Widgets</Filter>
+      <Filter>widget</Filter>
     </ClInclude>
-    <ClInclude Include="registerwidget.h">
-      <Filter>Header Files\Widgets</Filter>
-    </ClInclude>
-    <ClInclude Include="gameboardwidget.h">
-      <Filter>Header Files\Widgets</Filter>
-    </ClInclude>
-    <ClInclude Include="Jzon.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="lodepng.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="robotwidget.h">
-      <Filter>Header Files\Widgets</Filter>
-    </ClInclude>
-    <ClInclude Include="carddeck.h">
-      <Filter>Header Files\Logic</Filter>
-    </ClInclude>
-    <ClInclude Include="gameboardcontroller.h">
-      <Filter>Header Files\Logic</Filter>
+    <ClInclude Include="cardwidget.h">
+      <Filter>widget</Filter>
     </ClInclude>
     <ClInclude Include="focusable.h">
-      <Filter>Header Files\Interface</Filter>
+      <Filter>interfaces</Filter>
     </ClInclude>
-    <ClInclude Include="rectangle.h">
-      <Filter>Header Files\Interface</Filter>
-    </ClInclude>
-    <ClInclude Include="rectangleinspace.h">
-      <Filter>Header Files\Interface</Filter>
-    </ClInclude>
-    <ClInclude Include="rectangleonplane.h">
-      <Filter>Header Files\Interface</Filter>
-    </ClInclude>
-    <ClInclude Include="updateable.h">
-      <Filter>Header Files\Interface</Filter>
-    </ClInclude>
-    <ClInclude Include="renderable.h">
-      <Filter>Header Files\Interface</Filter>
-    </ClInclude>
-    <ClInclude Include="point.h">
-      <Filter>Header Files\Interface</Filter>
-    </ClInclude>
-    <ClInclude Include="inputmanager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="robotcontroller.h">
-      <Filter>Header Files\Logic</Filter>
-    </ClInclude>
-    <ClInclude Include="carddeck.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="framewidget.h">
+      <Filter>widget</Filter>
     </ClInclude>
     <ClInclude Include="gameboardcontroller.h">
-      <Filter>Header Files</Filter>
+      <Filter>logic</Filter>
     </ClInclude>
-    <ClInclude Include="robot.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="gameboardwidget.h">
+      <Filter>widget</Filter>
+    </ClInclude>
+    <ClInclude Include="gamestate.h">
+      <Filter>gamestates</Filter>
+    </ClInclude>
+    <ClInclude Include="gamestatemainmenu.h">
+      <Filter>gamestates</Filter>
+    </ClInclude>
+    <ClInclude Include="gamestateprogram.h">
+      <Filter>gamestates</Filter>
+    </ClInclude>
+    <ClInclude Include="gamestatemanager.h">
+      <Filter>gamestates</Filter>
+    </ClInclude>
+    <ClInclude Include="inputmanager.h" />
+    <ClInclude Include="rectangle.h">
+      <Filter>interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="rectangleinspace.h">
+      <Filter>interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="rectangleonplane.h">
+      <Filter>interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="updateable.h">
+      <Filter>interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="widgetlocation.h">
+      <Filter>interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="robotwidget.h">
+      <Filter>widget</Filter>
+    </ClInclude>
+    <ClInclude Include="widget.h">
+      <Filter>widget</Filter>
+    </ClInclude>
+    <ClInclude Include="renderable.h">
+      <Filter>interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="registerwidget.h">
+      <Filter>widget</Filter>
+    </ClInclude>
+    <ClInclude Include="point.h">
+      <Filter>interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="robotcontroller.h">
+      <Filter>logic</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="ClassDiagram.cd" />
+    <Image Include="..\Graphics\fro_fullsheet.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="..\FullRobobsticalObliteration.png">
+      <Filter>Resources</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Graphics\sprite_map.json">
+      <Filter>Resources</Filter>
+    </None>
     <None Include="..\FullRobobsticalObliteration.uxf">
-      <Filter>Resource Files</Filter>
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="ClassDiagram.cd">
+      <Filter>Resources</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\FullRobobsticalObliteration.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="..\Graphics\fro_fullsheet.png">
-      <Filter>Resource Files</Filter>
-    </Image>
+    <Filter Include="widget">
+      <UniqueIdentifier>{dc59131a-4a49-40dd-91e8-f0566f603c4e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="logic">
+      <UniqueIdentifier>{3d87a661-8f5e-40ba-9d61-cbb96e5a38eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gamestates">
+      <UniqueIdentifier>{e1f7a287-d3da-43ef-920d-fa468d823411}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="interfaces">
+      <UniqueIdentifier>{f38ae947-0792-4929-8361-f2401d69f4b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources">
+      <UniqueIdentifier>{b77af61d-92c9-4b76-b25f-8b9c5137c64f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\Graphics\sprite_map.txt">
+      <Filter>Resources</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <Font Include="..\Graphics\Reality Hyper Regular.ttf">
-      <Filter>Resource Files</Filter>
+      <Filter>Resources</Filter>
     </Font>
   </ItemGroup>
 </Project>

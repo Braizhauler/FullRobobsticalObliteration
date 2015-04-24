@@ -66,7 +66,7 @@ void CardHandWidget::ClearChild(CardWidget* card) {
 }
 
 void CardHandWidget::Draw(Focusable* focus) {
-  glColor3f(0.5f,0.0f,0.1f);
+  /*glColor3f(0.5f,0.0f,0.1f);
   glBegin(GL_TRIANGLE_FAN);
     glVertex3d(current_location_.left(),
                current_location_.top(),
@@ -80,7 +80,7 @@ void CardHandWidget::Draw(Focusable* focus) {
     glVertex3d(current_location_.left(),
                current_location_.bottom(),
                current_location_.depth());
-  glEnd();
+  glEnd();*/
   
   for(std::list<CardWidget*>::iterator child_iterator=child_list_.begin(),
       end_child_list=child_list_.end();

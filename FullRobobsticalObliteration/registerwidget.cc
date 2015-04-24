@@ -17,15 +17,17 @@
 RegisterWidget::RegisterWidget(void) { 
   current_location_=WidgetLocation(8.0,12.0,0.0,0.0,0.0);
   card_slot_location_=WidgetLocation(6.0,9.0,1.0,2.0,0.0);
-  game_state_manager_ = nullptr;
+  manager_ = nullptr;
   programmed_card_=nullptr;
   parent_ = nullptr;
+  atlas_ = nullptr;
 }
 RegisterWidget::RegisterWidget(GameStateManager*manager,WidgetLocation location) {
   current_location_=location;
-  card_slot_location_=WidgetLocation(6.0, 9.0);
+  card_slot_location_=WidgetLocation(7.2, 10.8);
   CenterSlot();
-  game_state_manager_ = manager;
+  manager_ = manager;
+  atlas_ = manager_->TextureAtlas();
   programmed_card_=nullptr;
   parent_ = nullptr;
 }
@@ -91,54 +93,77 @@ void RegisterWidget::setParent(FrameWidget*) {
 }
 
 void RegisterWidget::Draw() {
-  glColor3f(0.7f,0.7f,0.7f);
+  glColor3f(0.4f,0.6f,0.4f);
+  glEnable(GL_TEXTURE_2D);
+  atlas_->ActivateTexture("registry_background");
   glBegin(GL_TRIANGLE_FAN);
+    atlas_->LoadCoordinates(Texture::UPPER_LEFT);
     glVertex3d(current_location_.left(),
                current_location_.top(),
                current_location_.depth());
+    
+    atlas_->LoadCoordinates(Texture::UPPER_RIGHT);
     glVertex3d(current_location_.right(),
                current_location_.top(),
                current_location_.depth());
+    
+    atlas_->LoadCoordinates(Texture::LOWER_RIGHT);
     glVertex3d(current_location_.right(),
                current_location_.bottom(),
                current_location_.depth());
+    
+    atlas_->LoadCoordinates(Texture::LOWER_LEFT);
     glVertex3d(current_location_.left(),
                current_location_.bottom(),
                current_location_.depth());
   glEnd();
+  glColor3f(1.0f,1.0f,1.0f);
   if(programmed_card_==nullptr)
-    glColor3f(0.8f,0.4f,0.4f);
+    atlas_->ActivateTexture("red_on");
   else if(programmed_card_->dragging())
-    glColor3f(0.8f,0.8f,0.4f);
-  else     
-    glColor3f(0.4f,0.8f,0.4f);
+    atlas_->ActivateTexture("yellow_on");
+  else
+    atlas_->ActivateTexture("green_on");
   glBegin(GL_TRIANGLE_FAN);
-    glVertex3d(current_location_.left()+current_location_.width()/2.0,
-               current_location_.top(),
-               current_location_.depth());
+    atlas_->LoadCoordinates(Texture::UPPER_LEFT);
     glVertex3d(card_slot_location_.left(),
-               card_slot_location_.top(),
+               card_slot_location_.top()-2.0,
                current_location_.depth());
-    glVertex3d(card_slot_location_.right(),
-               card_slot_location_.top(),
+    atlas_->LoadCoordinates(Texture::UPPER_RIGHT);
+    glVertex3d(card_slot_location_.left()+1.5,
+               card_slot_location_.top()-2.0,
+               current_location_.depth());
+    atlas_->LoadCoordinates(Texture::LOWER_RIGHT);
+    glVertex3d(card_slot_location_.left()+1.5,
+               card_slot_location_.top()-0.5,
+               current_location_.depth());
+    atlas_->LoadCoordinates(Texture::LOWER_LEFT);
+    glVertex3d(card_slot_location_.left(),
+               card_slot_location_.top()-0.5,
                current_location_.depth());
   glEnd();
 
-  glColor3f(0.6f,0.6f,0.9f);
+  glColor3f(1.0f,1.0f,1.0f);
   glBegin(GL_TRIANGLE_FAN);
-    glVertex3d(card_slot_location_.left(),
-               card_slot_location_.top(),
-               card_slot_location_.depth());
-    glVertex3d(card_slot_location_.right(),
-               card_slot_location_.top(),
-               card_slot_location_.depth());
-    glVertex3d(card_slot_location_.right(),
-               card_slot_location_.bottom(),
-               card_slot_location_.depth());
-    glVertex3d(card_slot_location_.left(),
-               card_slot_location_.bottom(),
-               card_slot_location_.depth());
+  atlas_->ActivateTexture("card_slot");
+  atlas_->LoadCoordinates(Texture::UPPER_LEFT);
+  glVertex3d(card_slot_location_.left(),
+              card_slot_location_.top(),
+              card_slot_location_.depth());
+  atlas_->LoadCoordinates(Texture::UPPER_RIGHT);
+  glVertex3d(card_slot_location_.right(),
+              card_slot_location_.top(),
+              card_slot_location_.depth());
+  atlas_->LoadCoordinates(Texture::LOWER_RIGHT);
+  glVertex3d(card_slot_location_.right(),
+              card_slot_location_.bottom(),
+              card_slot_location_.depth());
+  atlas_->LoadCoordinates(Texture::LOWER_LEFT);
+  glVertex3d(card_slot_location_.left(),
+              card_slot_location_.bottom(),
+              card_slot_location_.depth());
   glEnd();
+  glDisable(GL_TEXTURE_2D);
 
   if(programmed_card_!=nullptr)
     programmed_card_->Draw();
@@ -194,8 +219,10 @@ void RegisterWidget::setDepth(double new_depth) {
 }
 
 void RegisterWidget::CenterSlot() {
-  card_slot_location_.setLeft(current_location_.left()+
-                              (current_location_.width()-6.0)/2.0);
-  card_slot_location_.setTop(current_location_.top()+1.0+
-                             (current_location_.height()-9.0)/2.0);
+  card_slot_location_.setLeft((current_location_.left()+
+                              current_location_.right()-
+                              card_slot_location_.width())/2.0);
+  card_slot_location_.setTop((current_location_.top()+
+                             current_location_.bottom()-
+                             card_slot_location_.height())/2.0+1.0);
 }

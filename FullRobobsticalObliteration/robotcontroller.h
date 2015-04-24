@@ -17,7 +17,7 @@
 #include "gameboardcontroller.h"
 namespace Robot {
 enum CARDNIAL_DIRECTION {
-  INVALID,
+  INVALID = -1,
   NORTH,
   SOUTH,
   EAST,
@@ -25,7 +25,7 @@ enum CARDNIAL_DIRECTION {
 };
 
 enum ACTION {
-  ACTION_INVALID,
+  ACTION_INVALID = -1,
   ACTION_TURN_LEFT,
   ACTION_TURN_RIGHT,
   ACTION_MOVE_FORWARD,

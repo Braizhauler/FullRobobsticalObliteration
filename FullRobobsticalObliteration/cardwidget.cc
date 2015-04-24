@@ -18,9 +18,9 @@ CardWidget::CardWidget(GameStateManager* manager) {
   game_state_manager_ = manager;
   atlas_ = manager->TextureAtlas();
   card_ = nullptr;
-
+  face_up_ = true;
+  flip_width_=1.0;
   setColor(0.8f,0.8f,0.8f);
-
   dragging_ = false;
 
   current_location_ = WidgetLocation(8.0, 12.0, 0.0, 0.0, 0.0);
@@ -30,11 +30,10 @@ CardWidget::CardWidget(GameStateManager* manager, WidgetLocation location) {
   game_state_manager_ = manager;
   atlas_ = manager->TextureAtlas();
   card_ = nullptr;
-
-  setColor(0.8f,0.8f,0.8f);
-
+  face_up_ = true;
+  flip_width_=1.0;
+  setColor(1.0f,1.0f,1.0f);
   dragging_ = false;
-
   current_location_ = location;
 }
 
@@ -44,12 +43,20 @@ CardWidget::~CardWidget(void) {
 const float* CardWidget::color() {
   return color_;
 }
+void CardWidget::setColor(const float red,
+                          const float green,
+                          const float blue) {
+  color_[0] = red;
+  color_[1] = green;
+  color_[2] = blue;
+}
 
 card::Card* CardWidget::GetCard(){
 	return card_;
 }
 
 void CardWidget::SetCard(card::Card*new_card){
+  bool face_up_=true;
 	card_ = new_card;
 }
 
@@ -58,14 +65,6 @@ std::string CardWidget::GetTextureName(void) {
   return std::to_string(10*card_->priority);
 }
 
-
-void CardWidget::setColor(const float red,
-                          const float green,
-                          const float blue) {
-  color_[0] = red;
-  color_[1] = green;
-  color_[2] = blue;
-}
 
 const bool CardWidget::dragging() const {
   return dragging_;
@@ -88,6 +87,9 @@ Point CardWidget::DragEnd(double x, double y) {
   return drag_point_;
 }
 
+void CardWidget::FlipStart() {
+  flip_width_=0.9*flip_width_;
+}
 
 void CardWidget::Draw() {
   glEnable(GL_TEXTURE_2D);

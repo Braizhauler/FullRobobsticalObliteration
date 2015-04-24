@@ -15,18 +15,17 @@
 #include "buttonwidget.h"
 
 ButtonWidget::ButtonWidget(GameStateManager* manager) {
-  game_state_manager_ = manager;
-
+  manager_ = manager;
   setColor(0.8f,0.8f,0.8f);
-
+  texture_name_ = "";
   is_pressed_ = false;
   current_location_ = WidgetLocation(2.0,5.0,0.0,0.0,0.0);
 
 }
 
 ButtonWidget::ButtonWidget(GameStateManager* manager, WidgetLocation location) {
-  game_state_manager_ = manager;
-
+  manager_ = manager;
+  texture_name_ = "";
   setColor(0.8f,0.8f,0.8f);
 
   is_pressed_ = false;
@@ -41,20 +40,46 @@ void ButtonWidget::Draw() {
   is_pressed_ ?
     glColor3f(pressed_color_[0],pressed_color_[1],pressed_color_[2]) :
     glColor3f(button_color_[0],button_color_[1],button_color_[2]);
-  glBegin(GL_TRIANGLE_FAN);
-    glVertex3d(current_location_.left(),
-               current_location_.top(),
-               current_location_.depth());
-    glVertex3d(current_location_.right(),
-               current_location_.top(),
-               current_location_.depth());
-    glVertex3d(current_location_.right(),
-               current_location_.bottom(),
-               current_location_.depth());
-    glVertex3d(current_location_.left(),
-               current_location_.bottom(),
-               current_location_.depth());
-  glEnd();
+  
+  if (texture_name_!="") {
+    manager_->TextureAtlas()->ActivateTexture(texture_name_);
+    glEnable(GL_TEXTURE_2D);
+    glBegin(GL_TRIANGLE_FAN);
+      manager_->TextureAtlas()->LoadCoordinates(Texture::UPPER_LEFT);
+      glVertex3d(current_location_.left(),
+                 current_location_.top(),
+                 current_location_.depth());
+      manager_->TextureAtlas()->LoadCoordinates(Texture::UPPER_RIGHT);
+      glVertex3d(current_location_.right(),
+                 current_location_.top(),
+                 current_location_.depth());
+      manager_->TextureAtlas()->LoadCoordinates(Texture::LOWER_RIGHT);
+      glVertex3d(current_location_.right(),
+                 current_location_.bottom(),
+                 current_location_.depth());
+      manager_->TextureAtlas()->LoadCoordinates(Texture::LOWER_LEFT);
+      glVertex3d(current_location_.left(),
+                 current_location_.bottom(),
+                 current_location_.depth());
+    glEnd();
+    glDisable(GL_TEXTURE_2D);
+  } else {
+    glBegin(GL_TRIANGLE_FAN);
+      glVertex3d(current_location_.left(),
+                 current_location_.top(),
+                 current_location_.depth());
+      glVertex3d(current_location_.right(),
+                 current_location_.top(),
+                 current_location_.depth());
+      glVertex3d(current_location_.right(),
+                 current_location_.bottom(),
+                 current_location_.depth());
+      glVertex3d(current_location_.left(),
+                 current_location_.bottom(),
+                 current_location_.depth());
+    glEnd();
+  }
+
   if(is_pressed_)
     glColor3f(pressed_shadow_[0], pressed_shadow_[1], pressed_shadow_[2]);
   else
@@ -103,6 +128,11 @@ void ButtonWidget::Draw(bool has_focus) {
     glEnd();
   }
 }
+
+void ButtonWidget::SetTexture(std::string texture_name) {
+  texture_name_=texture_name;
+}
+
 const bool ButtonWidget::ContainPoint(const Point point) const {
   return ContainPoint(point.x, point.y);
 }

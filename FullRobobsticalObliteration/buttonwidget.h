@@ -44,6 +44,8 @@ public:
 
   void SizeTo(const Widget* model);
   void SizeTo(const double width, const double height);
+  
+  void SetTexture(std::string);
 
   //Methods
   FrameWidget* parent() const;
@@ -84,11 +86,13 @@ public:
   void setColor(const float red, const float green, const float blue);
 private:
   //Member Variables
-  GameStateManager* game_state_manager_;
+  GameStateManager* manager_;
   FrameWidget* parent_;
 
   WidgetLocation current_location_;
 
+  std::string texture_name_;
+  
   bool is_pressed_;
 
   float button_color_[3]; //0 red; 1 green; 2 blue;

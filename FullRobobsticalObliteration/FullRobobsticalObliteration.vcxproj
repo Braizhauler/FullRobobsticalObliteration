@@ -179,6 +179,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\FullRobobsticalObliteration.uxf" />
+    <None Include="..\Graphics\sprite_map.json" />
     <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <ItemGroup>
@@ -187,6 +188,9 @@
   </ItemGroup>
   <ItemGroup>
     <Font Include="..\Graphics\Reality Hyper Regular.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\Graphics\sprite_map.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

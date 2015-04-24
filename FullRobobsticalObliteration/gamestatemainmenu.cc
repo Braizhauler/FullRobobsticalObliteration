@@ -21,15 +21,13 @@ GameStateMainMenu::GameStateMainMenu(GameStateManager* manager) {
 
   focus_ = nullptr;
   button_1_ = ButtonWidget(game_state_manager_,
-                           WidgetLocation (20.0, 6.0, 32.0, 32.0, -1.0));
+                           WidgetLocation (20.0, 6.0, 32.0, 41.0, -1.0));
   button_1_.setColor(0.8f, 0.8f, 0.8f);
-
+  button_1_.SetTexture("play_button");
   button_2_ = ButtonWidget(game_state_manager_,
-                           WidgetLocation (20.0, 6.0, 32.0, 42.0, -1.0));
+                           WidgetLocation (20.0, 6.0, 32.0, 48.0, -1.0));
   button_2_.setColor(0.8f, 0.8f, 0.8f);
 
-  card_1_ = CardWidget(game_state_manager_,
-                       WidgetLocation (8.0, 12.0, 10.0, 10.0, 1.0));
   stage_=0;
   wait_=0;
   step_=0;
@@ -42,8 +40,8 @@ GameStateMainMenu::~GameStateMainMenu(void) {
 
 //Loads the GameStateMainMenu onto the GameStateManager stack in active mode
 void GameStateMainMenu::Load() {
-  button_1_.MoveTo(32.0, 32.0);
-  button_2_.MoveTo(32.0, 42.0);
+  button_1_.MoveTo(32.0, 41.0);
+  button_2_.MoveTo(32.0, 48.0);
 }
 
 //Called when GameState when another GameState is preparing
@@ -70,9 +68,6 @@ void GameStateMainMenu::CursorMove(bool left_mouse_button_down,
     if(button_2_.pressed())
       button_2_.setPressed(false);
   }
-  if(card_1_.dragging()) {
-    card_1_.DragTo(x_position, y_position);
-  }
 }
 void GameStateMainMenu::MouseButtonPressed(int button,
                                            double x_position,
@@ -83,10 +78,7 @@ void GameStateMainMenu::MouseButtonPressed(int button,
   } else if(button_2_.ContainPoint(x_position,y_position) ) {
     button_2_.setPressed(true);
     Focus(&button_2_);
-  } else if(card_1_.ContainPoint(x_position,y_position) ) {
-    card_1_.DragStart(x_position,y_position);
-    Focus(&card_1_);
-  }
+  } 
 }
 void GameStateMainMenu::MouseButtonReleased(int button,
                                             double x_position,
@@ -95,8 +87,6 @@ void GameStateMainMenu::MouseButtonReleased(int button,
     button_1_.setPressed(false);
   else if(button_2_.pressed())
     button_2_.setPressed(false);
-  else if(card_1_.dragging())
-    card_1_.MoveTo(card_1_.DragEnd(x_position,y_position));
 }
 
 void GameStateMainMenu::MouseButtonClicked(int button,
@@ -115,14 +105,11 @@ void GameStateMainMenu::Activate_Button_Widget(int button_number) {
   switch(button_number) {
     
   case 1:
-    button_color = button_1_.color();
-    if(button_color[0] == 0.6f)
-      button_1_.setColor(0.8f,0.8f,0.8f);
-    else
-      button_1_.setColor(0.6f,0.7f,0.9f);
+    game_state_manager_->Push(game_state_program_);
     break;
   case 2:
-    game_state_manager_->Push(game_state_program_);
+    button_color = button_1_.color();
+    game_state_manager_->Exit();
     break;
   }
 }
@@ -131,8 +118,6 @@ void GameStateMainMenu::Select_Next() {
   if(focus_ == &button_1_) {
     Focus(&button_2_);
   } else if(focus_ == &button_2_) {
-    Focus(&card_1_);
-  } else if(focus_ == &card_1_) {
     Focus(&button_1_);
   } else {
     Focus(&button_1_);
@@ -173,20 +158,38 @@ void GameStateMainMenu::Draw() {
       }
     }
   }
-  card_1_.Draw();
   if(focus_ != nullptr)
     focus_->Draw(true);
+  sprite_atlas_->ActivateTexture("card_back");
   glEnable(GL_TEXTURE_2D);
-  glBegin(GL_TRIANGLE_FAN);
+  glBegin(GL_QUADS);
     glColor3f(1.00f, 1.00f, 1.00f);
-    sprite_atlas_->getCoordinates("470", Texture::UPPER_LEFT);
+    sprite_atlas_->LoadCoordinates(Texture::UPPER_LEFT);
+    glVertex3f(28.0f, 0.0f, 0.0f);
+    sprite_atlas_->LoadCoordinates(Texture::UPPER_RIGHT);
+    glVertex3f(56.0f, 0.0f, 0.0f);
+    sprite_atlas_->LoadCoordinates(Texture::LOWER_RIGHT);
+    glVertex3f(56.0f, 40.0f, 0.0f);
+    sprite_atlas_->LoadCoordinates(Texture::LOWER_LEFT);
+    glVertex3f(28.0f, 40.0f, 0.0f);
+
+    sprite_atlas_->LoadCoordinates(Texture::LOWER_LEFT);
+    glVertex3f( 0.0f, 50.0f, 0.0f);
+    sprite_atlas_->LoadCoordinates(Texture::UPPER_LEFT);
     glVertex3f( 0.0f,  0.0f, 0.0f);
-    sprite_atlas_->getCoordinates("470", Texture::UPPER_RIGHT);
-    glVertex3f(84.0f,  0.0f, 0.0f);
-    sprite_atlas_->getCoordinates("470", Texture::LOWER_RIGHT);
-    glVertex3f(84.0f, 54.0f, 0.0f);
-    sprite_atlas_->getCoordinates("470", Texture::LOWER_LEFT);
-    glVertex3f( 0.0f, 54.0f, 0.0f);
+    sprite_atlas_->LoadCoordinates(Texture::UPPER_RIGHT);
+    glVertex3f(28.0f,  0.0f, 0.0f);
+    sprite_atlas_->LoadCoordinates(Texture::LOWER_RIGHT);
+    glVertex3f(28.0f, 40.0f, 0.0f);
+
+    sprite_atlas_->LoadCoordinates(Texture::LOWER_LEFT);
+    glVertex3f(56.0f, 40.0f, 0.0f);
+    sprite_atlas_->LoadCoordinates(Texture::UPPER_LEFT);
+    glVertex3f(56.0f, 0.0f, 0.0f);
+    sprite_atlas_->LoadCoordinates(Texture::UPPER_RIGHT);
+    glVertex3f(84.0f, 0.0f, 0.0f);
+    sprite_atlas_->LoadCoordinates(Texture::LOWER_RIGHT);
+    glVertex3f(84.0f, 50.0f, 0.0f);
   glEnd();
   glDisable(GL_TEXTURE_2D);
 

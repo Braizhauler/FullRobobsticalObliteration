@@ -78,7 +78,6 @@ private:
   Focusable* focus_;
   ButtonWidget button_1_;
   ButtonWidget button_2_;
-  CardWidget card_1_;
   CardDeck* deck_;
   
   int stage_;
