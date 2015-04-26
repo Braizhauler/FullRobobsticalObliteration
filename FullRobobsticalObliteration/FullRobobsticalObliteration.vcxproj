@@ -141,7 +141,7 @@
     <ClCompile Include="registerwidget.cc" />
     <ClCompile Include="renderable.cc" />
     <ClCompile Include="robotcontroller.cc" />
-    <ClCompile Include="robotwidget.cc" />
+    <ClCompile Include="robotsprite.cc" />
     <ClCompile Include="spriteatlas.cc" />
     <ClCompile Include="updateable.cc" />
     <ClCompile Include="widget.cc" />
@@ -171,7 +171,7 @@
     <ClInclude Include="registerwidget.h" />
     <ClInclude Include="renderable.h" />
     <ClInclude Include="robotcontroller.h" />
-    <ClInclude Include="robotwidget.h" />
+    <ClInclude Include="robotsprite.h" />
     <ClInclude Include="spriteatlas.h" />
     <ClInclude Include="updateable.h" />
     <ClInclude Include="widget.h" />

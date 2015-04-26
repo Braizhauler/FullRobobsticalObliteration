@@ -92,7 +92,6 @@ void GameBoardWidget::Setup2dRendering() {
 }
 
 void GameBoardWidget::RenderTiles() {
-  OriginPosition();
   glEnable(GL_TEXTURE_2D);
   glBegin(GL_QUADS);
   QUADRANT origin=OriginQuadrant();
@@ -147,108 +146,6 @@ void GameBoardWidget::RenderTiles() {
   
   glDisable(GL_TEXTURE_2D);
 }
-void GameBoardWidget::RenderRobot (Point tile) {
-  if(++wait_>8) {
-    wait_=0;
-      if(++step_>1) {
-        step_=0;
-        if(--times_<0) {
-          times_=1000;
-          if(++direction_>7) direction_=0;
-      }
-    }
-  }
-  glColor3f(1.00f, 1.00f, 1.00f);
-  std::string texture_name_;
-  texture_name_.append("r");
-  texture_name_.append(std::to_string(robot_));
-  texture_name_.append("_");
-  GameBoard::RELATIVE_POSITION_8_WAY origin_position = OriginPosition();
-  int frame = (direction_+origin_position)%8;
-  frame+=8*step_+1;
-  texture_name_.append(std::to_string(frame) );
-  if(origin_position==FAR){
-    atlas_->getCoordinates(texture_name_,Texture::UPPER_LEFT);
-    glVertex3d(tile.x,  tile.y+1, 1.0);
-    atlas_->getCoordinates(texture_name_,Texture::LOWER_LEFT);
-    glVertex3d(tile.x,  tile.y+1, -0.5);
-    atlas_->getCoordinates(texture_name_,Texture::LOWER_RIGHT);
-    glVertex3d(tile.x+1,  tile.y, -0.5);
-    atlas_->getCoordinates(texture_name_,Texture::UPPER_RIGHT);
-    glVertex3d(tile.x+1,  tile.y, 1.0);
-  }
-  if(origin_position==FAR_LEFT){
-    atlas_->getCoordinates(texture_name_,Texture::UPPER_LEFT);
-    glVertex3d(tile.x-0.2,  tile.y+0.5, 1.0);
-    atlas_->getCoordinates(texture_name_,Texture::LOWER_LEFT);
-    glVertex3d(tile.x-0.2,  tile.y+0.5, -0.5);
-    atlas_->getCoordinates(texture_name_,Texture::LOWER_RIGHT);
-    glVertex3d(tile.x+1.2,  tile.y+0.5, -0.5);
-    atlas_->getCoordinates(texture_name_,Texture::UPPER_RIGHT);
-    glVertex3d(tile.x+1.2,  tile.y+0.5, 1.0);
-  }
-  if(origin_position==LEFT){
-    atlas_->getCoordinates(texture_name_,Texture::UPPER_LEFT);
-    glVertex3d(tile.x,  tile.y, 1.0);
-    atlas_->getCoordinates(texture_name_,Texture::LOWER_LEFT);
-    glVertex3d(tile.x,  tile.y, -0.5);
-    atlas_->getCoordinates(texture_name_,Texture::LOWER_RIGHT);
-    glVertex3d(tile.x+1,  tile.y+1, -0.5);
-    atlas_->getCoordinates(texture_name_,Texture::UPPER_RIGHT);
-    glVertex3d(tile.x+1,  tile.y+1, 1.0);
-  }
-  if(origin_position==NEAR_LEFT){
-    atlas_->getCoordinates(texture_name_,Texture::UPPER_LEFT);
-    glVertex3d(tile.x+0.5,  tile.y-0.2, 1.0);
-    atlas_->getCoordinates(texture_name_,Texture::LOWER_LEFT);
-    glVertex3d(tile.x+0.5,  tile.y-0.2, -0.5);
-    atlas_->getCoordinates(texture_name_,Texture::LOWER_RIGHT);
-    glVertex3d(tile.x+0.5,  tile.y+1.2, -0.5);
-    atlas_->getCoordinates(texture_name_,Texture::UPPER_RIGHT);
-    glVertex3d(tile.x+0.5,  tile.y+1.2, 1.0);
-  }
-  if(origin_position==NEAR){
-    atlas_->getCoordinates(texture_name_,Texture::UPPER_LEFT);
-    glVertex3d(tile.x+1,  tile.y, 1.0);
-    atlas_->getCoordinates(texture_name_,Texture::LOWER_LEFT);
-    glVertex3d(tile.x+1,  tile.y, -0.5);
-    atlas_->getCoordinates(texture_name_,Texture::LOWER_RIGHT);
-    glVertex3d(tile.x,  tile.y+1, -0.5);
-    atlas_->getCoordinates(texture_name_,Texture::UPPER_RIGHT);
-    glVertex3d(tile.x,  tile.y+1, 1.0);
-  }
-  if(origin_position==NEAR_RIGHT){
-    atlas_->getCoordinates(texture_name_,Texture::UPPER_LEFT);
-    glVertex3d(tile.x+1.2,  tile.y+0.5, 1.0);
-    atlas_->getCoordinates(texture_name_,Texture::LOWER_LEFT);
-    glVertex3d(tile.x+1.2,  tile.y+0.5, -0.5);
-    atlas_->getCoordinates(texture_name_,Texture::LOWER_RIGHT);
-    glVertex3d(tile.x-0.2,  tile.y+0.5, -0.5);
-    atlas_->getCoordinates(texture_name_,Texture::UPPER_RIGHT);
-    glVertex3d(tile.x-0.2,  tile.y+0.5, 1.0);
-  }
-  if(origin_position==RIGHT){
-    atlas_->getCoordinates(texture_name_,Texture::UPPER_LEFT);
-    glVertex3d(tile.x+1,  tile.y+1, 1.0);
-    atlas_->getCoordinates(texture_name_,Texture::LOWER_LEFT);
-    glVertex3d(tile.x+1,  tile.y+1, -0.5);
-    atlas_->getCoordinates(texture_name_,Texture::LOWER_RIGHT);
-    glVertex3d(tile.x,  tile.y, -0.5);
-    atlas_->getCoordinates(texture_name_,Texture::UPPER_RIGHT);
-    glVertex3d(tile.x,  tile.y, 1.0);
-  }
-  if(origin_position==FAR_RIGHT){
-    atlas_->getCoordinates(texture_name_,Texture::UPPER_LEFT);
-    glVertex3d(tile.x+.5,  tile.y+1.2, 1.0);
-    atlas_->getCoordinates(texture_name_,Texture::LOWER_LEFT);
-    glVertex3d(tile.x+.5,  tile.y+1.2, -0.5);
-    atlas_->getCoordinates(texture_name_,Texture::LOWER_RIGHT);
-    glVertex3d(tile.x+.5,  tile.y-0.2, -0.5);
-    atlas_->getCoordinates(texture_name_,Texture::UPPER_RIGHT);
-    glVertex3d(tile.x+.5,  tile.y-0.2, 1.0);
-  }
-}
-
 
 void GameBoardWidget::GetTileColor(Point tile) {
   FLOOR_MATERIAL floor_type = board_->GetTile(tile)->floor_type ;
@@ -436,14 +333,6 @@ GameBoard::QUADRANT GameBoardWidget::OriginQuadrant() const {
     return GameBoard::NEAR_QUADRANT;
   else
     return GameBoard::LEFT_QUADRANT;
-}
-GameBoard::RELATIVE_POSITION_8_WAY GameBoardWidget::OriginPosition() const {
-  int offset_angle = (angle_+22.5);
-  if(offset_angle>=360) offset_angle-=360;
-   GameBoard::RELATIVE_POSITION_8_WAY position=
-     GameBoard::RELATIVE_POSITION_8_WAY((offset_angle/45));
-  if(position==INVALID)position=FAR_LEFT;
-  return position;
 }
 
 double GameBoardWidget::angle() const {

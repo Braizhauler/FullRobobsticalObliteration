@@ -16,7 +16,7 @@
 #include "point.h"
 #include "gameboardcontroller.h"
 namespace Robot {
-enum CARDNIAL_DIRECTION {
+enum CARDINAL_DIRECTION {
   INVALID = -1,
   NORTH,
   SOUTH,
@@ -30,17 +30,23 @@ enum ACTION {
   ACTION_TURN_RIGHT,
   ACTION_MOVE_FORWARD,
   ACTION_MOVE_BACKWARD
- 
 };
 }
 
 class RobotController{
 public:
-  RobotController(void);
+  RobotController(int robot_number = 1,
+                  GameBoardController* board = nullptr,
+                  Point location = Point(0.0,0.0),
+                  Robot::CARDINAL_DIRECTION direction=Robot::NORTH
+                  );
   ~RobotController(void);
+
+  Robot::ACTION*ParceCard(Card::Rally_Card); 
+  void PreformAction(Robot::ACTION);
 private:
-  DIRECTION facing_;
-  int robot_number;
+  GameBoardController*board_;
+  Robot::CARDINAL_DIRECTION facing_;
+  int robot_number_;
   Point board_coordiante_location_;
 };
-

@@ -26,19 +26,6 @@ enum QUADRANT {
   NEAR_QUADRANT,
   LEFT_QUADRANT
 };
-
-enum RELATIVE_POSITION_8_WAY {
-  INVALID,
-  FAR,
-  FAR_RIGHT,
-  RIGHT,
-  NEAR_RIGHT,
-  NEAR,
-  NEAR_LEFT,
-  LEFT,
-  FAR_LEFT
-};
-
 }
 using namespace GameBoard;
 class GameBoardWidget : public Widget {
@@ -99,7 +86,6 @@ private:
   void RenderWestWall(Point tile);
   void RenderRobot(Point tile);
   QUADRANT OriginQuadrant() const;
-  RELATIVE_POSITION_8_WAY OriginPosition() const;
   
 
   GameBoardController* board_;

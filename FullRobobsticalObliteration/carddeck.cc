@@ -13,20 +13,20 @@ void CardDeck::InitializeDeck() {
   int count=0;
   while(count<6) {
     count++;
-    card_list_.push_back(Card(SUIT_U_TURN,count));
+    card_list_.push_back(Rally_Card(SUIT_U_TURN,count));
   }
   while(count<42) {
     count++;
-    card_list_.push_back(Card(SUIT_ROT_LEFT,count));
-    card_list_.push_back(Card(SUIT_ROT_RIGHT,++count));
+    card_list_.push_back(Rally_Card(SUIT_ROT_LEFT,count));
+    card_list_.push_back(Rally_Card(SUIT_ROT_RIGHT,++count));
   }
   while(count<48) {
     count++;
-    card_list_.push_back(Card(SUIT_BACK_UP,count));
+    card_list_.push_back(Rally_Card(SUIT_BACK_UP,count));
   }
   while(count<66) {
     count++;
-    card_list_.push_back(Card(SUIT_FORWARD_1,count));
+    card_list_.push_back(Rally_Card(SUIT_FORWARD_1,count));
   }
   count=0;
   while(count<66) {
