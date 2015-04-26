@@ -14,6 +14,7 @@
 *******************************************************************************/
 
 #include "point.h"
+#include "carddeck.h"
 #include "gameboardcontroller.h"
 namespace Robot {
 enum CARDINAL_DIRECTION {

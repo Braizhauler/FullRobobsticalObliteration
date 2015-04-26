@@ -17,5 +17,9 @@ RobotController::~RobotController(void)
 }
 
 
+Robot::ACTION*ParceCard(Card::Rally_Card) {
+}
+
+
 void RobotController::PreformAction(Robot::ACTION) {
 }
