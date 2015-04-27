@@ -16,19 +16,19 @@
 
 RegisterWidget::RegisterWidget(void) { 
   current_location_=WidgetLocation(8.0,12.0,0.0,0.0,0.0);
+  programmed_card_=nullptr;
   card_slot_location_=WidgetLocation(6.0,9.0,1.0,2.0,0.0);
   manager_ = nullptr;
-  programmed_card_=nullptr;
   parent_ = nullptr;
   atlas_ = nullptr;
 }
 RegisterWidget::RegisterWidget(GameStateManager*manager,WidgetLocation location) {
   current_location_=location;
   card_slot_location_=WidgetLocation(7.2, 10.8);
+  programmed_card_=nullptr;
   CenterSlot();
   manager_ = manager;
   atlas_ = manager_->TextureAtlas();
-  programmed_card_=nullptr;
   parent_ = nullptr;
 }
 RegisterWidget::~RegisterWidget(void) {
@@ -101,17 +101,14 @@ void RegisterWidget::Draw() {
     glVertex3d(current_location_.left(),
                current_location_.top(),
                current_location_.depth());
-    
     atlas_->LoadCoordinates(Texture::UPPER_RIGHT);
     glVertex3d(current_location_.right(),
                current_location_.top(),
                current_location_.depth());
-    
     atlas_->LoadCoordinates(Texture::LOWER_RIGHT);
     glVertex3d(current_location_.right(),
                current_location_.bottom(),
                current_location_.depth());
-    
     atlas_->LoadCoordinates(Texture::LOWER_LEFT);
     glVertex3d(current_location_.left(),
                current_location_.bottom(),
@@ -174,6 +171,7 @@ double RegisterWidget::width() const {
 }
 void RegisterWidget::setWidth(double new_width) {
   current_location_.setWidth(new_width);
+  CenterSlot();
 }
 
 double RegisterWidget::height() const {
@@ -181,6 +179,7 @@ double RegisterWidget::height() const {
 }
 void RegisterWidget::setHeight(double new_height) {
   current_location_.setHeight(new_height);
+  CenterSlot();
 }
   
 double RegisterWidget::left() const{
@@ -188,6 +187,7 @@ double RegisterWidget::left() const{
 }
 void RegisterWidget::setLeft(double new_left) {
   current_location_.setLeft(new_left);
+  CenterSlot();
 }
  
 double RegisterWidget::right() const{
@@ -195,6 +195,7 @@ double RegisterWidget::right() const{
 }
 void RegisterWidget::setRight(double new_right) {
   current_location_.setRight(new_right);
+  CenterSlot();
 }
  
 double RegisterWidget::top() const {
@@ -202,6 +203,7 @@ double RegisterWidget::top() const {
 }
 void RegisterWidget::setTop(double new_top) {
   current_location_.setTop(new_top);
+  CenterSlot();
 }
   
 double RegisterWidget::bottom() const {
@@ -209,6 +211,7 @@ double RegisterWidget::bottom() const {
 }
 void RegisterWidget::setBottom(double new_bottom) {
   current_location_.setBottom(new_bottom);
+  CenterSlot();
 }
 
 double RegisterWidget::depth() const {
@@ -216,6 +219,7 @@ double RegisterWidget::depth() const {
 }
 void RegisterWidget::setDepth(double new_depth) {
  current_location_.setDepth(new_depth);
+  CenterSlot();
 }
 
 void RegisterWidget::CenterSlot() {
@@ -225,4 +229,8 @@ void RegisterWidget::CenterSlot() {
   card_slot_location_.setTop((current_location_.top()+
                              current_location_.bottom()-
                              card_slot_location_.height())/2.0+1.0);
+  if(programmed_card_!=nullptr) {
+    programmed_card_->setLeft(card_slot_location_.left());
+    programmed_card_->setTop(card_slot_location_.top()); 
+  }
 }

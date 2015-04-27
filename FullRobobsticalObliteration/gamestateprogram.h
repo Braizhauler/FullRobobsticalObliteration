@@ -81,6 +81,9 @@ private:
   ButtonWidget confirm_button_;
   GameStateManager* manager_;
   Point last_mouse_position_;
+  bool enable_input_;
+  bool register_full_;
+  double active_faction_;
 };
 
 #endif//GAME_STATE_PROGRAM_H_

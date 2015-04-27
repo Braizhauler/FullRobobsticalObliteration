@@ -65,6 +65,11 @@ void CardHandWidget::ClearChild(CardWidget* card) {
   }
 }
 
+void CardHandWidget::ClearChildren() {
+  child_list_.empty();
+  cards_total_ = child_list_.size();
+}
+
 void CardHandWidget::Draw(Focusable* focus) {
   /*glColor3f(0.5f,0.0f,0.1f);
   glBegin(GL_TRIANGLE_FAN);
