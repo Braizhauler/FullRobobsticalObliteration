@@ -28,8 +28,16 @@ void CardDeck::InitializeDeck() {
     count++;
     card_list_.push_back(Card::RallyCard(Card::SUIT_FORWARD_1,count));
   }
+  while(count<78) { //18 Forward 1
+    count++;
+    card_list_.push_back(Card::RallyCard(Card::SUIT_FORWARD_2,count));
+  }
+  while(count<84) { //18 Forward 1
+    count++;
+    card_list_.push_back(Card::RallyCard(Card::SUIT_FORWARD_3,count));
+  }
   count=0;
-  while(count<66) {
+  while(count<84) {
     card_shuffle_.push_back(&card_list_[count]);
     count++;
   }
