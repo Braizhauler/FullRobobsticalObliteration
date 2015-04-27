@@ -1,12 +1,13 @@
 #include "robotsprite.h"
 
 
-RobotSprite::RobotSprite(GameStateManager* manager,const int robot) {
+RobotSprite::RobotSprite(GameStateManager* manager,RobotController*robot) {
   manager_=manager;
   atlas_=manager_->TextureAtlas();
-  sprite_prefix_;
-  SetSpritePrefix(robot);
+  logical_robot_=robot;
+  SetSpritePrefix(robot->GetRobotNumber());
   animation_frame_=0;
+  UpdateLocation();
 }
 
 
@@ -21,101 +22,150 @@ void RobotSprite::SetSpritePrefix(const int robot_number) {
 }
 
 
+bool RobotSprite::IsOverLocation(Point location) {
+  if(location==logical_robot_->GetLocation()||location==target_location_)
+    return true;
+  return false;
+}
+
+
 void RobotSprite::Draw(const double camera_angle) {
   using namespace Robot;
   glColor3f(1.00f, 1.00f, 1.00f);
-  Robot::RELATIVE_POSITION_8_WAY origin_position = OriginPosition();
-  int image_number_ = (2*facing_+origin_position)%8;
-  image_number_+=8*animation_frame_+1;
-  std::string sprite_name;
-  sprite_name.append(std::to_string(image_number_) );
-  if(origin_position==FAR){
+  std::string sprite_name = GetRobotTexture(camera_angle);
+  Robot::RELATIVE_POSITION_8_WAY origin_position = OriginPosition(camera_angle);
+  switch(origin_position) {
+  case FAR:
     atlas_->getCoordinates(sprite_name,Texture::UPPER_LEFT);
-    glVertex3d(tile.x,  tile.y+1, 1.0);
+    glVertex3d(drawn_center_.x-0.5,drawn_center_.y+0.5, 1.0);
     atlas_->getCoordinates(sprite_name,Texture::LOWER_LEFT);
-    glVertex3d(tile.x,  tile.y+1, -0.5);
+    glVertex3d(drawn_center_.x-0.5,drawn_center_.y+0.5,-0.5);
     atlas_->getCoordinates(sprite_name,Texture::LOWER_RIGHT);
-    glVertex3d(tile.x+1,  tile.y, -0.5);
+    glVertex3d(drawn_center_.x+0.5,drawn_center_.y-0.5,-0.5);
     atlas_->getCoordinates(sprite_name,Texture::UPPER_RIGHT);
-    glVertex3d(tile.x+1,  tile.y, 1.0);
-  }
-  if(origin_position==FAR_LEFT){
+    glVertex3d(drawn_center_.x+0.5,drawn_center_.y-0.5, 1.0);
+    break;
+  case FAR_LEFT:
     atlas_->getCoordinates(sprite_name,Texture::UPPER_LEFT);
-    glVertex3d(tile.x-0.2,  tile.y+0.5, 1.0);
+    glVertex3d(drawn_center_.x-0.7,drawn_center_.y    , 1.0);
     atlas_->getCoordinates(sprite_name,Texture::LOWER_LEFT);
-    glVertex3d(tile.x-0.2,  tile.y+0.5, -0.5);
+    glVertex3d(drawn_center_.x-0.7,drawn_center_.y    ,-0.5);
     atlas_->getCoordinates(sprite_name,Texture::LOWER_RIGHT);
-    glVertex3d(tile.x+1.2,  tile.y+0.5, -0.5);
+    glVertex3d(drawn_center_.x+0.7,drawn_center_.y    ,-0.5);
     atlas_->getCoordinates(sprite_name,Texture::UPPER_RIGHT);
-    glVertex3d(tile.x+1.2,  tile.y+0.5, 1.0);
-  }
-  if(origin_position==LEFT){
+    glVertex3d(drawn_center_.x+0.7,drawn_center_.y    , 1.0);
+    break;
+  case LEFT:
     atlas_->getCoordinates(sprite_name,Texture::UPPER_LEFT);
-    glVertex3d(tile.x,  tile.y, 1.0);
+    glVertex3d(drawn_center_.x-0.5,drawn_center_.y-0.5, 1.0);
     atlas_->getCoordinates(sprite_name,Texture::LOWER_LEFT);
-    glVertex3d(tile.x,  tile.y, -0.5);
+    glVertex3d(drawn_center_.x-0.5,drawn_center_.y-0.5,-0.5);
     atlas_->getCoordinates(sprite_name,Texture::LOWER_RIGHT);
-    glVertex3d(tile.x+1,  tile.y+1, -0.5);
+    glVertex3d(drawn_center_.x+0.5,drawn_center_.y+0.5,-0.5);
     atlas_->getCoordinates(sprite_name,Texture::UPPER_RIGHT);
-    glVertex3d(tile.x+1,  tile.y+1, 1.0);
-  }
-  if(origin_position==NEAR_LEFT){
+    glVertex3d(drawn_center_.x+0.5,drawn_center_.y+0.5, 1.0);
+    break;
+  case NEAR_LEFT:
     atlas_->getCoordinates(sprite_name,Texture::UPPER_LEFT);
-    glVertex3d(tile.x+0.5,  tile.y-0.2, 1.0);
+    glVertex3d(drawn_center_.x    ,drawn_center_.y-0.7, 1.0);
     atlas_->getCoordinates(sprite_name,Texture::LOWER_LEFT);
-    glVertex3d(tile.x+0.5,  tile.y-0.2, -0.5);
+    glVertex3d(drawn_center_.x    ,drawn_center_.y-0.7,-0.5);
     atlas_->getCoordinates(sprite_name,Texture::LOWER_RIGHT);
-    glVertex3d(tile.x+0.5,  tile.y+1.2, -0.5);
+    glVertex3d(drawn_center_.x    ,drawn_center_.y+0.7,-0.5);
     atlas_->getCoordinates(sprite_name,Texture::UPPER_RIGHT);
-    glVertex3d(tile.x+0.5,  tile.y+1.2, 1.0);
-  }
-  if(origin_position==NEAR){
+    glVertex3d(drawn_center_.x    ,drawn_center_.y+0.7, 1.0);
+    break;
+  case NEAR:
     atlas_->getCoordinates(sprite_name,Texture::UPPER_LEFT);
-    glVertex3d(tile.x+1,  tile.y, 1.0);
+    glVertex3d(drawn_center_.x+0.5,drawn_center_.y-0.5, 1.0);
     atlas_->getCoordinates(sprite_name,Texture::LOWER_LEFT);
-    glVertex3d(tile.x+1,  tile.y, -0.5);
+    glVertex3d(drawn_center_.x+0.5,drawn_center_.y-0.5,-0.5);
     atlas_->getCoordinates(sprite_name,Texture::LOWER_RIGHT);
-    glVertex3d(tile.x,  tile.y+1, -0.5);
+    glVertex3d(drawn_center_.x-0.5,drawn_center_.y+0.5,-0.5);
     atlas_->getCoordinates(sprite_name,Texture::UPPER_RIGHT);
-    glVertex3d(tile.x,  tile.y+1, 1.0);
-  }
-  if(origin_position==NEAR_RIGHT){
+    glVertex3d(drawn_center_.x-0.5,drawn_center_.y+0.5, 1.0);
+    break;
+  case NEAR_RIGHT:
     atlas_->getCoordinates(sprite_name,Texture::UPPER_LEFT);
-    glVertex3d(tile.x+1.2,  tile.y+0.5, 1.0);
+    glVertex3d(drawn_center_.x+0.7,drawn_center_.y    , 1.0);
     atlas_->getCoordinates(sprite_name,Texture::LOWER_LEFT);
-    glVertex3d(tile.x+1.2,  tile.y+0.5, -0.5);
+    glVertex3d(drawn_center_.x+0.7,drawn_center_.y    ,-0.5);
     atlas_->getCoordinates(sprite_name,Texture::LOWER_RIGHT);
-    glVertex3d(tile.x-0.2,  tile.y+0.5, -0.5);
+    glVertex3d(drawn_center_.x-0.7,drawn_center_.y    ,-0.5);
     atlas_->getCoordinates(sprite_name,Texture::UPPER_RIGHT);
-    glVertex3d(tile.x-0.2,  tile.y+0.5, 1.0);
-  }
-  if(origin_position==RIGHT){
+    glVertex3d(drawn_center_.x-0.7,drawn_center_.y    , 1.0);
+    break;
+  case RIGHT:
     atlas_->getCoordinates(sprite_name,Texture::UPPER_LEFT);
-    glVertex3d(tile.x+1,  tile.y+1, 1.0);
+    glVertex3d(drawn_center_.x+0.5,drawn_center_.y+0.5, 1.0);
     atlas_->getCoordinates(sprite_name,Texture::LOWER_LEFT);
-    glVertex3d(tile.x+1,  tile.y+1, -0.5);
+    glVertex3d(drawn_center_.x+0.5,drawn_center_.y+0.5,-0.5);
     atlas_->getCoordinates(sprite_name,Texture::LOWER_RIGHT);
-    glVertex3d(tile.x,  tile.y, -0.5);
+    glVertex3d(drawn_center_.x-0.5,drawn_center_.y-0.5,-0.5);
     atlas_->getCoordinates(sprite_name,Texture::UPPER_RIGHT);
-    glVertex3d(tile.x,  tile.y, 1.0);
-  }
-  if(origin_position==FAR_RIGHT){
+    glVertex3d(drawn_center_.x-0.5,drawn_center_.y-0.5, 1.0);
+    break;
+  case FAR_RIGHT:
     atlas_->getCoordinates(sprite_name,Texture::UPPER_LEFT);
-    glVertex3d(tile.x+.5,  tile.y+1.2, 1.0);
+    glVertex3d(drawn_center_.x    ,drawn_center_.y+0.7, 1.0);
     atlas_->getCoordinates(sprite_name,Texture::LOWER_LEFT);
-    glVertex3d(tile.x+.5,  tile.y+1.2, -0.5);
+    glVertex3d(drawn_center_.x    ,drawn_center_.y+0.7,-0.5);
     atlas_->getCoordinates(sprite_name,Texture::LOWER_RIGHT);
-    glVertex3d(tile.x+.5,  tile.y-0.2, -0.5);
+    glVertex3d(drawn_center_.x    ,drawn_center_.y-0.7,-0.5);
     atlas_->getCoordinates(sprite_name,Texture::UPPER_RIGHT);
-    glVertex3d(tile.x+.5,  tile.y-0.2, 1.0);
+    glVertex3d(drawn_center_.x    ,drawn_center_.y-0.7, 1.0);
   }
 }
 
-Robot::RELATIVE_POSITION_8_WAY RobotSprite::OriginPosition() const {
-  int offset_angle = (angle_+22.5);
-  if(offset_angle>=360) offset_angle-=360;
-    Robot::RELATIVE_POSITION_8_WAY position=
-      Robot::RELATIVE_POSITION_8_WAY((offset_angle/45));
-  if(position==INVALID)position=FAR_LEFT;
+Robot::RELATIVE_POSITION_8_WAY RobotSprite::OriginPosition(
+                                                    double origin_angle) const {
+  Robot::RELATIVE_POSITION_8_WAY position=
+    Robot::RELATIVE_POSITION_8_WAY(OriginPositionIndex(origin_angle));
   return position;
+}
+
+int RobotSprite::OriginPositionIndex(double origin_angle) const {
+  int offset_angle = (int)(origin_angle+22.5);
+  if(offset_angle>=360) offset_angle-=360;
+  int position=(offset_angle/45);
+  if (position==0) position=8;
+  return position;
+}
+
+
+void RobotSprite::SetAnimationCompleteCallback(
+                                   void(*AnimationCompleteCallbackFunc)(void)) {
+  animation_complete_callback_function_=AnimationCompleteCallbackFunc;
+}
+
+std::string RobotSprite::GetRobotTexture(double viewing_angle) {
+  int image_number;
+  switch(logical_robot_->GetFacing()) {
+  case Robot::NORTH:
+    image_number=0;
+    break;
+  case Robot::EAST:
+    image_number=2;
+    break;
+  case Robot::SOUTH:
+    image_number=4;
+    break;
+  case Robot::WEST:
+    image_number=6;
+    break;
+  default:
+    break;
+  }
+  image_number+=OriginPositionIndex(viewing_angle);
+  image_number%=8;
+  image_number+=8*animation_frame_+1;
+  std::string sprite_name=sprite_prefix_;
+  sprite_name.append(std::to_string(image_number));
+  return sprite_name;
+}
+
+void RobotSprite::UpdateLocation(void) {
+  drawn_center_ = logical_robot_->GetLocation();
+  drawn_center_.x+=0.5;
+  drawn_center_.y+=0.5;
 }

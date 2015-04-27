@@ -26,6 +26,7 @@ GameStateProgram::GameStateProgram(GameStateManager* manager):
   confirm_button_= ButtonWidget(manager_,
                        WidgetLocation(6.0, 4.0, 40.0, 48.0, 0.0));
   confirm_button_.setColor(0.3,0.3,0.3);
+  confirm_button_.SetTexture("");
   for(int register_count=0;register_count<NUMBER_OF_REGISTERS;++register_count){
     register_[register_count]=
                 RegisterWidget(manager,
@@ -149,7 +150,15 @@ void GameStateProgram::MouseButtonReleased(int button,
         card_added_to_register=true;
       }
     }
-    if(!card_added_to_register)
+    if(card_added_to_register) {
+      int full_registers=0;
+      for(int slot=0;slot<NUMBER_OF_REGISTERS;++slot) {
+        if(!register_[slot].IsClear())
+          ++full_registers;
+      }
+      if(full_registers==NUMBER_OF_REGISTERS)
+        confirm_button_.setColor(1.0,1.0,1.0);
+    } else
       player_hand_.addChild(dragged_);
     dragged_=nullptr;
   }
@@ -161,7 +170,7 @@ void GameStateProgram::MouseButtonClicked(int button,
                                           double y_position){                                         
   CardWidget* temp=player_hand_.ExpandCardAtCursor(x_position, y_position);
   if(temp !=nullptr) {
-    temp->FlipStart();
+    //temp->FlipStart();
     focus_=(Focusable*)temp;
   }
 }

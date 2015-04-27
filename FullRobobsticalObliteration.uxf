@@ -215,7 +215,7 @@ onClick()</panel_attributes>
     </coordinates>
     <panel_attributes>gameBoard
 --
--gameboard[]	:tiles
+-GameBoard[]	:tiles
 -size			:rectangle
 --
 +loadBoard(String filename)

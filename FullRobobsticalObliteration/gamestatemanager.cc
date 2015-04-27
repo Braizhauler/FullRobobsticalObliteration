@@ -14,7 +14,11 @@
 /*******************************
 * Constructors and Destructor */
 
-GameStateManager::GameStateManager(MyWindowWrapper * window) {
+GameStateManager::GameStateManager(MyWindowWrapper * window):
+                                                       game_board_(BOARD_SIZE),
+                                   player_robot_(4,&game_board_,
+                                                 Point(0.0,0.0),
+                                                 Robot::SOUTH){
   window_= window;
   deck_.Shuffle();
 }
@@ -25,6 +29,14 @@ GameStateManager::~GameStateManager(void) {
 
 SpriteAtlas * GameStateManager::TextureAtlas() {
   return &atlas_;
+}
+
+CardDeck* GameStateManager::GetCardDeck() {
+	return &deck_;
+}
+
+RobotController*GameStateManager::GetPlayerRobot() {
+  return &player_robot_;
 }
 
 /*******************************
@@ -40,9 +52,6 @@ GameState* GameStateManager::Pop() {
   return temp;
 }
 
-CardDeck* GameStateManager::GetCardDeck() {
-	return &deck_;
-}
 
 //Peek returns a pointer to top state of the state stack, and leaving it on the
 //stack

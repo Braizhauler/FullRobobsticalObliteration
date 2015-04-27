@@ -12,13 +12,15 @@
 * © [2015] Dwarfholm.com
 * All Rights Reserved.
 *******************************************************************************/
+#ifndef ROBOT_CONTROLER_H_
+#define ROBOT_CONTROLER_H_
 
 #include "point.h"
 #include "carddeck.h"
 #include "gameboardcontroller.h"
 namespace Robot {
 enum CARDINAL_DIRECTION {
-  INVALID = -1,
+  INVALID_CARDINAL_DIRECTION = -1,
   NORTH,
   SOUTH,
   EAST,
@@ -43,11 +45,24 @@ public:
                   );
   ~RobotController(void);
 
-  Robot::ACTION*ParceCard(Card::Rally_Card); 
-  void PreformAction(Robot::ACTION);
+  Robot::ACTION*QueueCard(Card::RallyCard);
+  int GetRobotNumber(void) const;
+
+  Point GetLocation() const;
+  Robot::CARDINAL_DIRECTION GetFacing() const;
 private:
+  void ClearActionQueue();
+  void QueueAction(Robot::ACTION action=Robot::ACTION_INVALID);
+
   GameBoardController*board_;
   Robot::CARDINAL_DIRECTION facing_;
+
   int robot_number_;
-  Point board_coordiante_location_;
+
+  Point current_location_;
+  int actions_in_queue_;
+
+  static const int ACTION_QUEUE_SIZE=5;
+  Robot::ACTION action_queue_[ACTION_QUEUE_SIZE];
 };
+#endif//ROBOT_CONTROLER_H_

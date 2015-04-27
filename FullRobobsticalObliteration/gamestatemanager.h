@@ -31,6 +31,8 @@
 #include "updateable.h"
 #include "spriteatlas.h"
 #include "carddeck.h"
+#include "gameboardcontroller.h"
+#include "robotcontroller.h"
 
 class GameStateManager: public Renderable {
 public:
@@ -59,7 +61,7 @@ public:
   CardDeck* GameStateManager::GetCardDeck();
 
   SpriteAtlas * TextureAtlas();
-
+  RobotController*GetPlayerRobot();
   void Exit();
 private:
   void RestackRenderables();
@@ -70,6 +72,11 @@ private:
   std::vector<Updateable*> active_updatable_;
   MyWindowWrapper* window_;
   CardDeck deck_;
+
+  GameBoardController game_board_;
+  RobotController player_robot_;
+
+  static const int BOARD_SIZE = 12;
 };
 
 #endif //GAME_STATE_MANAGER_H

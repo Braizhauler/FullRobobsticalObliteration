@@ -12,11 +12,14 @@
 * © [2015] Dwarfholm.com
 * All Rights Reserved.
 *******************************************************************************/
+#ifndef GAME_BOARD_CONTROLER_H_
+#define GAME_BOARD_CONTROLER_H_
+
 #include <stdlib.h>     /* srand, rand */
 #include <time.h>       /* time *///To initialize srand 
 #include <vector>
 #include "point.h"
-namespace gameboard {
+namespace GameBoard {
 
 enum FLOOR_MATERIAL {
   FLOOR_EMPTY,
@@ -26,7 +29,7 @@ enum FLOOR_MATERIAL {
 };
 
 enum DIRECTION {
-  DIRECTION_NULL,
+  DIRECTION_NULL=-1,
   NORTH,
   EAST,
   SOUTH,
@@ -63,8 +66,6 @@ struct Tile {
 };
 
 }
-using std::vector;
-using namespace gameboard;
 class GameBoardController {
 public:
   GameBoardController(int board_size = 8);
@@ -74,13 +75,13 @@ public:
 
   void RandomizeBoard(void);
 
-  Tile*GetTile(int x, int y);
-  Tile*GetTile(Point location);
-  Tile*GetTile(double x, double y);
+  GameBoard::Tile*GetTile(int x, int y);
+  GameBoard::Tile*GetTile(Point location);
+  GameBoard::Tile*GetTile(double x, double y);
   
-  WALL GetWall(int x, int y,DIRECTION wall_direction) const;
-  WALL GetWall(double x, double y,DIRECTION wall_direction) const;
-  WALL GetWall(Point location,DIRECTION wall_direction) const;
+  GameBoard::WALL GetWall(int x, int y,GameBoard::DIRECTION wall_direction) const;
+  GameBoard::WALL GetWall(double x, double y,GameBoard::DIRECTION wall_direction) const;
+  GameBoard::WALL GetWall(Point location,GameBoard::DIRECTION wall_direction) const;
 
 private:
   void ClearInteriorWalls();
@@ -94,7 +95,9 @@ private:
   int width_;
   int height_;
   int seeded_;
-  vector<WALL> north_south_walls_;
-  vector<WALL> east_west_walls_;
-  vector<Tile> board_;
+  std::vector<GameBoard::WALL> north_south_walls_;
+  std::vector<GameBoard::WALL> east_west_walls_;
+  std::vector<GameBoard::Tile> board_;
 };
+
+#endif//GAME_BOARD_CONTROLER_H_

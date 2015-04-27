@@ -18,7 +18,6 @@
 #include <math.h>
 
 #include "gamestatemanager.h"
-#include "gameboardwidget.h"
 #include "robotcontroller.h"
 
 namespace Robot {
@@ -34,26 +33,34 @@ enum RELATIVE_POSITION_8_WAY {
   LEFT,
   FAR_LEFT
 };
+
 }
 
 
-class RobotSprite{
+class RobotSprite {
 public:
-  RobotSprite(GameStateManager* manager=nullptr,const int robot=0);
+  RobotSprite(GameStateManager* manager=nullptr,RobotController*robot=nullptr);
   ~RobotSprite(void);
   
   void SetSpritePrefix(const int robot_number);
 
   void Draw(double angle);
 
+  void SetAnimationCompleteCallback(void(*AnimationCompleteCallbackFunc)(void));
+  void Animate(Robot::ACTION);
+  void UpdateLocation(void);
+  bool IsOverLocation(Point);
 private:
   void SetPrefix(const int robot_number);
   Robot::CARDINAL_DIRECTION SetPrefix();
-  Robot::RELATIVE_POSITION_8_WAY OriginPosition() const;
+  Robot::RELATIVE_POSITION_8_WAY OriginPosition(double origin_angle) const;
+  int RobotSprite::OriginPositionIndex(double origin_angle) const;
+  std::string GetRobotTexture(double viewing_angle);
 
   GameStateManager*manager_;
 
-  RobotController board_position_;
+  RobotController*logical_robot_;
+  Point drawn_center_;
   Point target_location_;
   double distance_traveled_;
   
@@ -62,6 +69,7 @@ private:
 
   SpriteAtlas*atlas_;
 
+  void* animation_complete_callback_function_;
   static const double ANIMATION_SPEED;
 };
 

@@ -26,18 +26,18 @@ enum CARD_SUIT {
   SUIT_ROT_LEFT,
   SUIT_ROT_RIGHT,
   SUIT_BACK_UP,
-  SUIT_FORWARD_1
+  SUIT_FORWARD_1,
+  SUIT_FORWARD_2,
+  SUIT_FORWARD_3
 };
-struct Rally_Card {  
-  Rally_Card(void) {suit=SUIT_FORWARD_1; priority=10;}
-  Rally_Card(CARD_SUIT card_suit,int card_priority) {
+struct RallyCard {  
+  RallyCard(void) {suit=SUIT_FORWARD_1; priority=10;}
+  RallyCard(CARD_SUIT card_suit,int card_priority) {
     suit=card_suit; priority=card_priority;}
   CARD_SUIT suit;
   int priority;
 };
 }//namepace card
-using namespace Card;
-using std::vector;
 class CardDeck
 {
 public:
@@ -45,12 +45,12 @@ public:
   ~CardDeck(void);
   void Shuffle();
   void Deal();
-  Rally_Card* DealACard();
+  Card::RallyCard* DealACard();
 private:
   void InitializeDeck();
-  vector<Rally_Card*>::iterator top_card_;
-  vector<Rally_Card> card_list_;
-  vector<Rally_Card*> card_shuffle_;
+  std::vector<Card::RallyCard*>::iterator top_card_;
+  std::vector<Card::RallyCard> card_list_;
+  std::vector<Card::RallyCard*> card_shuffle_;
 };
 
 #endif//CARD_DECK_H_

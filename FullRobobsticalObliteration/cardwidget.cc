@@ -54,11 +54,11 @@ void CardWidget::setColor(const float red,
   color_[2] = blue;
 }
 
-card::Card* CardWidget::GetCard(){
+Card::RallyCard* CardWidget::GetCard(){
 	return card_;
 }
 
-void CardWidget::SetCard(card::Card*new_card){
+void CardWidget::SetCard(Card::RallyCard*new_card){
   bool face_up_=true;
 	card_ = new_card;
 }
