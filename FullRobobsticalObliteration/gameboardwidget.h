@@ -87,6 +87,7 @@ private:
   void RenderEastWall(Point tile);
   void RenderSouthWall(Point tile);
   void RenderWestWall(Point tile);
+  void DrawFlag(Point flag_location);
   GameBoard::QUADRANT OriginQuadrant() const;
   
   GameBoardController* board_;
@@ -101,6 +102,7 @@ private:
 
   SpriteAtlas* atlas_;
 
+  Point flag_location_;
 };
 
 #endif//GAME_BOARD_WIDGET_H

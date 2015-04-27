@@ -10,7 +10,8 @@ GameBoardWidget::GameBoardWidget (GameStateManager* manager,
   game_state_manager_ = manager;
   atlas_=manager->TextureAtlas();
   player_=new RobotSprite(manager, manager->GetPlayerRobot());
-  angle_ = 0.0;
+  angle_ = 225.0;
+  flag_location_=Point(NUMBER_OF_TILES_ACROSS-2,NUMBER_OF_TILES_ACROSS-2);
   board_=new GameBoardController( NUMBER_OF_TILES_ACROSS );
 }
 
@@ -200,7 +201,7 @@ void GameBoardWidget::RenderTiles() {
   }
 
   glEnd();
-  
+  DrawFlag(flag_location_);
   glDisable(GL_TEXTURE_2D);
 }
 
@@ -357,6 +358,18 @@ void GameBoardWidget::RenderWestWall(Point tile) {
   glVertex3d(tile.x+WALL_THICKNESS,tile.y    ,WALL_HEIGHT);
 }
 
+void GameBoardWidget::DrawFlag(Point flag_location) {
+  glLineWidth(5.0f);
+  glColor3f(0.3f,0.8f,0.2f);
+  glBegin(GL_LINE_STRIP);
+  glVertex3d(flag_location.x+0.5,flag_location.y+0.5,0.0);
+  glVertex3d(flag_location.x+0.5,flag_location.y+0.5,1.0);
+  glVertex3d(flag_location.x+0.5,flag_location.y+0.2,0.9);
+  glVertex3d(flag_location.x+0.5,flag_location.y+0.5,0.8);
+  glEnd();
+  glLineWidth(1.0f);
+}
+
 GameBoard::QUADRANT GameBoardWidget::OriginQuadrant() const {
   if(angle_<90)
     return GameBoard::FAR_QUADRANT;
@@ -430,5 +443,3 @@ double GameBoardWidget::depth() const {
 void GameBoardWidget::setDepth(double new_depth) {
  current_location_.setDepth(new_depth);
 }
-
-
