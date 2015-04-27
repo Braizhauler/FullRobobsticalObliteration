@@ -20,24 +20,24 @@
 #include <random>       // std::default_random_engine
 #include <chrono>       // std::chrono::system_clock
 
-namespace card {
+namespace Card {
 enum CARD_SUIT {
   SUIT_U_TURN,
   SUIT_ROT_LEFT,
   SUIT_ROT_RIGHT,
   SUIT_BACK_UP,
-  SUIT_FORWARD_1
+  SUIT_FORWARD_1,
+  SUIT_FORWARD_2,
+  SUIT_FORWARD_3
 };
-struct Card {  
-  Card(void) {suit=SUIT_FORWARD_1; priority=10;}
-  Card(CARD_SUIT card_suit,int card_priority) {
+struct RallyCard {  
+  RallyCard(void) {suit=SUIT_FORWARD_1; priority=10;}
+  RallyCard(CARD_SUIT card_suit,int card_priority) {
     suit=card_suit; priority=card_priority;}
   CARD_SUIT suit;
   int priority;
 };
 }//namepace card
-using namespace card;
-using std::vector;
 class CardDeck
 {
 public:
@@ -45,12 +45,12 @@ public:
   ~CardDeck(void);
   void Shuffle();
   void Deal();
-  Card* DealACard();
+  Card::RallyCard* DealACard();
 private:
   void InitializeDeck();
-  vector<Card*>::iterator top_card_;
-  vector<Card> card_list_;
-  vector<Card*> card_shuffle_;
+  std::vector<Card::RallyCard*>::iterator top_card_;
+  std::vector<Card::RallyCard> card_list_;
+  std::vector<Card::RallyCard*> card_shuffle_;
 };
 
 #endif//CARD_DECK_H_

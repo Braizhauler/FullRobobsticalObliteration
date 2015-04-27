@@ -54,11 +54,11 @@ void CardWidget::setColor(const float red,
   color_[2] = blue;
 }
 
-card::Card* CardWidget::GetCard(){
+Card::RallyCard* CardWidget::GetCard(){
 	return card_;
 }
 
-void CardWidget::SetCard(card::Card*new_card){
+void CardWidget::SetCard(Card::RallyCard*new_card){
   bool face_up_=true;
 	card_ = new_card;
 }
@@ -93,6 +93,18 @@ Point CardWidget::DragEnd(double x, double y) {
 void CardWidget::FlipStart() {
   flipping_up_ = !flipping_up_;
   flip_width_=0.9*flip_width_;
+}
+
+void CardWidget::FaceDown() {
+  face_up_=false;
+  flipping_up_=false;
+  flip_width_=1.0;
+}
+
+void CardWidget::FaceUp() {
+  face_up_=true;
+  flipping_up_=true;
+  flip_width_=1.0;
 }
 
 void CardWidget::Draw() {

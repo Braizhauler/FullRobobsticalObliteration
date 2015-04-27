@@ -18,6 +18,7 @@
 #include "gamestatemanager.h"
 #include "widget.h"
 #include "gameboardcontroller.h"
+#include "robotsprite.h"
 
 namespace GameBoard {
 enum QUADRANT {
@@ -26,21 +27,7 @@ enum QUADRANT {
   NEAR_QUADRANT,
   LEFT_QUADRANT
 };
-
-enum RELATIVE_POSITION_8_WAY {
-  INVALID,
-  FAR,
-  FAR_RIGHT,
-  RIGHT,
-  NEAR_RIGHT,
-  NEAR,
-  NEAR_LEFT,
-  LEFT,
-  FAR_LEFT
-};
-
 }
-using namespace GameBoard;
 class GameBoardWidget : public Widget {
 public:
   GameBoardWidget (GameStateManager* manager=nullptr,
@@ -85,23 +72,23 @@ public:
 
   double depth() const;
   void setDepth(double);
+
+  void UpdateRobots();
 private:
+
   void Setup3dRendering();
   void Setup2dRendering();
   void ResetRendering();
   void GetTileColor(Point tile);
   void RenderTiles();
-  void RenderATile(Point tile, QUADRANT);
-  void RenderAWall(Point tile, DIRECTION direction);
+  void RenderATile(Point tile, GameBoard::QUADRANT);
+  void RenderAWall(Point tile, GameBoard::DIRECTION direction);
   void RenderNorthWall(Point tile);
   void RenderEastWall(Point tile);
   void RenderSouthWall(Point tile);
   void RenderWestWall(Point tile);
-  void RenderRobot(Point tile);
-  QUADRANT OriginQuadrant() const;
-  RELATIVE_POSITION_8_WAY OriginPosition() const;
+  GameBoard::QUADRANT OriginQuadrant() const;
   
-
   GameBoardController* board_;
   static const int NUMBER_OF_TILES_ACROSS = 12; 
   static const double WALL_HEIGHT; 
@@ -109,14 +96,11 @@ private:
   double angle_;
   WidgetLocation current_location_;
   GameStateManager* game_state_manager_;
+  
+  RobotSprite* player_;
 
   SpriteAtlas* atlas_;
-  
-  int robot_;
-  int times_;
-  int direction_;
-  int step_;
-  int wait_;
+
 };
 
 #endif//GAME_BOARD_WIDGET_H

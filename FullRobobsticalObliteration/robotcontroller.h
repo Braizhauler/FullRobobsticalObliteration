@@ -12,12 +12,15 @@
 * © [2015] Dwarfholm.com
 * All Rights Reserved.
 *******************************************************************************/
+#ifndef ROBOT_CONTROLER_H_
+#define ROBOT_CONTROLER_H_
 
 #include "point.h"
+#include "carddeck.h"
 #include "gameboardcontroller.h"
 namespace Robot {
-enum CARDNIAL_DIRECTION {
-  INVALID = -1,
+enum CARDINAL_DIRECTION {
+  INVALID_CARDINAL_DIRECTION = -1,
   NORTH,
   SOUTH,
   EAST,
@@ -30,17 +33,45 @@ enum ACTION {
   ACTION_TURN_RIGHT,
   ACTION_MOVE_FORWARD,
   ACTION_MOVE_BACKWARD
- 
 };
 }
 
 class RobotController{
 public:
-  RobotController(void);
+  RobotController(int robot_number = 1,
+                  GameBoardController* board = nullptr,
+                  Point location = Point(0.0,0.0),
+                  Robot::CARDINAL_DIRECTION direction=Robot::NORTH
+                  );
   ~RobotController(void);
-private:
-  DIRECTION facing_;
-  int robot_number;
-  Point board_coordiante_location_;
-};
 
+  
+
+  
+  Robot::ACTION PeekQueue();
+  Robot::ACTION PopQueue();
+  Robot::ACTION*QueueCard(Card::RallyCard);
+  int GetRobotNumber(void) const;
+
+  Point GetLocation() const;
+  Point GetNextLocation() const;
+  Robot::CARDINAL_DIRECTION GetFacing() const;
+  Robot::CARDINAL_DIRECTION GetNextFacing() const;
+
+  bool QueueComplete();
+private:
+  void ClearActionQueue();
+  void QueueAction(Robot::ACTION action=Robot::ACTION_INVALID);
+
+  GameBoardController*board_;
+  Robot::CARDINAL_DIRECTION facing_;
+
+  int robot_number_;
+
+  Point current_location_;
+  int actions_in_queue_;
+
+  static const int ACTION_QUEUE_SIZE=5;
+  Robot::ACTION action_queue_[ACTION_QUEUE_SIZE];
+};
+#endif//ROBOT_CONTROLER_H_

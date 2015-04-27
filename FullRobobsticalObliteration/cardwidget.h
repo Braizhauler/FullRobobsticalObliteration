@@ -43,7 +43,9 @@ public:
 
   void FlipStart(void);
   bool Flipping(void);
-
+  
+  void FaceDown();
+  void FaceUp();
   /*******************
   * From Renderable */
   void Draw();
@@ -61,9 +63,10 @@ public:
   void SizeTo(const Widget* model);
   void SizeTo(const double width, const double height);
 
-  card::Card* GetCard(void);
-  void SetCard(card::Card* );
+  Card::RallyCard* GetCard(void);
+  void SetCard(Card::RallyCard* );
   std::string GetTextureName(void);
+
 
   FrameWidget* parent() const;
   void setParent(FrameWidget*);
@@ -107,7 +110,7 @@ private:
   WidgetLocation drag_location_;
   float color_[3];
   SpriteAtlas* atlas_;
-  Card* card_;
+  Card::RallyCard* card_;
 
   static const double FLIP_SPEED;
 };

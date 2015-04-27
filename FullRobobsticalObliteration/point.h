@@ -21,6 +21,7 @@ public:
   Point(double x_pos,double y_pos) {x=x_pos;y=y_pos;}
   double x;
   double y;
+  bool operator==(Point&other){return (other.x==x)&&(other.y==y);}
 };
 
 #endif //POINT_H

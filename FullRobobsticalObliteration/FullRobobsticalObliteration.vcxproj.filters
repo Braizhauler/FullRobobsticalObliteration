@@ -58,9 +58,6 @@
     <ClCompile Include="widgetlocation.cc">
       <Filter>interfaces</Filter>
     </ClCompile>
-    <ClCompile Include="robotwidget.cc">
-      <Filter>widget</Filter>
-    </ClCompile>
     <ClCompile Include="widget.cc">
       <Filter>widget</Filter>
     </ClCompile>
@@ -72,6 +69,12 @@
     </ClCompile>
     <ClCompile Include="robotcontroller.cc">
       <Filter>logic</Filter>
+    </ClCompile>
+    <ClCompile Include="robotsprite.cc">
+      <Filter>widget</Filter>
+    </ClCompile>
+    <ClCompile Include="gamestateexecute.cc">
+      <Filter>gamestates</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -131,9 +134,6 @@
     <ClInclude Include="widgetlocation.h">
       <Filter>interfaces</Filter>
     </ClInclude>
-    <ClInclude Include="robotwidget.h">
-      <Filter>widget</Filter>
-    </ClInclude>
     <ClInclude Include="widget.h">
       <Filter>widget</Filter>
     </ClInclude>
@@ -148,6 +148,12 @@
     </ClInclude>
     <ClInclude Include="robotcontroller.h">
       <Filter>logic</Filter>
+    </ClInclude>
+    <ClInclude Include="robotsprite.h">
+      <Filter>widget</Filter>
+    </ClInclude>
+    <ClInclude Include="gamestateexecute.h">
+      <Filter>gamestates</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
