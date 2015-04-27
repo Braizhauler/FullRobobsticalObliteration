@@ -127,6 +127,7 @@
     <ClCompile Include="gameboardcontroller.cc" />
     <ClCompile Include="gameboardwidget.cc" />
     <ClCompile Include="gamestate.cc" />
+    <ClCompile Include="gamestateexecute.cc" />
     <ClCompile Include="gamestatemainmenu.cc" />
     <ClCompile Include="gamestatemanager.cc" />
     <ClCompile Include="gamestateprogram.cc" />
@@ -157,6 +158,7 @@
     <ClInclude Include="gameboardcontroller.h" />
     <ClInclude Include="gameboardwidget.h" />
     <ClInclude Include="gamestate.h" />
+    <ClInclude Include="gamestateexecute.h" />
     <ClInclude Include="gamestatemainmenu.h" />
     <ClInclude Include="gamestatemanager.h" />
     <ClInclude Include="gamestateprogram.h" />

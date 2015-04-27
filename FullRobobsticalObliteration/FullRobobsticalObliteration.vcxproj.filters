@@ -73,6 +73,9 @@
     <ClCompile Include="robotsprite.cc">
       <Filter>widget</Filter>
     </ClCompile>
+    <ClCompile Include="gamestateexecute.cc">
+      <Filter>gamestates</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Jzon.h" />
@@ -148,6 +151,9 @@
     </ClInclude>
     <ClInclude Include="robotsprite.h">
       <Filter>widget</Filter>
+    </ClInclude>
+    <ClInclude Include="gamestateexecute.h">
+      <Filter>gamestates</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -43,7 +43,9 @@ public:
 
   void FlipStart(void);
   bool Flipping(void);
-
+  
+  void FaceDown();
+  void FaceUp();
   /*******************
   * From Renderable */
   void Draw();
@@ -64,6 +66,7 @@ public:
   Card::RallyCard* GetCard(void);
   void SetCard(Card::RallyCard* );
   std::string GetTextureName(void);
+
 
   FrameWidget* parent() const;
   void setParent(FrameWidget*);

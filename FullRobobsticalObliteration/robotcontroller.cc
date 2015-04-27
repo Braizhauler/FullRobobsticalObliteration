@@ -8,6 +8,8 @@ RobotController::RobotController(int robot_number,
   robot_number_ = robot_number;
   board_ = board;
   current_location_ = location;
+  actions_in_queue_=0;
+  ClearActionQueue();
   facing_ = direction;
 }
 
@@ -57,7 +59,94 @@ Point RobotController::GetLocation(void) const {
   return current_location_;
 }
 
+Point RobotController::GetNextLocation() const {
+  if(action_queue_[0]==Robot::ACTION_MOVE_FORWARD) {
+    Point next_location=current_location_;
+    switch(facing_) {
+    case Robot::NORTH:
+      next_location.y-=1;
+      break;
+    case Robot::EAST:
+      next_location.x+=1;
+      break;
+    case Robot::SOUTH:
+      next_location.y+=1;
+      break;
+    case Robot::WEST:
+      next_location.x-=1;
+      break;
+    default:
+      ;
+    }
+    return next_location;
+  }
+  if(action_queue_[0]==Robot::ACTION_MOVE_BACKWARD) {
+    Point next_location=current_location_;
+    switch(facing_) {
+    case Robot::NORTH:
+      next_location.y+=1;
+      break;
+    case Robot::EAST:
+      next_location.x-=1;
+      break;
+    case Robot::SOUTH:
+      next_location.y-=1;
+      break;
+    case Robot::WEST:
+      next_location.x+=1;
+      break;
+    default:
+      ;
+    }
+    return next_location;
+  }
+  return current_location_;
+}
+
 Robot::CARDINAL_DIRECTION RobotController::GetFacing(void) const {
+  return facing_;
+}
+Robot::CARDINAL_DIRECTION RobotController::GetNextFacing() const {
+  if(action_queue_[0]==Robot::ACTION_TURN_LEFT) {
+    Robot::CARDINAL_DIRECTION next_facing=facing_;
+    switch(facing_) {
+    case Robot::NORTH:
+      next_facing=Robot::WEST;
+      break;
+    case Robot::EAST:
+      next_facing=Robot::NORTH;
+      break;
+    case Robot::SOUTH:
+      next_facing=Robot::EAST;
+      break;
+    case Robot::WEST:
+      next_facing=Robot::SOUTH;
+      break;
+    default:
+      ;
+    }
+    return next_facing;
+  }
+  if(action_queue_[0]==Robot::ACTION_TURN_RIGHT) {
+    Robot::CARDINAL_DIRECTION next_facing=facing_;
+    switch(facing_) {
+    case Robot::NORTH:
+      next_facing=Robot::EAST;
+      break;
+    case Robot::EAST:
+      next_facing=Robot::SOUTH;
+      break;
+    case Robot::SOUTH:
+      next_facing=Robot::WEST;
+      break;
+    case Robot::WEST:
+      next_facing=Robot::NORTH;
+      break;
+    default:
+      ;
+    }
+    return next_facing;
+  }
   return facing_;
 }
 void RobotController::ClearActionQueue() {
@@ -72,4 +161,25 @@ void RobotController::QueueAction(Robot::ACTION action) {
     action_queue_[actions_in_queue_]=action;
     ++actions_in_queue_;
   }
+}
+
+bool RobotController::QueueComplete() {
+  return(actions_in_queue_==0);
+}
+
+Robot::ACTION RobotController::PeekQueue() {
+   return action_queue_[0];
+}
+
+Robot::ACTION RobotController::PopQueue() {
+  Robot::ACTION temp=action_queue_[0];
+  facing_=GetNextFacing();
+  current_location_=GetNextLocation();
+  int index=0;
+  do {
+    action_queue_[index]=action_queue_[index+1];
+  } while (++index<4);
+  action_queue_[4]=Robot::ACTION_INVALID;
+  if(--actions_in_queue_<0)actions_in_queue_=0;
+  return temp;
 }

@@ -95,6 +95,18 @@ void CardWidget::FlipStart() {
   flip_width_=0.9*flip_width_;
 }
 
+void CardWidget::FaceDown() {
+  face_up_=false;
+  flipping_up_=false;
+  flip_width_=1.0;
+}
+
+void CardWidget::FaceUp() {
+  face_up_=true;
+  flipping_up_=true;
+  flip_width_=1.0;
+}
+
 void CardWidget::Draw() {
   if(flip_width_<1.0) {
     if ((face_up_&&flipping_up_)||(!(face_up_||flipping_up_))) {

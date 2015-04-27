@@ -72,6 +72,8 @@ public:
 
   double depth() const;
   void setDepth(double);
+
+  void UpdateRobots();
 private:
 
   void Setup3dRendering();

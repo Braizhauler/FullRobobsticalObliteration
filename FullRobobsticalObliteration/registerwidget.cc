@@ -71,10 +71,12 @@ const bool RegisterWidget::ContainPoint(const Point point_in_question) const {
 
 void RegisterWidget::MoveTo(const Point upper_left) {
   current_location_.MoveTo(upper_left);
+  CenterSlot();
 }
 void RegisterWidget::MoveTo(const double x, const double y) {
   current_location_.setLeft(x);
   current_location_.setTop(y);
+  CenterSlot();
 }
 
 void RegisterWidget::SizeTo(const Widget * model) {

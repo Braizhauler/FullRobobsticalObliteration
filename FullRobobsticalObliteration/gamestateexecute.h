@@ -1,55 +1,41 @@
 /*******************************************************************************
-* File: gamestatemanager.h
+* File: gamestateexecute.cc
 * Author: Greg Howlett (GregTHowlett@Gmail.com)
-* Created: 2015 MAR 12
+* Created: 2015 APR 27
 * Version: 0
-* Revised: 2015 APR 08
+* Revised: 2015 APR 27
 *
-* GameStateProgram:
-*   A GameState in which the user recieves a hand of cards, can view the
-*   GameBoard, moves their cards into their register, and lock their register. 
+* GameStateExecute:
+*   A GameState in which the user . 
 *
 * © [2015] Dwarfholm.com
 * All Rights Reserved.
 *******************************************************************************/
-#ifndef GAME_STATE_PROGRAM_H_
-#define GAME_STATE_PROGRAM_H_
-
-#include <iostream>
-
+#ifndef GAME_STATE_EXECUTE_H_
+#define GAME_STATE_EXECUTE_H_
 #include "gamestate.h"
-#include "buttonwidget.h"
-#include "cardwidget.h"
-#include "cardhandwidget.h"
-#include "registerwidget.h"
 #include "gameboardwidget.h"
-
-class GameStateProgram : public GameState {
+#include "cardhandwidget.h"
+#include "robotcontroller.h"
+class GameStateExecute : public GameState {
 public:
-  //Constructors, and Destructor
-  GameStateProgram(GameStateManager* manager);
-  ~GameStateProgram(void);  
-  //Methods
+  GameStateExecute(GameStateManager* manager);
+  ~GameStateExecute(void);
 
   //causes the GameState to draw all widgets
   void Draw();
   //returns true if nothing is no other states are to be drawn under this state.
   bool Opaque() const;
-
   //Loads the GameState onto the GameStateManager stack in active mode
   void Load();
-   
   //Called when GameState when another GameState is preparing
   //to load over this State
   void Cover();
-
   //Called when GameState when another GameState is preparing
   //becomming the topmost active game state
   void Uncover();
-
   //Called when the Gamestate is unloaded from the GameStateManager
   void Unload();
-
   //Mouse Input
   void CursorMove(bool left_mouse_button_down,
                   double x_position,
@@ -69,27 +55,20 @@ public:
   void Hotkey(const int);
   void Activate_Selection();
 
-  void LinkExecuteState(GameState*execute_state);
+  void EnableInteractivity();
+
+  void LinkProgramState(GameState*program_state);
 private:
-  static const int MAX_NUMBER_OF_CARDS_IN_HAND = 9;
-  static const int NUMBER_OF_REGISTERS = 5;
-
-  GameStateManager* manager_;
-  GameState* state_execute_;
-
-  CardWidget* dragged_;
-  Focusable * focus_;
-  CardWidget card_[MAX_NUMBER_OF_CARDS_IN_HAND];
-  RegisterWidget register_[NUMBER_OF_REGISTERS];
+  CardWidget card_register_[5];
+  GameStateManager*manager_;
+  GameState*program_state_;
   GameBoardWidget board_;
-  CardHandWidget player_hand_;
-  ButtonWidget confirm_button_;
-
-  int register_dragging_from_;
   Point last_mouse_position_;
-  bool enable_input_;
-  bool register_full_;
-  double active_faction_;
+
+  RobotController*player_;
+  int cards_played_;
+  bool ready_to_execute_;
+
 };
 
 #endif//GAME_STATE_PROGRAM_H_

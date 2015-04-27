@@ -31,6 +31,7 @@
 #include "inputmanager.h"
 #include "gamestatemainmenu.h"
 #include "gamestateprogram.h"
+#include "gamestateexecute.h"
 
 namespace MyWindowControl{
 std::map<GLFWwindow*, MyWindowWrapper*> glfw_to_mywindowwrapper;
@@ -82,9 +83,14 @@ int main (int num_of_arugments, char * argument_list[])  {
 
   GameStateMainMenu state_menu(&state_manager);
   GameStateProgram state_program(&state_manager);
-  state_manager.Push(&state_menu);
-  
+  GameStateExecute state_execute(&state_manager);
+
   state_menu.LinkProgramState(&state_program);
+  state_execute.LinkProgramState(&state_program);
+  state_program.LinkExecuteState(&state_execute);
+  
+  state_manager.Push(&state_menu);
+  //state_manager.Push(&state_execute);
 
   double lastTime = glfwGetTime();
   int nbFrames = 0;

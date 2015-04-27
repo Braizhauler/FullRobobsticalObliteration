@@ -45,11 +45,20 @@ public:
                   );
   ~RobotController(void);
 
+  
+
+  
+  Robot::ACTION PeekQueue();
+  Robot::ACTION PopQueue();
   Robot::ACTION*QueueCard(Card::RallyCard);
   int GetRobotNumber(void) const;
 
   Point GetLocation() const;
+  Point GetNextLocation() const;
   Robot::CARDINAL_DIRECTION GetFacing() const;
+  Robot::CARDINAL_DIRECTION GetNextFacing() const;
+
+  bool QueueComplete();
 private:
   void ClearActionQueue();
   void QueueAction(Robot::ACTION action=Robot::ACTION_INVALID);

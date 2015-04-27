@@ -19,6 +19,9 @@ GameStateManager::GameStateManager(MyWindowWrapper * window):
                                    player_robot_(4,&game_board_,
                                                  Point(0.0,0.0),
                                                  Robot::SOUTH){
+  for(int index=0;index<5;++index)                                                
+    register_card_[index] = nullptr;
+  board_viewing_angle_ = 45.0;
   window_= window;
   deck_.Shuffle();
 }
@@ -98,6 +101,21 @@ void GameStateManager::MouseButtonClicked(int button,
                                            y_position);
 }
 
+
+
+double GameStateManager::GetBoardAngle() const {
+  return board_viewing_angle_;
+}
+void GameStateManager::SetBoardAngle(const double& new_angle) {
+  board_viewing_angle_=new_angle;
+}
+
+Card::RallyCard*GameStateManager::GetRegister(const int& index) const {
+  return register_card_[index];
+}
+void GameStateManager::SetRegister(const int& index,Card::RallyCard* new_card) {
+  register_card_[index]=new_card;
+}
 
 
 void GameStateManager::Select_Next() {

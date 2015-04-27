@@ -368,6 +368,11 @@ GameBoard::QUADRANT GameBoardWidget::OriginQuadrant() const {
     return GameBoard::LEFT_QUADRANT;
 }
 
+void GameBoardWidget::UpdateRobots() {
+  player_->Animate();
+}
+
+
 double GameBoardWidget::angle() const {
   return angle_;
 }

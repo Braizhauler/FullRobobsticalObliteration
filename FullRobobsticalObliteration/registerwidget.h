@@ -65,6 +65,7 @@ public:
 
   double depth() const;
   void setDepth(double);
+
 private:
   void CenterSlot();
 

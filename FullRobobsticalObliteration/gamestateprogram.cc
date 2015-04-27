@@ -45,6 +45,7 @@ GameStateProgram::GameStateProgram(GameStateManager* manager):
   register_full_=false;
   enable_input_=true;
   active_faction_=1.0;
+  state_execute_=nullptr;
 }
 
 GameStateProgram::~GameStateProgram(void) {
@@ -59,8 +60,10 @@ void GameStateProgram::Draw(){
   }
   if(!enable_input_) {
     confirm_button_.setColor(active_faction_,active_faction_,active_faction_);
-    player_hand_.setWidth(active_faction_*33.0);
-    active_faction_-=0.2;
+    active_faction_-=0.02;
+    if(active_faction_<=0.1) {
+      manager_->Push(state_execute_);
+    }
   }
   confirm_button_.Draw();
   player_hand_.Draw(focus_);
@@ -87,20 +90,43 @@ void GameStateProgram::Load() {
   player_hand_.setWidth(33.0);
   for(int card_count=0; card_count<MAX_NUMBER_OF_CARDS_IN_HAND; ++card_count) {
     card_[card_count].SetCard(manager_->GetCardDeck()->DealACard());
+    card_[card_count].FaceUp();
     player_hand_.addChild(&card_[card_count]);
   }
   enable_input_=true;
   active_faction_=1.0;
+  board_.UpdateRobots();
 }
 
 //Called when GameState when another GameState is preparing
 //to load over this State
 void GameStateProgram::Cover() {
+  manager_->SetBoardAngle(board_.angle());
+  for(int index=0;index<NUMBER_OF_REGISTERS;++index)
+    manager_->SetRegister(index,register_[index].Card()->GetCard());
 }
 
 //Called when GameState when another GameState is preparing
 //becomming the topmost active game state
 void GameStateProgram::Uncover() {
+  player_hand_.MoveTo(51.0, 38.0);
+  for(int register_count=0;register_count<NUMBER_OF_REGISTERS;++register_count){
+    register_[register_count].MoveTo(0.0+register_count*8.0,40.0);
+  }
+  for(int register_count=0;register_count<NUMBER_OF_REGISTERS;++register_count)
+    register_[register_count].SetCard(nullptr);
+  register_full_=false;
+  manager_->GetCardDeck()->Shuffle();
+  player_hand_.ClearChildren();
+  player_hand_.setWidth(33.0);
+  for(int card_count=0; card_count<MAX_NUMBER_OF_CARDS_IN_HAND; ++card_count) {
+    card_[card_count].SetCard(manager_->GetCardDeck()->DealACard());
+    player_hand_.addChild(&card_[card_count]);
+    card_[card_count].FaceUp();
+  }
+  enable_input_=true;
+  active_faction_=1.0;
+  board_.UpdateRobots();
 }
 
 //Called when the Gamestate is unloaded from the GameStateManager
@@ -228,4 +254,8 @@ void GameStateProgram::Select_Prev() {
 void GameStateProgram::Hotkey(const int) {
 }
 void GameStateProgram::Activate_Selection() {
+}
+
+void GameStateProgram::LinkExecuteState(GameState*execute_state) {
+  state_execute_=execute_state;
 }

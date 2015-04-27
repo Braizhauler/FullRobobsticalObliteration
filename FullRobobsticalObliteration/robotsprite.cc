@@ -1,5 +1,6 @@
 #include "robotsprite.h"
 
+const double RobotSprite::ANIMATION_SPEED=0.02;
 
 RobotSprite::RobotSprite(GameStateManager* manager,RobotController*robot) {
   manager_=manager;
@@ -7,7 +8,10 @@ RobotSprite::RobotSprite(GameStateManager* manager,RobotController*robot) {
   logical_robot_=robot;
   SetSpritePrefix(robot->GetRobotNumber());
   animation_frame_=0;
+  animating_fraction_=1.0;
   UpdateLocation();
+  current_location_=logical_robot_->GetLocation();
+  target_location_=current_location_;
 }
 
 
@@ -23,7 +27,7 @@ void RobotSprite::SetSpritePrefix(const int robot_number) {
 
 
 bool RobotSprite::IsOverLocation(Point location) {
-  if(location==logical_robot_->GetLocation()||location==target_location_)
+  if(location==current_location_||location==target_location_)
     return true;
   return false;
 }
@@ -31,6 +35,20 @@ bool RobotSprite::IsOverLocation(Point location) {
 
 void RobotSprite::Draw(const double camera_angle) {
   using namespace Robot;
+  if(animating_fraction_<1.0) {
+    animating_fraction_+=ANIMATION_SPEED;
+    animation_frame_=(++animation_frame_)%2;
+    drawn_center_.x=(1.0-animating_fraction_)*current_location_.x+
+                    animating_fraction_*target_location_.x+0.5;
+    drawn_center_.y=(1.0-animating_fraction_)*current_location_.y+
+                    animating_fraction_*target_location_.y+0.5;
+    if(animating_fraction_>1.0) {
+      animating_fraction_=1.0;
+      logical_robot_->PopQueue();
+      if(!logical_robot_->QueueComplete())
+        Animate();
+    }
+  }
   glColor3f(1.00f, 1.00f, 1.00f);
   std::string sprite_name = GetRobotTexture(camera_angle);
   Robot::RELATIVE_POSITION_8_WAY origin_position = OriginPosition(camera_angle);
@@ -117,6 +135,10 @@ void RobotSprite::Draw(const double camera_angle) {
   }
 }
 
+bool RobotSprite::IsAnimating(void) {
+  return (animating_fraction_>=1.0);
+}
+
 Robot::RELATIVE_POSITION_8_WAY RobotSprite::OriginPosition(
                                                     double origin_angle) const {
   Robot::RELATIVE_POSITION_8_WAY position=
@@ -130,12 +152,6 @@ int RobotSprite::OriginPositionIndex(double origin_angle) const {
   int position=(offset_angle/45);
   if (position==0) position=8;
   return position;
-}
-
-
-void RobotSprite::SetAnimationCompleteCallback(
-                                   void(*AnimationCompleteCallbackFunc)(void)) {
-  animation_complete_callback_function_=AnimationCompleteCallbackFunc;
 }
 
 std::string RobotSprite::GetRobotTexture(double viewing_angle) {
@@ -168,4 +184,11 @@ void RobotSprite::UpdateLocation(void) {
   drawn_center_ = logical_robot_->GetLocation();
   drawn_center_.x+=0.5;
   drawn_center_.y+=0.5;
+}
+
+void RobotSprite::Animate() {
+  animating_fraction_=0.0;
+  current_location_=logical_robot_->GetLocation();
+  target_location_=logical_robot_->GetNextLocation();
+  
 }

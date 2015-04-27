@@ -60,10 +60,18 @@ public:
 
   CardDeck* GameStateManager::GetCardDeck();
 
+  double GetBoardAngle() const;
+  void SetBoardAngle(const double&);
+
+  Card::RallyCard*GetRegister(const int& index) const;
+  void SetRegister(const int& index, Card::RallyCard* new_card);
+
   SpriteAtlas * TextureAtlas();
   RobotController*GetPlayerRobot();
   void Exit();
 private:
+  static const int BOARD_SIZE = 12;
+
   void RestackRenderables();
   SpriteAtlas atlas_;
   //Member Variables
@@ -73,10 +81,12 @@ private:
   MyWindowWrapper* window_;
   CardDeck deck_;
 
+  //stuff for passing between program/executuion states
+  double board_viewing_angle_;
+  Card::RallyCard*register_card_[5];
+
   GameBoardController game_board_;
   RobotController player_robot_;
-
-  static const int BOARD_SIZE = 12;
 };
 
 #endif //GAME_STATE_MANAGER_H

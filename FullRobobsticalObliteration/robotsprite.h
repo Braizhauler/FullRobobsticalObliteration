@@ -46,10 +46,11 @@ public:
 
   void Draw(double angle);
 
-  void SetAnimationCompleteCallback(void(*AnimationCompleteCallbackFunc)(void));
-  void Animate(Robot::ACTION);
+  void Animate();
   void UpdateLocation(void);
   bool IsOverLocation(Point);
+
+  bool IsAnimating(void);
 private:
   void SetPrefix(const int robot_number);
   Robot::CARDINAL_DIRECTION SetPrefix();
@@ -61,17 +62,16 @@ private:
 
   RobotController*logical_robot_;
   Point drawn_center_;
+  Point current_location_;
   Point target_location_;
-  double distance_traveled_;
+  double animating_fraction_;
   
   std::string sprite_prefix_;
   int animation_frame_;
 
   SpriteAtlas*atlas_;
 
-  void* animation_complete_callback_function_;
   static const double ANIMATION_SPEED;
 };
-
 
 #endif//ROBOT_WIDGET_H_
