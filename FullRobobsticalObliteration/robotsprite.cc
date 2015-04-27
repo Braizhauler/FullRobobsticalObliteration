@@ -8,6 +8,7 @@ RobotSprite::RobotSprite(GameStateManager* manager,RobotController*robot) {
   logical_robot_=robot;
   SetSpritePrefix(robot->GetRobotNumber());
   animation_frame_=0;
+  time_at_current_frame_=0;
   animating_fraction_=1.0;
   UpdateLocation();
   current_location_=logical_robot_->GetLocation();
@@ -37,11 +38,14 @@ void RobotSprite::Draw(const double camera_angle) {
   using namespace Robot;
   if(animating_fraction_<1.0) {
     animating_fraction_+=ANIMATION_SPEED;
-    animation_frame_=(++animation_frame_)%2;
     drawn_center_.x=(1.0-animating_fraction_)*current_location_.x+
                     animating_fraction_*target_location_.x+0.5;
     drawn_center_.y=(1.0-animating_fraction_)*current_location_.y+
                     animating_fraction_*target_location_.y+0.5;
+    if(++time_at_current_frame_>FRAME_DELAY) {
+      animation_frame_=(animation_frame_+1)%2;
+      time_at_current_frame_=0;
+    }
     if(animating_fraction_>1.0) {
       animating_fraction_=1.0;
       logical_robot_->PopQueue();
@@ -187,8 +191,13 @@ void RobotSprite::UpdateLocation(void) {
 }
 
 void RobotSprite::Animate() {
-  animating_fraction_=0.0;
   current_location_=logical_robot_->GetLocation();
   target_location_=logical_robot_->GetNextLocation();
-  
+  drawn_center_.x=current_location_.x+0.5;
+  drawn_center_.y=current_location_.y+0.5;
+  if(!logical_robot_->QueueComplete()) {
+    animating_fraction_=0.0;
+    if(logical_robot_->GetFacing()!=logical_robot_->GetNextFacing())
+     animating_fraction_=0.5; //if turning, half the animation time.
+  }
 }

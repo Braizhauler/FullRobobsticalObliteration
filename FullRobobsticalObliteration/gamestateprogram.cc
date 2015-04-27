@@ -126,6 +126,7 @@ void GameStateProgram::Uncover() {
   }
   enable_input_=true;
   active_faction_=1.0;
+  board_.setAngle(manager_->GetBoardAngle());
   board_.UpdateRobots();
 }
 

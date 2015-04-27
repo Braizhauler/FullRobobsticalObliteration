@@ -64,16 +64,24 @@ Point RobotController::GetNextLocation() const {
     Point next_location=current_location_;
     switch(facing_) {
     case Robot::NORTH:
-      next_location.y-=1;
+      if(board_->GetWall(current_location_,GameBoard::NORTH)
+                 !=GameBoard::WALL_STANDARD)
+        next_location.y-=1;
       break;
     case Robot::EAST:
-      next_location.x+=1;
+      if(board_->GetWall(current_location_,GameBoard::EAST)
+                 !=GameBoard::WALL_STANDARD)
+        next_location.x+=1;
       break;
     case Robot::SOUTH:
-      next_location.y+=1;
+      if(board_->GetWall(current_location_,GameBoard::SOUTH)
+                 !=GameBoard::WALL_STANDARD)
+        next_location.y+=1;
       break;
     case Robot::WEST:
-      next_location.x-=1;
+      if(board_->GetWall(current_location_,GameBoard::WEST)
+                 !=GameBoard::WALL_STANDARD)
+        next_location.x-=1;
       break;
     default:
       ;
@@ -84,16 +92,24 @@ Point RobotController::GetNextLocation() const {
     Point next_location=current_location_;
     switch(facing_) {
     case Robot::NORTH:
-      next_location.y+=1;
+      if(board_->GetWall(current_location_,GameBoard::SOUTH)
+                 !=GameBoard::WALL_STANDARD)
+        next_location.y+=1;
       break;
     case Robot::EAST:
-      next_location.x-=1;
+      if(board_->GetWall(current_location_,GameBoard::WEST)
+                 !=GameBoard::WALL_STANDARD)
+        next_location.x-=1;
       break;
     case Robot::SOUTH:
-      next_location.y-=1;
+      if(board_->GetWall(current_location_,GameBoard::NORTH)
+                 !=GameBoard::WALL_STANDARD)
+        next_location.y-=1;
       break;
     case Robot::WEST:
-      next_location.x+=1;
+      if(board_->GetWall(current_location_,GameBoard::EAST)
+                 !=GameBoard::WALL_STANDARD)
+        next_location.x+=1;
       break;
     default:
       ;

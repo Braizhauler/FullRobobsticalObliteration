@@ -42,6 +42,7 @@ void GameStateExecute::Cover() {
 void GameStateExecute::Uncover() {
 }
 void GameStateExecute::Unload() {
+  manager_->SetBoardAngle(board_.angle());
 }
 //Mouse Input
 void GameStateExecute::CursorMove(bool left_mouse_button_down,

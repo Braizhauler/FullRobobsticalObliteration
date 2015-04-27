@@ -68,9 +68,10 @@ private:
   
   std::string sprite_prefix_;
   int animation_frame_;
-
+  int  time_at_current_frame_;
   SpriteAtlas*atlas_;
 
+  static const int FRAME_DELAY = 7;
   static const double ANIMATION_SPEED;
 };
 
