@@ -12,17 +12,21 @@
 #define MAIN_CC
 
 //hides console window in Windows
-//#pragma comment (linker, "/subsystem:windows /entry:mainCRTStartup") 
+#pragma comment (linker, "/subsystem:windows /entry:mainCRTStartup") 
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <chrono>
+#include <thread>
+
+#undef FAR
+
 #include <map>
 // Include GLEW
 #include <GL/glew.h>
 
 // Include GLFW
 #include <glfw3.h>
-
 //#include "font.h"
 
 #include "spriteatlas.h"
@@ -62,8 +66,8 @@ int main (int num_of_arugments, char * argument_list[])  {
   MyWindowWrapper window;
   
   //DEBUG
-  //window.Init( mode->width, mode->height, "Full Robobstical Obliteration\0");
-  window.Init( 800, 600, "Full Robobstical Obliteration\0");
+  window.Init( mode->width, mode->height, "Full Robobstical Obliteration\0");
+  //window.Init( 800, 600, "Full Robobstical Obliteration\0");
 
 
   // Initialize GLEW
@@ -94,20 +98,25 @@ int main (int num_of_arugments, char * argument_list[])  {
 
   double lastTime = glfwGetTime();
   int nbFrames = 0;
-
+  double lastFrame = glfwGetTime();
   do {
     // Measure speed
     double currentTime = glfwGetTime();
-    nbFrames++;
+    /*nbFrames++;
     if ( currentTime - lastTime >= 1.0 ){ // If last prinf() was more than 1 sec ago
         // printf and reset timer
         printf("%f ms/frame\n", 1000.0/double(nbFrames));
         nbFrames = 0;
         lastTime += 1.0;
-    }
+    }*/
     window.ProccessOSEvents();
 
     state_manager.Draw();
+    int sleep_time_ms= 1000*(currentTime-lastFrame);
+    if( sleep_time_ms < 15) {
+      std::this_thread::sleep_for(std::chrono::milliseconds( sleep_time_ms));
+    }
+    lastFrame=currentTime;
 
     // Swap buffers
     window.SwapBuffers();

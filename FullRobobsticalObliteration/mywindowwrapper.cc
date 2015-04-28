@@ -38,7 +38,7 @@ const bool MyWindowWrapper::Init(int width, int height, const char * title)  {
   glfwWindowHint(GLFW_GREEN_BITS, mode->greenBits);
   glfwWindowHint(GLFW_BLUE_BITS, mode->blueBits);
   glfwWindowHint(GLFW_REFRESH_RATE, mode->refreshRate);
-  //glfwWindowHint(GLFW_DECORATED, GL_FALSE);//Remove title bar, acting wierd
+  glfwWindowHint(GLFW_DECORATED, GL_FALSE);//Remove title bar, acting wierd
 
   window_width_ = width;
   window_height_ = height;
